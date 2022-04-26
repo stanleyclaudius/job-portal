@@ -16,7 +16,7 @@ const JobCard = () => {
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis, repellendus?
       </p>
       <div className='flex gap-5 mt-5'>
-        <button className='bg-[#504ED7] hover:bg-[#2825C2] hover:transition-[background] text-sm text-white py-2 rounded-lg flex-1'>Apply</button>
+        <button className='bg-[#504ED7] hover:bg-[#2825C2] transition-[background] text-sm text-white py-2 rounded-lg flex-1'>Apply</button>
         <button className='border border-black text-sm rounded-lg py-2 flex-1'>Contacts</button>
       </div>
     </div>

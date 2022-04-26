@@ -1,7 +1,18 @@
-const Filter = () => {
+import { AiOutlineClose } from 'react-icons/ai'
+
+interface IProps {
+  openFilter: boolean
+  setOpenFilter: React.Dispatch<React.SetStateAction<boolean>>
+  filterRef: React.MutableRefObject<HTMLDivElement>
+}
+
+const Filter = ({ openFilter, setOpenFilter, filterRef }: IProps) => {
   return (
-    <div className='flex-1'>
-      <h1 className='font-medium text-xl border-b border-gray-200 pb-8'>Details</h1>
+    <div ref={filterRef} className={`flex-1 lg:static fixed top-0 ${openFilter ? 'left-0' : '-left-[3000px]'} transition-all bottom-0 lg:p-0 px-12 py-7 bg-white shadow-xl lg:shadow-none`}>
+      <div className='flex items-center justify-between pb-8 border-b border-gray-200'>
+        <h1 className='font-medium text-xl'>Details</h1>
+        <AiOutlineClose onClick={() => setOpenFilter(false)} className='lg:hidden block' />
+      </div>
       <p className='text-gray-400 text-sm font-medium mt-5 mb-4'>Schedule</p>
       <div className='flex items-center gap-4 mb-3'>
         <input type='checkbox' id='fullTime' />

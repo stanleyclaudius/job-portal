@@ -8,18 +8,18 @@ const Range = createSliderWithTooltip(Slider.Range)
 
 const Navbar = () => {
   return (
-    <div className='bg-white pt-7'>
-      <div className='flex items-center justify-between px-20'>
+    <div className='bg-white sticky top-0 md:static'>
+      <div className='flex items-center justify-between md:px-20 px-6 md:pt-7 pt-5'>
         <div className='flex items-center gap-3'>
           <div className='w-12 h-12 bg-gray-300 rounded-full' />
           <h1>Lorem Ipsum</h1>
         </div>
         <div>
-          <button className='bg-[#504ED7] hover:bg-[#2825C2] hover:transition-[background] text-sm text-white px-5 py-2 rounded-md'>Sign In</button>
+          <button className='bg-[#504ED7] hover:bg-[#2825C2] transition-[background] text-sm text-white px-5 py-2 rounded-md'>Sign In</button>
         </div>
       </div>
-      <div className='px-20 shadow-lg border-t border-b border-gray-200 py-5 mt-7'>
-        <form className='flex items-center justify-between'>
+      <div className='shadow-lg border-t border-b border-gray-200 md:mt-7 mt-5'>
+        <form className='md:px-20 px-6 md:py-5 py-2 flex lg:flex-row flex-col lg:items-center items-start gap-4'>
           <div className='flex items-center gap-4 flex-1'>
             <BiSearch className='text-lg' />
             <input type='text' autoComplete='off' placeholder='Designer' className='outline-0 text-sm' />
@@ -41,7 +41,7 @@ const Navbar = () => {
               <option value='year'>Per Year</option>
             </select>
           </div>
-          <div className='flex-1'>
+          <div className='flex-1 w-full'>
             <div className='text-sm mb-2 flex items-center justify-between'>
               <p>The salary</p>
               <p>$0 - $90.000</p>
