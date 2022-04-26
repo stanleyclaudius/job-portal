@@ -4,8 +4,20 @@ import Head from 'next/head'
 import Image from "next/image"
 import Logo from './../public/images/logo.png'
 import Link from "next/link"
+import FacebookLogin, { FacebookLoginAuthResponse } from '../utils/FacebookLogin'
+import GoogleLogin, { GoogleLoginResponse } from '../utils/GoogleLogin'
 
 const Login = () => {
+  const onGoogleSuccess = (res: GoogleLoginResponse) => {
+    const token = res.getAuthResponse().id_token
+    console.log(token)
+  }
+
+  const onFacebookSuccess = (res: FacebookLoginAuthResponse) => {
+    const { accessToken, userID } = res.authResponse
+    console.log(accessToken, userID)
+  }
+
   return (
     <>
       <Head>
@@ -41,6 +53,24 @@ const Login = () => {
               </Link>
             </div>
           </form>
+          <div className='mt-10'>
+            <p className='text-center text-gray-300 font-medium text-sm'>Or Sign In With</p>
+            <div className='flex justify-center items-center mt-7'>
+              <div className='w-fit'>
+                <GoogleLogin
+                  client_id={`${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`}
+                  cookiepolicy='single_host_origin'
+                  onSuccess={onGoogleSuccess}
+                />
+              </div>
+              <div className='ml-8'>
+                <FacebookLogin
+                  appId={`${process.env.NEXT_PUBLIC_FACEBOOK_APP_ID}`}
+                  onSuccess={onFacebookSuccess}
+                />
+              </div>
+            </div>
+          </div>
         </div>
         <div className='md:block hidden flex-[2] bg-cover' style={{ backgroundImage: "url('./images/auth.png')" }} />
       </div>

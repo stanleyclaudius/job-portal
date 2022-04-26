@@ -16,3 +16,24 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+#my-signin2 > div {
+  width: 100%;
+  border: 1px solid #eee;
+}
+
+.abcRioButtonBlue {
+  border-radius: 50% !important;
+  background: rgb(243 244 246) !important;
+  height: 52px !important;
+  width: auto !important;
+}
+
+.abcRioButtonIcon {
+  background: rgb(243 244 246) !important;
+}
+
+.abcRioButtonContents {
+  width: 0;
+  display: none;
+}
