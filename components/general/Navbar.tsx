@@ -8,14 +8,14 @@ const Range = createSliderWithTooltip(Slider.Range)
 
 const Navbar = () => {
   return (
-    <div>
+    <div className='bg-white pt-7'>
       <div className='flex items-center justify-between px-20'>
         <div className='flex items-center gap-3'>
           <div className='w-12 h-12 bg-gray-300 rounded-full' />
           <h1>Lorem Ipsum</h1>
         </div>
         <div>
-          <button className='bg-[#504ED7] hover:bg-[#2825C2] hover:transition-[background] text-sm text-white px-4 py-2 rounded-md'>Sign In</button>
+          <button className='bg-[#504ED7] hover:bg-[#2825C2] hover:transition-[background] text-sm text-white px-5 py-2 rounded-md'>Sign In</button>
         </div>
       </div>
       <div className='px-20 shadow-lg border-t border-b border-gray-200 py-5 mt-7'>
