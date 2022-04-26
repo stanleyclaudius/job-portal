@@ -4,6 +4,7 @@ import { MdFilterAlt } from 'react-icons/md'
 import Filter from './../components/home/Filter'
 import Navbar from './../components/general/Navbar'
 import JobCard from './../components/general/JobCard'
+import Footer from './../components/general/Footer'
 
 const Home = () => {
   const [openFilter, setOpenFilter] = useState(false)
@@ -58,10 +59,10 @@ const Home = () => {
             <JobCard />
             <JobCard />
             <JobCard />
-            <JobCard />
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

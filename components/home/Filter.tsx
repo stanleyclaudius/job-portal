@@ -8,7 +8,7 @@ interface IProps {
 
 const Filter = ({ openFilter, setOpenFilter, filterRef }: IProps) => {
   return (
-    <div ref={filterRef} className={`flex-1 lg:static fixed top-0 ${openFilter ? 'left-0' : '-left-[3000px]'} transition-all bottom-0 lg:p-0 px-12 py-7 bg-white shadow-xl lg:shadow-none`}>
+    <div ref={filterRef} className={`flex-1 lg:sticky lg:top-0 lg:self-start fixed top-0 ${openFilter ? 'left-0' : '-left-[3000px]'} transition-all bottom-0 lg:p-0 p-7 bg-white shadow-xl lg:shadow-none w-[270px]`}>
       <div className='flex items-center justify-between pb-8 border-b border-gray-200'>
         <h1 className='font-medium text-xl'>Details</h1>
         <AiOutlineClose onClick={() => setOpenFilter(false)} className='lg:hidden block' />
