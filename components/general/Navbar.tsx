@@ -32,7 +32,9 @@ const Navbar = () => {
           <h1>Lorem Ipsum</h1>
         </div>
         <div>
-          <button className='bg-[#504ED7] hover:bg-[#2825C2] transition-[background] text-sm text-white px-5 py-2 rounded-md'>Sign In</button>
+          <button className='bg-[#504ED7] hover:bg-[#2825C2] transition-[background] text-sm text-white px-5 py-2 rounded-md'>
+            Sign In
+          </button>
         </div>
       </div>
       <div ref={searchRef} className='shadow-lg border-t border-b border-gray-200 md:mt-7 mt-5'>
