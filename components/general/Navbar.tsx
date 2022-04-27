@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -6,6 +7,7 @@ import Logo from './../../public/images/logo.png'
 import { AiOutlineClose } from 'react-icons/ai'
 
 const Navbar = () => {
+  const router = useRouter()
   const [openSidebar, setOpenSidebar] = useState(false)
 
   const sidebarRef = useRef() as React.MutableRefObject<HTMLDivElement>
@@ -23,7 +25,7 @@ const Navbar = () => {
   
   return (
     <div className='flex items-center justify-between gap-10 lg:px-16 pl-4 pr-7 z-[999] py-3 bg-white sticky top-0 shadow-sm'>
-      <div className='flex items-center'>
+      <div onClick={() => router.push('/')} className='flex items-center cursor-pointer'>
         <Image src={Logo} width={60} height={60} />
         <h1 className='text-xl'>Job Seek</h1>
       </div>
