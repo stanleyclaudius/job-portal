@@ -17,6 +17,11 @@
   scrollbar-width: none;
 }
 
+#fb-login > span {
+  width: 52px !important;
+  height: 52px !important;
+}
+
 #my-signin2 > div {
   width: 100%;
   border: 1px solid #eee;

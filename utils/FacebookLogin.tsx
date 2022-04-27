@@ -113,7 +113,7 @@ const FacebookLogin = ({
   },[isSignedIn, fbWindow])
 
   return (
-    <div id="fb-login" onClick={facebookLogin} className='w-12 h-12'>
+    <div id="fb-login" onClick={facebookLogin} className='cursor-pointer w-10'>
       <Image src={facebook} className='rounded-full' />
     </div>
   )
