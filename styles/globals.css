@@ -4,6 +4,28 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .navbar-link {
+    @apply relative outline-0 hover:after:w-2/3 hover:after:h-[2px] hover:after:bg-blue-500 hover:after:absolute hover:after:top-[100%] hover:after:mt-1 hover:after:left-0 hover:after:left-[50%] hover:after:-translate-x-[50%];
+  }
+
+  .navbar-link.active {
+    @apply after:w-2/3 after:h-[2px] after:bg-blue-500 after:absolute after:top-[100%] after:mt-1 after:left-0 after:left-[50%] after:-translate-x-[50%];
+  }
+
+  .modal-background {
+    @apply transition-opacity fixed top-0 right-0 bottom-0 left-0 flex items-center justify-center bg-[rgba(0,0,0,.7)] p-10 z-[9999];
+  }
+
+  .modal-box {
+    @apply transition-transform bg-white w-full rounded-md;
+  }
+
+  .modal-box-header {
+    @apply px-7 py-5 flex items-center justify-between border-b border-gray-300;
+  }
+}
+
 * {
   font-family: 'Poppins', sans-serif;
 }

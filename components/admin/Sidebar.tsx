@@ -14,7 +14,7 @@ const Sidebar = () => {
         </a>
       </Link>
       <Link href='/organization/approval'>
-        <a className={`block hover:bg-[#E2E1FF] hover:text-[#504ED7] ${pathname === '/organization' || pathname === '/organization/index' ? 'bg-[#E2E1FF] text-[#504ED7]' : 'text-gray-400'} transition-[background] w-fit p-3 rounded-md w-fit h-fit`}>
+        <a className={`block hover:bg-[#E2E1FF] hover:text-[#504ED7] ${pathname === '/organization/approval' ? 'bg-[#E2E1FF] text-[#504ED7]' : 'text-gray-400'} transition-[background] w-fit p-3 rounded-md w-fit h-fit`}>
           <RiBuilding2Fill className='text-2xl' />
         </a>
       </Link>

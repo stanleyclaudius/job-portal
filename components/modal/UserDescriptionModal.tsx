@@ -21,9 +21,9 @@ const UserDescriptionModal = ({ openModal, setOpenModal }: IProps) => {
   }, [openModal])
   
   return (
-    <div className={`${openModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} transition-opacity fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.7)] z-[9999] flex items-center justify-center p-8`}>
-      <div ref={modalRef} className={`${openModal ? 'translate-y-0' : '-translate-y-12'} transition-transform bg-white w-full max-w-[600px] rounded-md`}>
-        <div className='px-7 py-5 flex items-center justify-between border-b border-gray-300'>
+    <div className={`${openModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} modal-background`}>
+      <div ref={modalRef} className={`${openModal ? 'translate-y-0' : '-translate-y-12'} modal-box max-w-[600px]`}>
+        <div className='modal-box-header'>
           <h1 className='font-medium text-lg'>Lorem Ipsum Profile</h1>
           <AiOutlineClose onClick={() => setOpenModal(false)} className='cursor-pointer' />
         </div>

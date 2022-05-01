@@ -7,6 +7,8 @@ import Logo from './../../public/images/logo.png'
 import { AiOutlineClose } from 'react-icons/ai'
 
 const Navbar = () => {
+  const { pathname } = useRouter()
+
   const router = useRouter()
   const [openSidebar, setOpenSidebar] = useState(false)
 
@@ -37,22 +39,28 @@ const Navbar = () => {
         <div className='clear-both' />
         <div className='flex-1 lg:flex-row flex-col flex lg:items-center items-start text-sm lg:gap-7 gap-4'>
           <Link href='/'>
-            <a className='outline-0'>Home</a>
+            <a className={`navbar-link ${pathname === '/' || pathname === '/index' ? 'active' : undefined}`}>Home</a>
           </Link>
           <Link href='/jobs'>
-            <a className='outline-0'>Find Jobs</a>
+            <a className={`navbar-link ${pathname === '/jobs' ? 'active' : undefined}`}>Find Jobs</a>
           </Link>
           <Link href='/find_candidate'>
-            <a className='outline-0'>Find Candidates</a>
+            <a className={`navbar-link ${pathname === '/find_candidate' ? 'active' : undefined}`}>Find Candidates</a>
           </Link>
           <Link href='/'>
-            <a className='outline-0'>Career Advice</a>
+            <a className='navbar-link'>Career Advice</a>
           </Link>
         </div>
         <div className='text-sm flex lg:flex-row flex-col lg:items-center items-start lg:gap-8 gap-4 mt-10 lg:mt-0'>
-          <Link href='/login'>Login</Link>
+          <Link href='/login'>
+            <a className={`navbar-link ${pathname === '/login' ? 'active' : undefined}`}>
+              Login
+            </a>
+          </Link>
           <Link href='/register'>
-            <a className='px-6 py-2 border-2 rounded-full border-[#504ED7] text-[#504ED7]'>Register Now</a>
+            <a className={`px-6 py-2 border-2 rounded-full border-[#504ED7] ${pathname === '/register' || pathname === '/register/jobseeker' || pathname === '/register/organization' ? 'bg-[#504ED7] text-white' : 'text-[#504ED7]'}`}>
+              Register Now
+            </a>
           </Link>
         </div>
       </div>
