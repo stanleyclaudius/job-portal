@@ -18,20 +18,22 @@ const Candidates = () => {
         </form>
       </div>
       <div className='bg-gray-100 pt-10 pb-7 md:px-16 px-5 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8'>
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
-        <UserCard />
+        <UserCard isApplicant={false} />
+        <UserCard isApplicant={false} />
+        <UserCard isApplicant={false} />
+        <UserCard isApplicant={false} />
+        <UserCard isApplicant={false} />
+        <UserCard isApplicant={false} />
+        <UserCard isApplicant={false} />
+        <UserCard isApplicant={false} />
+        <UserCard isApplicant={false} />
+        <UserCard isApplicant={false} />
+        <UserCard isApplicant={false} />
+        <UserCard isApplicant={false} />
+        <UserCard isApplicant={false} />
+        <UserCard isApplicant={false} />
+        <UserCard isApplicant={false} />
+        <UserCard isApplicant={false} />
       </div>
       <Footer />
     </>

@@ -29,20 +29,21 @@ const ApplicantModal = ({ openModal, setOpenModal }: IProps) => {
           <AiOutlineClose className='cursor-auto' />
         </div>
         <div className='p-7 grid lg:grid-cols-2 grid-cols-1 gap-8'>
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
+          <UserCard isApplicant={true} />
+          <UserCard isApplicant={true} />
+          <UserCard isApplicant={true} />
+          <UserCard isApplicant={true} />
+          <UserCard isApplicant={true} />
+          <UserCard isApplicant={true} />
+          <UserCard isApplicant={true} />
+          <UserCard isApplicant={true} />
+          <UserCard isApplicant={true} />
+          <UserCard isApplicant={true} />
+          <UserCard isApplicant={true} />
+          <UserCard isApplicant={true} />
+          <UserCard isApplicant={true} />
+          <UserCard isApplicant={true} />
+          <UserCard isApplicant={true} />
         </div>
       </div>
     </div>
