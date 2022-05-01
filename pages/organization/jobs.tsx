@@ -21,7 +21,7 @@ const OrganizationJobs = () => {
       <Navbar />
       <div className='md:py-10 py-7 md:px-16 px-8'>
         <div className='flex items-center justify-between'>
-          <h1 className='text-2xl font-medium'>Job Management</h1>
+          <h1 className='md:text-2xl text-lg font-medium'>Job Management</h1>
           <button onClick={() => setOpenCreateJobModal(true)} className='bg-blue-500 hover:bg-blue-600 transition-[background] text-white text-sm rounded-md px-4 py-2'>Create Job</button>
         </div>
         <div className='overflow-x-auto mt-8'>

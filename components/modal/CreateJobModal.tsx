@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, FormEvent, ChangeEvent } from "react"
+import { useState, useEffect, useRef, ChangeEvent } from "react"
 import { AiOutlineClose } from "react-icons/ai"
 import Editor from "../../utils/Editor"
 
@@ -15,12 +15,14 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
   const handleChangeSkills = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // @ts-ignore
-    if (e.key === ',' && e.target.value !== ',') {
-      // @ts-ignore
-      setSkills([...skills, e.target.value.substring(0, e.target.value.length - 1)])
-      // @ts-ignore
-      e.target.value = ''
+    if (e.key === ',' && (e.target as HTMLInputElement).value !== ',') {
+      const val = (e.target as HTMLInputElement).value
+      if (skills.includes(val.substring(0, val.length - 1)))
+        (e.target as HTMLInputElement).value = ''
+      else {
+        setSkills([...skills, val.substring(0, val.length - 1)]);
+        (e.target as HTMLInputElement).value = ''
+      }
     }
   }
 

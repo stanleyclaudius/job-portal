@@ -39,10 +39,10 @@ const Navbar = () => {
           <Link href='/'>
             <a className='outline-0'>Home</a>
           </Link>
-          <Link href='/'>
+          <Link href='/jobs'>
             <a className='outline-0'>Find Jobs</a>
           </Link>
-          <Link href='/'>
+          <Link href='/find_candidate'>
             <a className='outline-0'>Find Candidates</a>
           </Link>
           <Link href='/'>
