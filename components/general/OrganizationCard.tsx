@@ -2,10 +2,11 @@ import { useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FaUsers } from 'react-icons/fa'
 import { MdCheck } from 'react-icons/md'
-import InvitationDetailModal from '../modal/InvitationDetailModal'
+import JobDetailModal from '../modal/JobDetailModal'
 
 const OrganizationCard = () => {
-  const [openInvitationDetailModal, setOpenInvitationDetailModal] = useState(false)
+  const [openJobDetailModal, setOpenJobDetailModal] = useState(false)
+
   return (
     <>
       <div className='bg-white rounded-md border border-gray-200 shadow-md p-5'>
@@ -25,7 +26,7 @@ const OrganizationCard = () => {
           <p className='text-sm'>&plusmn; 250 employees</p>
         </div>
         <div className='flex items-center justify-between mt-5'>
-          <button onClick={() => setOpenInvitationDetailModal(true)} className='bg-blue-500 hover:bg-blue-600 transition-[background] rounded-md text-white px-4 py-2 text-sm'>Detail</button>
+          <button onClick={() => setOpenJobDetailModal(true)} className='bg-blue-500 hover:bg-blue-600 transition-[background] rounded-md text-white px-4 py-2 text-sm'>Detail</button>
           <div className='flex items-center gap-2'>
             <button className='bg-green-600 hover:bg-green-700 transition-[background] rounded-md text-white px-3 text-lg py-2'><MdCheck /></button>
             <button className='bg-red-500 hover:bg-red-600 transition-[background[ rounded-md text-white px-3 py-2 text-lg'><AiOutlineClose /></button>
@@ -33,9 +34,9 @@ const OrganizationCard = () => {
         </div>
       </div>
 
-      <InvitationDetailModal
-        openModal={openInvitationDetailModal}
-        setOpenModal={setOpenInvitationDetailModal}
+      <JobDetailModal
+        openModal={openJobDetailModal}
+        setOpenModal={setOpenJobDetailModal}
       />
     </>
   )
