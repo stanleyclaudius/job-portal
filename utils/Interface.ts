@@ -24,3 +24,10 @@ export interface IActivationData {
 export interface IDecodedToken {
   id: string
 }
+
+export interface IGooglePayload {
+  email: string
+  email_verified: boolean
+  name: string
+  picture: string
+}
