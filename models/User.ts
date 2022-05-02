@@ -34,9 +34,17 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     default: 'jobseeker'
+  },
+  rf_token: {
+    type: String
+  },
+  type: {
+    type: String,
+    default: 'register'
   }
 }, {
   timestamps: true
 })
 
-export default mongoose.model('user', userSchema)
+const user = mongoose.models.user || mongoose.model('user', userSchema)
+export default user
