@@ -55,14 +55,14 @@ const Login = () => {
           <div className='flex justify-center items-center'>
             <div className='w-fit'>
               <GoogleLogin
-                client_id={`${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`}
+                client_id={`${process.env.GOOGLE_CLIENT_ID}`}
                 cookiepolicy='single_host_origin'
                 onSuccess={onGoogleSuccess}
               />
             </div>
             <div className='ml-8 h-[52px]'>
               <FacebookLogin
-                appId={`${process.env.NEXT_PUBLIC_FACEBOOK_APP_ID}`}
+                appId={`${process.env.FACEBOOK_APP_ID}`}
                 onSuccess={onFacebookSuccess}
               />
             </div>
