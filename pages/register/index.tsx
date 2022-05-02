@@ -1,7 +1,7 @@
-import Head from "next/head"
-import Link from "next/link"
-import Footer from "./../../components/general/Footer"
-import Navbar from "./../../components/general/Navbar"
+import Head from 'next/head'
+import Link from 'next/link'
+import Footer from './../../components/general/Footer'
+import Navbar from './../../components/general/Navbar'
 
 const Register = () => {
   return (

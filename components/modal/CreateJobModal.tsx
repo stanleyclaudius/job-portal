@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef, ChangeEvent } from "react"
-import { AiOutlineClose } from "react-icons/ai"
-import Editor from "../../utils/Editor"
+import { useState, useEffect, useRef } from 'react'
+import { AiOutlineClose } from 'react-icons/ai'
+import Editor from './../../utils/Editor'
 
 interface IProps {
   openModal: boolean

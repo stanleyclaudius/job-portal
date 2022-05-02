@@ -1,7 +1,7 @@
-import Head from "next/head"
-import Footer from "../components/general/Footer"
-import Navbar from "../components/general/Navbar"
-import JobCard from "../components/jobs/JobCard"
+import Head from 'next/head'
+import Footer from './../components/general/Footer'
+import Navbar from './../components/general/Navbar'
+import JobCard from './../components/jobs/JobCard'
 
 const JobApplied = () => {
   return (

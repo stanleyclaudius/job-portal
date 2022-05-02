@@ -1,7 +1,7 @@
-import Head from "next/head"
-import { BsBuilding } from "react-icons/bs"
-import Footer from "../components/general/Footer"
-import Navbar from "../components/general/Navbar"
+import { BsBuilding } from 'react-icons/bs'
+import Head from 'next/head'
+import Footer from './../components/general/Footer'
+import Navbar from './../components/general/Navbar'
 
 const FindCandidate = () => {
   return (

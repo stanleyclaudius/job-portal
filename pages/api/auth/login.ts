@@ -1,9 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import connectDB from "../../../libs/db";
-import User from "../../../models/User";
-import bcrypt from 'bcrypt'
-import { validateEmail } from "../../../utils/validator";
-import { generateAccessToken, generateRefreshToken } from "../../../utils/generateToken";
+import connectDB from './../../../libs/db'
+import User from './../../../models/User'
+import { NextApiRequest, NextApiResponse } from 'next'
+import { validateEmail } from './../../../utils/validator'
+import { loginUser } from './../../../utils/auth'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST')
@@ -20,28 +19,7 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (!user)
     return res.status(401).json({ msg: 'Invalid credential.' })
 
-  const isPwMatch = await bcrypt.compare(password, user.password)
-  if (!isPwMatch) {
-    const msg = user.type === 'register' ? 'Invalid credential.' : `This account uses ${user.type} login feature.`
-    return res.status(400).json({ msg })
-  }
-
-  const accessToken = generateAccessToken({ id: user._id })
-  const refreshToken = generateRefreshToken({ id: user._id }, res)
-
-  await User.findOneAndUpdate({ _id: user._id }, {
-    rf_token: refreshToken
-  })
-
-  return res.status(200).json({
-    msg:  `Authenticated as ${user.name}`,
-    accessToken,
-    user: {
-      ...user._doc,
-      password: '',
-      rf_token: ''
-    }
-  })
+  loginUser(password, user, res)
 }
 
 export default connectDB(handler)

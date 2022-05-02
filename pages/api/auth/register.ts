@@ -1,9 +1,9 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import connectDB from "../../../libs/db";
-import { validateEmail } from "../../../utils/validator";
 import bcrypt from 'bcrypt'
-import { generateActivationToken } from "../../../utils/generateToken";
-import sendEmail from "../../../utils/sendMail";
+import connectDB from './../../../libs/db'
+import sendEmail from './../../../utils/sendMail'
+import { NextApiRequest, NextApiResponse } from 'next'
+import { validateEmail } from './../../../utils/validator'
+import { generateActivationToken } from './../../../utils/generateToken'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST')

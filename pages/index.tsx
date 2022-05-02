@@ -1,10 +1,10 @@
+import Head from 'next/head'
 import Navbar from './../components/general/Navbar'
 import Footer from './../components/general/Footer'
-import Head from 'next/head'
-import ReviewContainer from '../components/home/review/ReviewContainer'
-import JobContainer from '../components/home/job/JobContainer'
-import CategoryContainer from '../components/home/category/CategoryContainer'
-import Jumbotron from '../components/home/Jumbotron'
+import ReviewContainer from './../components/home/review/ReviewContainer'
+import JobContainer from './../components/home/job/JobContainer'
+import CategoryContainer from './../components/home/category/CategoryContainer'
+import Jumbotron from './../components/home/Jumbotron'
 
 const Home = () => {
   return (

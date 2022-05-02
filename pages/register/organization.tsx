@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import Editor from '../../utils/Editor'
+import Editor from './../../utils/Editor'
 import Footer from './../../components/general/Footer'
 import Navbar from './../../components/general/Navbar'
 

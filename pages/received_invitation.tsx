@@ -1,7 +1,7 @@
-import Head from "next/head"
-import Footer from "../components/general/Footer"
-import Navbar from "../components/general/Navbar"
-import OrganizationCard from "../components/general/OrganizationCard"
+import Head from 'next/head'
+import Footer from './../components/general/Footer'
+import Navbar from './../components/general/Navbar'
+import OrganizationCard from './../components/general/OrganizationCard'
 
 const ReceivedInvitation = () => {
   return (

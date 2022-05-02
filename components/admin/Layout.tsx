@@ -1,7 +1,7 @@
-import Head from "next/head"
+import { ReactElement } from 'react'
+import Head from 'next/head'
 import Sidebar from './Sidebar'
 import Navbar from './Navbar'
-import { ReactElement } from "react"
 
 interface IProps {
   title: string

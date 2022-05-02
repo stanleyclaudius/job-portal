@@ -1,5 +1,5 @@
-import mongoose from 'mongoose'
 import { NextApiRequest, NextApiResponse } from 'next'
+import mongoose from 'mongoose'
 
 const connectDB = (handler: any) => async(req: NextApiRequest, res: NextApiResponse) => {
   if (mongoose.connections[0].readyState) {

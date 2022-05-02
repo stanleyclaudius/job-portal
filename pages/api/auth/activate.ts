@@ -1,8 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import connectDB from "../../../libs/db";
 import jwt from 'jsonwebtoken'
-import User from "../../../models/User";
-import { IActivationData } from "../../../utils/Interface";
+import connectDB from './../../../libs/db'
+import User from './../../../models/User'
+import { NextApiRequest, NextApiResponse } from 'next'
+import { IActivationData } from './../../../utils/Interface'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST')

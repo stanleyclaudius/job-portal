@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { AiOutlineClose } from "react-icons/ai"
+import { AiOutlineClose } from 'react-icons/ai'
 
 interface IProps {
   openModal: boolean

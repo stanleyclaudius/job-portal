@@ -1,4 +1,4 @@
-import CategoryCard from "./CategoryCard"
+import CategoryCard from './CategoryCard'
 
 const CategoryContainer = () => {
   return (

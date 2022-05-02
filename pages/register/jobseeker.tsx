@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { AiFillEye, AiFillEyeInvisible, AiOutlineUser } from "react-icons/ai"
+import { AiFillEye, AiFillEyeInvisible, AiOutlineUser } from 'react-icons/ai'
 import { BiLock } from 'react-icons/bi'
 import Link from 'next/link'
-import Head from "next/head"
-import Footer from "../../components/general/Footer"
-import Navbar from "../../components/general/Navbar"
+import Head from 'next/head'
+import Footer from './../../components/general/Footer'
+import Navbar from './../../components/general/Navbar'
 
 const Jobseeker = () => {
   const [showPassword, setShowPassword] = useState(false)

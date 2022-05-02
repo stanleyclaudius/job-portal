@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { GiHamburgerMenu } from 'react-icons/gi'
+import { AiOutlineClose } from 'react-icons/ai'
 import Link from 'next/link'
 import Image from 'next/image'
 import Logo from './../../public/images/logo.png'
-import { AiOutlineClose } from 'react-icons/ai'
 
 const Navbar = () => {
   const { pathname } = useRouter()

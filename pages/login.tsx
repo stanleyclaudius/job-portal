@@ -5,7 +5,7 @@ import Link from "next/link"
 import Navbar from './../components/general/Navbar'
 import FacebookLogin, { FacebookLoginAuthResponse } from './../utils/FacebookLogin'
 import GoogleLogin, { GoogleLoginResponse } from './../utils/GoogleLogin'
-import Footer from '../components/general/Footer'
+import Footer from './../components/general/Footer'
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false)

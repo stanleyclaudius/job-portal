@@ -1,6 +1,6 @@
-import Head from "next/head"
-import Footer from "../components/general/Footer"
-import Navbar from "../components/general/Navbar"
+import Head from 'next/head'
+import Footer from './../components/general/Footer'
+import Navbar from './../components/general/Navbar'
 
 const EditProfile = () => {
   return (

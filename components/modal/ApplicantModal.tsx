@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react"
-import { AiOutlineClose } from "react-icons/ai"
-import UserCard from "../general/UserCard"
+import { useEffect, useRef } from 'react'
+import { AiOutlineClose } from 'react-icons/ai'
+import UserCard from './../general/UserCard'
 
 interface IProps {
   openModal: boolean

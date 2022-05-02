@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import Layout from "../../components/admin/Layout"
-import OrganizationDetailModal from "../../components/modal/OrganizationDetailModal"
+import Layout from './../../components/admin/Layout'
+import OrganizationDetailModal from './../../components/modal/OrganizationDetailModal'
 
 const OrganizationApproval = () => {
   const [openOrganizationDetailModal, setOpenOrganizationDetailModal] = useState(false)

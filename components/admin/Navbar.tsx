@@ -1,5 +1,5 @@
-import { AiFillBell } from "react-icons/ai"
-import { BsPower } from "react-icons/bs"
+import { AiFillBell } from 'react-icons/ai'
+import { BsPower } from 'react-icons/bs'
 
 const Navbar = () => {
   return (

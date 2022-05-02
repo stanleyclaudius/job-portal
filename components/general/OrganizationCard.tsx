@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FaUsers } from 'react-icons/fa'
 import { MdCheck } from 'react-icons/md'
-import JobDetailModal from '../modal/JobDetailModal'
+import JobDetailModal from './../modal/JobDetailModal'
 
 const OrganizationCard = () => {
   const [openJobDetailModal, setOpenJobDetailModal] = useState(false)

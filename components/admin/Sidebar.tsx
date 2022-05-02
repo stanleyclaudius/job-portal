@@ -1,7 +1,7 @@
-import Link from "next/link"
-import { BsFillGrid1X2Fill } from "react-icons/bs"
+import { useRouter } from 'next/router'
+import { BsFillGrid1X2Fill } from 'react-icons/bs'
 import { RiBuilding2Fill } from 'react-icons/ri'
-import { useRouter } from "next/router"
+import Link from 'next/link'
 
 const Sidebar = () => {
   const { pathname } = useRouter()

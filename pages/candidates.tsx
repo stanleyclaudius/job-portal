@@ -1,8 +1,7 @@
-import { useState } from 'react'
-import Head from "next/head"
-import Footer from "../components/general/Footer"
-import Navbar from "../components/general/Navbar"
-import UserCard from "../components/general/UserCard"
+import Head from 'next/head'
+import Footer from './../components/general/Footer'
+import Navbar from './../components/general/Navbar'
+import UserCard from './../components/general/UserCard'
 
 const Candidates = () => {
   return (

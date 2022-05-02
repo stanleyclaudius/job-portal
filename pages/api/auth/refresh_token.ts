@@ -1,9 +1,9 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import connectDB from "../../../libs/db";
 import jwt from 'jsonwebtoken'
-import { IDecodedToken } from "../../../utils/Interface";
-import User from "../../../models/User";
-import { generateAccessToken, generateRefreshToken } from "../../../utils/generateToken";
+import connectDB from './../../../libs/db'
+import User from './../../../models/User'
+import { NextApiRequest, NextApiResponse } from 'next'
+import { IDecodedToken } from './../../../utils/Interface'
+import { generateAccessToken, generateRefreshToken } from './../../../utils/generateToken'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST')

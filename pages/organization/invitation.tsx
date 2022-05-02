@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import Head from "next/head"
-import Footer from "../../components/general/Footer"
-import Navbar from "../../components/general/Navbar"
-import UserDescriptionModal from "../../components/modal/UserDescriptionModal"
+import Head from 'next/head'
+import Footer from './../../components/general/Footer'
+import Navbar from './../../components/general/Navbar'
+import UserDescriptionModal from './../../components/modal/UserDescriptionModal'
 
 const SentInvitation = () => {
   const [openUserDescriptionModal, setOpenUserDescriptionModal] = useState(false)

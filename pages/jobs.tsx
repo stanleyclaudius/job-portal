@@ -1,11 +1,11 @@
-import Head from "next/head"
-import { AiOutlineSearch } from "react-icons/ai"
-import { IoLocation } from "react-icons/io5"
-import Footer from "../components/general/Footer"
-import Navbar from "../components/general/Navbar"
-import Filter from "../components/jobs/Filter"
-import JobCard from "../components/jobs/JobCard"
-import JobDetail from "../components/jobs/JobDetail"
+import { AiOutlineSearch } from 'react-icons/ai'
+import { IoLocation } from 'react-icons/io5'
+import Head from 'next/head'
+import Footer from './../components/general/Footer'
+import Navbar from './../components/general/Navbar'
+import Filter from './../components/jobs/Filter'
+import JobCard from './../components/jobs/JobCard'
+import JobDetail from './../components/jobs/JobDetail'
 
 const Jobs = () => {
   return (

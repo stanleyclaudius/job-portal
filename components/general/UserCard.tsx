@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { MdCheck } from 'react-icons/md'
-import HireModal from '../modal/HireModal'
-import UserDescriptionModal from "../modal/UserDescriptionModal"
+import HireModal from './../modal/HireModal'
+import UserDescriptionModal from './../modal/UserDescriptionModal'
 
 interface IProps {
   isApplicant: boolean

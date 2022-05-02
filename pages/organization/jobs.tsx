@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import Head from "next/head"
-import Footer from "../../components/general/Footer"
-import Navbar from "../../components/general/Navbar"
+import Head from 'next/head'
+import Footer from './../../components/general/Footer'
+import Navbar from './../../components/general/Navbar'
 import JobDetailModal from './../../components/modal/JobDetailModal'
-import DeleteModal from '../../components/modal/DeleteModal'
-import ApplicantModal from '../../components/modal/ApplicantModal'
-import CreateJobModal from '../../components/modal/CreateJobModal'
+import DeleteModal from './../../components/modal/DeleteModal'
+import ApplicantModal from './../../components/modal/ApplicantModal'
+import CreateJobModal from './../../components/modal/CreateJobModal'
 
 const OrganizationJobs = () => {
   const [openJobDetailModal, setOpenJobDetailModal] = useState(false)
