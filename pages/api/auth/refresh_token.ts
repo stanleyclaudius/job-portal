@@ -6,7 +6,7 @@ import { IDecodedToken } from './../../../utils/Interface'
 import { generateAccessToken, generateRefreshToken } from './../../../utils/generateToken'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== 'POST')
+  if (req.method !== 'GET')
     return res.status(405).json({ msg: 'Endpoint method not allowed.' })
 
   const {jobseek_rfToken: token} = req.cookies

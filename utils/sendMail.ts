@@ -36,7 +36,7 @@ const sendEmail = async(to: string, subject: string, url: string) => {
           <p>Please click below button to proceed the chosen action</p>
           <a style="display: block; text-decoration: none; background: orange; color: #fff; width: 130px; height: 35px; text-align: center; line-height: 35px; margin-top: 15px" href=${url}>Click Me</a>
           <div style="margin-top: 20px;">
-            <p>Thank you for using <strong>Job Seek</strong> as your financial management app.
+            <p>Thank you for using <strong>Job Seek</strong> as your job portal app.
             <p>Warm Regards,</p>
             <p>- Job Seek Team -</p>
           </div>

@@ -1,7 +1,14 @@
-export interface ISocialMediaRegister {
+import { ChangeEvent, FormEvent } from 'react'
+import rootReducer from './../redux/reducers/'
+
+export type RootStore = ReturnType<typeof rootReducer>
+
+export type InputChange = ChangeEvent<HTMLInputElement>
+
+export type FormSubmit = FormEvent<HTMLFormElement>
+
+export interface ISocialMediaRegister extends IUserLogin {
   name: string
-  email: string
-  password: string
   avatar: string
   type: string
 }
@@ -15,6 +22,11 @@ export interface IUser extends ISocialMediaRegister {
   district: number
   postalCode: number
   _doc?: object
+}
+
+export interface IUserLogin {
+  email: string
+  password: string
 }
 
 export interface IActivationData {
