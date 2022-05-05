@@ -1,7 +1,4 @@
 import { ChangeEvent, FormEvent } from 'react'
-import rootReducer from './../redux/reducers/'
-
-export type RootStore = ReturnType<typeof rootReducer>
 
 export type InputChange = ChangeEvent<HTMLInputElement>
 
@@ -37,11 +34,4 @@ export interface IActivationData {
 
 export interface IDecodedToken {
   id: string
-}
-
-export interface IGooglePayload {
-  email: string
-  email_verified: boolean
-  name: string
-  picture: string
 }

@@ -1,29 +1,17 @@
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
+import { FormSubmit, InputChange } from './../utils/Interface'
 import Head from 'next/head'
 import Link from "next/link"
 import Navbar from './../components/general/Navbar'
-import FacebookLogin, { FacebookLoginAuthResponse } from './../utils/FacebookLogin'
-import GoogleLogin, { GoogleLoginResponse } from './../utils/GoogleLogin'
 import Footer from './../components/general/Footer'
-import { FormSubmit, InputChange, RootStore } from '../utils/Interface'
-import { login } from '../redux/actions/authActions'
-import Loader from '../components/general/Loader'
 
-interface IProps {
-  token: string
-}
-
-const Login = ({ token }: IProps) => {
+const Login = () => {
   const [userData, setUserData] = useState({
     email: '',
     password: ''
   })
   const [showPassword, setShowPassword] = useState(false)
-
-  const dispatch = useDispatch()
-  const { alert } = useSelector((state: RootStore) => state)
 
   const handleChange = (e: InputChange) => {
     const { name, value } = e.target
@@ -32,17 +20,6 @@ const Login = ({ token }: IProps) => {
 
   const handleSubmit = (e: FormSubmit) => {
     e.preventDefault()
-    dispatch(login(userData))
-  }
-
-  const onGoogleSuccess = (res: GoogleLoginResponse) => {
-    const token = res.getAuthResponse().id_token
-    console.log(token)
-  }
-
-  const onFacebookSuccess = (res: FacebookLoginAuthResponse) => {
-    const { accessToken, userID } = res.authResponse
-    console.log(accessToken, userID)
   }
 
   return (
@@ -74,29 +51,13 @@ const Login = ({ token }: IProps) => {
               </Link>
               <div className='clear-both' />
             </div>
-            <button type='submit' disabled={alert.loading ? true : false} className={`${alert.loading ? 'bg-gray-200 hover:bg-gray-200 cursor-auto' : 'bg-[#504ED7] hover:bg-[#2825C2] cursor-pointer'} outline-0 transition-[background] w-full text-white py-2 mt-6`}>
-              {
-                alert.loading
-                ? <Loader />
-                : 'SIGN IN'
-              }
+            <button type='submit' className={`bg-[#504ED7] hover:bg-[#2825C2] cursor-pointer outline-0 transition-[background] w-full text-white py-2 mt-6`}>
+              SIGN IN
             </button>
           </form>
           <p className='text-center text-gray-400 my-7 text-sm'>Or Sign In With</p>
           <div className='flex justify-center items-center'>
-            <div className='w-fit'>
-              <GoogleLogin
-                client_id={`${process.env.GOOGLE_CLIENT_ID}`}
-                cookiepolicy='single_host_origin'
-                onSuccess={onGoogleSuccess}
-              />
-            </div>
-            <div className='ml-8 h-[52px]'>
-              <FacebookLogin
-                appId={`${process.env.FACEBOOK_APP_ID}`}
-                onSuccess={onFacebookSuccess}
-              />
-            </div>
+            
           </div>
           <p className='text-sm text-gray-500 text-center mt-8'>Don't have a Job Seek account yet? <Link href='/register'><a className='text-blue-500 outline-0'>Sign Up</a></Link></p>
         </div>
