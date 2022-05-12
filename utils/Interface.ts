@@ -35,3 +35,21 @@ export interface IActivationData {
 export interface IDecodedToken {
   id: string
 }
+
+export interface IDecodedRegisterToken {
+  name: string
+  email: string
+  password: string
+  role: string
+  avatar?: string
+  province?: number
+  city?: number
+  district?: number
+  postalCode?: number
+  address?: string
+  description?: string
+  createdDate?: string
+  totalEmployee?: number
+  industryType?: string
+  phoneNumber?: string
+}
