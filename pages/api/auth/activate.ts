@@ -18,6 +18,10 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (!decoded)
     return res.status(401).json({ msg: 'Invalid account activation token.' })
 
+  const findUser = await User.findOne({ email: decoded.email })
+  if (findUser)
+    return res.status(400).json({ msg: 'Email has been registered before.' })
+
   const newUser = new User({
     name: decoded.name,
     email: decoded.email,

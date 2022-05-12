@@ -20,13 +20,13 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   const user = await User.findById(decoded.id)
   const accessToken = generateAccessToken({ id: user._id })
 
-  return {
+  return res.status(200).json({
     accessToken,
     user: {
       ...user._doc,
       password: ''
     }
-  }
+  })
 }
 
 export default connectDB(handler)

@@ -1,8 +1,11 @@
 import { ChangeEvent, FormEvent } from 'react'
+import RootReducer from './../redux/reducers'
 
 export type InputChange = ChangeEvent<HTMLInputElement>
 
 export type FormSubmit = FormEvent<HTMLFormElement>
+
+export type RootStore = ReturnType<typeof RootReducer>
 
 export interface ISocialMediaRegister extends IUserLogin {
   name: string
@@ -13,7 +16,6 @@ export interface ISocialMediaRegister extends IUserLogin {
 export interface IUser extends ISocialMediaRegister {
   _id: string
   role: string
-  rf_token: string
   province: number
   city: number
   district: number

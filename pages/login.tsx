@@ -1,10 +1,15 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { FormSubmit, InputChange } from './../utils/Interface'
+import { FormSubmit, InputChange, RootStore } from './../utils/Interface'
+import { login } from './../redux/actions/authActions'
+import { ALERT } from './../redux/types/alertTypes'
+import { validateEmail } from './../utils/validator'
 import Head from 'next/head'
 import Link from "next/link"
-import Navbar from './../components/general/Navbar'
+import Loader from './../components/general/Loader'
 import Footer from './../components/general/Footer'
+import Navbar from './../components/general/Navbar'
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -13,13 +18,40 @@ const Login = () => {
   })
   const [showPassword, setShowPassword] = useState(false)
 
+  const dispatch = useDispatch()
+  const { alert } = useSelector((state: RootStore) => state)
+
   const handleChange = (e: InputChange) => {
     const { name, value } = e.target
     setUserData({ ...userData, [name]: value })
   }
 
-  const handleSubmit = (e: FormSubmit) => {
+  const handleSubmit = async(e: FormSubmit) => {
     e.preventDefault()
+    
+    if (!userData.email) {
+      return dispatch({
+        type: ALERT,
+        payload: { error: 'Please provide email to login.' }
+      })
+    }
+
+    if (!validateEmail(userData.email)) {
+      return dispatch({
+        type: ALERT,
+        payload: { error: 'Please provide valid email address.' }
+      })
+    }
+
+    if (!userData.password) {
+      return dispatch({
+        type: ALERT,
+        payload: { error: 'Please provide password to login.' }
+      })
+    }
+
+    await dispatch(login(userData))
+    setUserData({ email: '', password: '' })
   }
 
   return (
@@ -51,8 +83,12 @@ const Login = () => {
               </Link>
               <div className='clear-both' />
             </div>
-            <button type='submit' className={`bg-[#504ED7] hover:bg-[#2825C2] cursor-pointer outline-0 transition-[background] w-full text-white py-2 mt-6`}>
-              SIGN IN
+            <button type='submit' className={`${alert.loading ? 'bg-gray-200 hover:bg-gray-200 cursor-auto' : 'bg-[#504ED7] hover:bg-[#2825C2] cursor-pointer'} outline-0 transition-[background] w-full text-white py-2 mt-6`}>
+              {
+                alert.loading
+                ? <Loader />
+                : 'SIGN IN'
+              }
             </button>
           </form>
           <p className='text-center text-gray-400 my-7 text-sm'>Or Sign In With</p>
