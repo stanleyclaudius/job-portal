@@ -27,7 +27,11 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
     email: decoded.email,
     password: decoded.password,
     role: decoded.role,
-    avatar: decoded.avatar || 'https://res.cloudinary.com/devatchannel/image/upload/v1602752402/avatar/avatar_cugq40.png'
+    avatar: decoded.avatar || 'https://res.cloudinary.com/devatchannel/image/upload/v1602752402/avatar/avatar_cugq40.png',
+    province: decoded.province || '',
+    city: decoded.city || '',
+    district: decoded.district || '',
+    postalCode: decoded.postalCode || ''
   })
 
   await newUser.save()

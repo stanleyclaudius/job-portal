@@ -12,9 +12,9 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (user) {
     const isAuthorize = await authorizeRoles(user._id, res, 'admin')
     if (isAuthorize) {
-      const unapprovedOrganization = await Organization.find({ status: { $ne: 'accepted' } })
+      const unapprovedOrganization = await Organization.find({ status: { $ne: 'accepted' } }).populate('user')
   
-      return res.status(200).json({ organization: unapprovedOrganization })
+      return res.status(200).json({ organizations: unapprovedOrganization })
     }
   }
 }
