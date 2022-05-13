@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux'
-import { getDataAPI } from '../../utils/fetchData'
+import { getDataAPI, patchDataAPI } from '../../utils/fetchData'
 import { ALERT, IAlertAction } from './../types/alertTypes'
-import { GET_UNAPPROVED_ORGANIZATIONS, IUnapprovedOrganizationsAction } from './../types/organizationTypes'
+import { ACCEPT_ORGANIZATION, GET_UNAPPROVED_ORGANIZATIONS, IAcceptOrganizationAction, IUnapprovedOrganizationsAction } from './../types/organizationTypes'
 
 export const getUnapprovedOrganizations = (token: string) => async(dispatch: Dispatch<IUnapprovedOrganizationsAction | IAlertAction>) => {
   try {
@@ -21,6 +21,30 @@ export const getUnapprovedOrganizations = (token: string) => async(dispatch: Dis
     dispatch({
       type: ALERT,
       payload: {}
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    })
+  }
+}
+
+export const acceptOrganization = (id: string, token: string) => async(dispatch: Dispatch<IAcceptOrganizationAction | IAlertAction>) => {
+  try {
+    const res = await patchDataAPI(`organization/accept/${id}`, {}, token)
+    dispatch({
+      type: ACCEPT_ORGANIZATION,
+      payload: id
+    })
+
+    dispatch({
+      type: ALERT,
+      payload: {
+        success: res.data.msg
+      }
     })
   } catch (err: any) {
     dispatch({

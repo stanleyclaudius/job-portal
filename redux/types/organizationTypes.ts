@@ -1,6 +1,7 @@
 import { IUser } from './../../utils/Interface'
 
 export const GET_UNAPPROVED_ORGANIZATIONS = 'GET_UNAPPROVED_ORGANIZATIONS'
+export const ACCEPT_ORGANIZATION = 'ACCEPT_ORGANIZATION'
 
 export interface IUnapprovedOrganizationsType {
   _id: string
@@ -18,4 +19,9 @@ export interface IUnapprovedOrganizationsType {
 export interface IUnapprovedOrganizationsAction {
   type: typeof GET_UNAPPROVED_ORGANIZATIONS
   payload: IUnapprovedOrganizationsType[]
+}
+
+export interface IAcceptOrganizationAction {
+  type: typeof ACCEPT_ORGANIZATION
+  payload: string
 }
