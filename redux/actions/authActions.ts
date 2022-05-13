@@ -4,6 +4,7 @@ import { getDataAPI, postDataAPI } from './../../utils/fetchData'
 import { ALERT, IAlertAction } from './../types/alertTypes'
 import { IDecodedRegisterToken, IUserLogin } from '../../utils/Interface'
 import Cookie from 'js-cookie'
+import { uploadImage } from '../../utils/imageHelper'
 
 export const login = (userData: IUserLogin) => async(dispatch: Dispatch<IAuthAction | IAlertAction>) => {
   try {
@@ -45,7 +46,7 @@ export const login = (userData: IUserLogin) => async(dispatch: Dispatch<IAuthAct
   }
 }
 
-export const register = (userData: IDecodedRegisterToken) => async(dispatch: Dispatch<IAlertAction>) => {
+export const register = (userData: IDecodedRegisterToken, avatar: File[] = []) => async(dispatch: Dispatch<IAlertAction>) => {
   try {
     dispatch({
       type: ALERT,
@@ -53,8 +54,15 @@ export const register = (userData: IDecodedRegisterToken) => async(dispatch: Dis
         loading: true
       }
     })
+
+    let data = { ...userData }
+
+    if (userData.role === 'organization') {
+      const imgUrl = await uploadImage(avatar, 'avatar')
+      data.avatar = imgUrl[0]
+    }
     
-    const res = await postDataAPI('auth/register', userData)
+    const res = await postDataAPI('auth/register', data)
     dispatch({
       type: ALERT,
       payload: {

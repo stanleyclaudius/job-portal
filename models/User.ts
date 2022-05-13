@@ -20,13 +20,13 @@ const userSchema = new mongoose.Schema({
     default: 'https://res.cloudinary.com/devatchannel/image/upload/v1602752402/avatar/avatar_cugq40.png'
   },
   province: {
-    type: Number
+    type: String
   },
   city: {
-    type: Number
+    type: String
   },
   district: {
-    type: Number
+    type: String
   },
   postalCode: {
     type: Number

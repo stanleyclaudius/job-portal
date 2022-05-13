@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent } from 'react'
 import RootReducer from './../redux/reducers'
 
-export type InputChange = ChangeEvent<HTMLInputElement>
+export type InputChange = ChangeEvent<HTMLInputElement | HTMLSelectElement>
 
 export type FormSubmit = FormEvent<HTMLFormElement>
 
@@ -44,9 +44,9 @@ export interface IDecodedRegisterToken {
   password: string
   role: string
   avatar?: string
-  province?: number
-  city?: number
-  district?: number
+  province?: string
+  city?: string
+  district?: string
   postalCode?: number
   address?: string
   description?: string

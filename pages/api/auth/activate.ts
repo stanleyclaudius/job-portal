@@ -26,7 +26,8 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
     name: decoded.name,
     email: decoded.email,
     password: decoded.password,
-    role: decoded.role
+    role: decoded.role,
+    avatar: decoded.avatar || 'https://res.cloudinary.com/devatchannel/image/upload/v1602752402/avatar/avatar_cugq40.png'
   })
 
   await newUser.save()
