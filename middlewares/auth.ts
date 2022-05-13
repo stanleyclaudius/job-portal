@@ -18,3 +18,11 @@ export const isAuthenticated = async(req: NextApiRequest, res: NextApiResponse) 
 
   return user
 }
+
+export const authorizeRoles = async(userId: string, res: NextApiResponse, ...roles: string[]) => {
+  const user = await User.findById(userId)
+  if (!roles.includes(user.role)) {
+    return res.status(401).json({ msg: `${user.role} role don\'t have access to this resource.` })
+  }
+  return true
+}
