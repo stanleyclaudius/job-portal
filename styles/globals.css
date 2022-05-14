@@ -68,3 +68,7 @@
 .Toastify__toast-container {
   z-index: 99999;
 }
+
+ul {
+  list-style: disc;
+}

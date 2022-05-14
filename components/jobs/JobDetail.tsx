@@ -1,14 +1,57 @@
+import { useEffect, useState } from 'react'
 import { BsBookmark } from 'react-icons/bs'
+import { IJob } from '../../redux/types/jobTypes'
+import { numberFormatter } from '../../utils/numberFormatter'
 
-const JobDetail = () => {
+interface IProps {
+  job?: IJob
+}
+
+const JobDetail = ({ job }: IProps) => {
+  const [province, setProvince] = useState('')
+  const [city, setCity] = useState('')
+  const [district, setDistrict] = useState('')
+
+  useEffect(() =>{ 
+    const getProvinceData = () => {
+      fetch(`https://dev.farizdotid.com/api/daerahindonesia/provinsi/${job?.organization?.user.province}`)
+        .then(res => res.json())
+        .then(res => setProvince(res.nama))
+    }
+
+    getProvinceData()
+  }, [job?.organization?.user.province])
+
+  useEffect(() =>{ 
+    const getCityData = () => {
+      fetch(`https://dev.farizdotid.com/api/daerahindonesia/kota/${job?.organization?.user.city}`)
+        .then(res => res.json())
+        .then(res => setCity(res.nama))
+    }
+
+    getCityData()
+  }, [job?.organization?.user.city])
+
+  useEffect(() =>{ 
+    const getDistrictData = () => {
+      fetch(`https://dev.farizdotid.com/api/daerahindonesia/kecamatan/${job?.organization?.user.district}`)
+        .then(res => res.json())
+        .then(res => setDistrict(res.nama))
+    }
+
+    getDistrictData()
+  }, [job?.organization?.user.district])
+  
   return (
     <> 
       <div className='flex items-center justify-between'>
         <div className='flex items-center gap-5'>
-          <div className='w-16 h-16 rounded-md bg-gray-200 shrink-0'></div>
+          <div className='w-16 h-16 rounded-md bg-gray-200 shrink-0'>
+            <img src={job?.organization?.user.avatar} alt={job?.organization?.user.name} className='w-full h-full rounded-md' />
+          </div>
           <div>
-            <h1 className='text-[#504ED7] text-lg'>Recruitment Manager</h1>
-            <p className='text-xs mt-2'>PT Orang Tua Group</p>
+            <h1 className='text-[#504ED7] text-lg'>{job?.position}</h1>
+            <p className='text-xs mt-2'>{job?.organization?.user.name}</p>
           </div>
         </div>
         <div className='flex items-center gap-7'>
@@ -18,32 +61,29 @@ const JobDetail = () => {
       </div>
       <div className='mt-5'>
         <p className='font-medium mb-4'>Job Overview</p>
-        <p className='text-sm leading-relaxed mb-3'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos, vel officiis. Necessitatibus, iusto quod fuga placeat aperiam quaerat illum optio facilis. Eum architecto nemo enim deserunt rerum impedit dolore dignissimos, excepturi, inventore saepe eligendi earum!</p>
-        <p className='text-sm leading-relaxed mb-7'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur eos explicabo temporibus tempora unde tenetur accusantium quia cumque ullam autem aperiam odio, ipsa totam quod minima dolores! Delectus error dolor quibusdam eius sequi nulla ipsam.</p>
-        <p className='font-medium mb-4'>Skills and Expertise</p>
+        <div className='text-sm leading-relaxed mb-3' dangerouslySetInnerHTML={{ __html: `${job?.overview}` }} />
+        <p className='font-medium mb-4 mt-6'>Skills and Expertise</p>
         <div className='flex items-center gap-3 mb-7'>
-          <p className='bg-gray-200 text-gray-600 text-xs px-3 py-2 rounded-full'>Management</p>
-          <p className='bg-gray-200 text-gray-600 text-xs px-3 py-2 rounded-full'>UX Design</p>
-          <p className='bg-gray-200 text-gray-600 text-xs px-3 py-2 rounded-full'>UI Design</p>
+          {
+            job?.skills.map(item => (
+              <p key={item} className='bg-gray-200 text-gray-600 text-xs px-3 py-2 rounded-full'>{item}</p>
+            ))
+          }
         </div>
         <p className='font-medium mb-4'>Requirements</p>
-        <ul className='mb-7 list-disc ml-5'>
-          <li>HTML</li>
-          <li>CSS</li>
-          <li>Javascipt</li>
-        </ul>
+        <div className='mb-7 list-disc ml-5' dangerouslySetInnerHTML={{ __html: `${job?.requirements}`}} />
         <p className='font-medium mb-4'>Salary</p>
         <div className='flex items-center mb-7'>
-          <p className='font-semibold text-lg'>20000</p>
+          <p className='font-semibold text-lg'>{numberFormatter(job?.salary!)}</p>
           <p className='text-gray-500 text-xs'>/month</p>
         </div>
         <p className='font-medium mb-4'>Company Overview</p>
-        <p className='text-sm leading-relaxed mb-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores illo fugit mollitia! Quidem, dignissimos magnam sed pariatur asperiores, velit ex quos ad possimus itaque nobis nemo optio at? Quia quod molestiae illo commodi expedita exercitationem.</p>
-        <p className='text-sm leading-relaxed mb-7'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores illo fugit mollitia! Quidem, dignissimos magnam sed pariatur asperiores, velit ex quos ad possimus itaque nobis nemo optio at? Quia quod molestiae illo commodi expedita exercitationem.</p>
-        <p className='font-medium mb-4'>Company Location</p>
-        <p className='mb-7 text-sm leading-realxed'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, tempore.</p>
+        <div className='text-sm leading-relaxed mb-3' dangerouslySetInnerHTML={{ __html: `${job?.organization?.description}` }} />
+        <p className='font-medium mb-4 mt-6'>Company Location</p>
+        <p className='mb-3 text-sm leading-realxed'>{province}, {city}, {district}, {job?.organization?.user.postalCode}</p>
+        <p className='mb-7 text-sm leading-realxed'>{job?.organization?.address}</p>
         <p className='font-medium mb-4'>Estimated Company Total Employee</p>
-        <p>25-30 people</p>
+        <p>{job?.organization?.totalEmployee} people</p>
       </div>
     </>
   )

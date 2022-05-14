@@ -1,9 +1,11 @@
+import { IUnapprovedOrganizationsType } from "./organizationTypes"
+
 export const GET_JOBS = 'GET_JOBS'
 export const CREATE_JOB = 'CREATE_JOB'
 
 export interface IJob {
   _id?: string
-  organization?: string
+  organization?: IUnapprovedOrganizationsType
   position: string
   skills: string[]
   salary: number
