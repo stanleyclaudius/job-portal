@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootStore } from './../../utils/Interface'
+import { useRouter } from 'next/router'
 import { getJobs } from './../../redux/actions/jobActions'
 import Head from 'next/head'
 import Footer from './../../components/general/Footer'
@@ -19,6 +20,7 @@ const OrganizationJobs = () => {
   const [openCreateJobModal, setOpenCreateJobModal] = useState(false)
   const [selectedItem, setSelectedItem] = useState<Partial<IJob>>({})
 
+  const router = useRouter()
   const dispatch = useDispatch()
   const { alert, auth, job } = useSelector((state: RootStore) => state)
 
@@ -32,6 +34,16 @@ const OrganizationJobs = () => {
       dispatch(getJobs(auth.accessToken))
     }
   }, [dispatch, auth])
+
+  useEffect(() => {
+    if (!auth.accessToken) {
+      router.push('/login')
+    } else {
+      if (auth.user?.role !== 'organization') {
+        router.push('/')
+      }
+    }
+  }, [router, auth])
 
   return (
     <>

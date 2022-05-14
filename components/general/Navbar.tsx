@@ -104,7 +104,9 @@ const Navbar = () => {
                         </a>
                       </Link>
                     )
-                    : ''
+                    : (
+                      <Link href='/organization/approval'>Dashboard</Link>
+                    )
                 }
                 <div onClick={handleLogout}>
                   <p className='navbar-link cursor-pointer'>Logout</p>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
@@ -21,6 +22,7 @@ const JobApplied = () => {
   const [data, setData] = useState<IData[]>([])
   const [loading, setLoading] = useState(false)
 
+  const router = useRouter()
   const { auth } = useSelector((state: RootStore) => state)
 
   useEffect(() => {
@@ -35,6 +37,16 @@ const JobApplied = () => {
       fetchData()
     }
   }, [auth])
+
+  useEffect(() => {
+    if (!auth.accessToken) {
+      router.push('/login')
+    } else {
+      if (auth.user?.role !== 'jobseeker') {
+        router.push('/')
+      }
+    }
+  }, [router, auth])
 
   return (
     <>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { acceptOrganization, getUnapprovedOrganizations, rejectOrganization } from './../../redux/actions/organizationActions'
 import { IOrganization } from './../../redux/types/organizationTypes'
@@ -11,6 +12,7 @@ const OrganizationApproval = () => {
   const [openOrganizationDetailModal, setOpenOrganizationDetailModal] = useState(false)
   const [selectedOrganization, setSelectedOrganization] = useState<Partial<IOrganization>>({})
 
+  const router = useRouter()
   const dispatch = useDispatch()
   const { alert, organization, auth } = useSelector((state: RootStore) => state)
 
@@ -28,6 +30,16 @@ const OrganizationApproval = () => {
       dispatch(getUnapprovedOrganizations(auth.accessToken))
     }
   }, [dispatch, auth])
+
+  useEffect(() => {
+    if (!auth.accessToken) {
+      router.push('/login')
+    } else {
+      if (auth.user?.role !== 'admin') {
+        router.push('/')
+      }
+    }
+  }, [router, auth])
 
   return (
     <>
