@@ -7,6 +7,14 @@ export type FormSubmit = FormEvent<HTMLFormElement>
 
 export type RootStore = ReturnType<typeof RootReducer>
 
+export interface IJobseeker {
+  _id: string
+  cv?: string
+  dob?: string
+  user: IUser
+  status: string
+}
+
 export interface IUser extends IUserLogin {
   _id: string
   name: string
@@ -18,6 +26,7 @@ export interface IUser extends IUserLogin {
   district: number
   postalCode: number
   _doc?: object
+  createdAt?: string
 }
 
 export interface IUserLogin {

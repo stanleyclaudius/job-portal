@@ -10,15 +10,22 @@ import DeleteModal from './../../components/modal/DeleteModal'
 import ApplicantModal from './../../components/modal/ApplicantModal'
 import CreateJobModal from './../../components/modal/CreateJobModal'
 import Loader from './../../components/general/Loader'
+import { IJob } from '../../redux/types/jobTypes'
 
 const OrganizationJobs = () => {
   const [openJobDetailModal, setOpenJobDetailModal] = useState(false)
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [openApplicantModal, setOpenApplicantModal] = useState(false)
   const [openCreateJobModal, setOpenCreateJobModal] = useState(false)
+  const [selectedItem, setSelectedItem] = useState<Partial<IJob>>({})
 
   const dispatch = useDispatch()
   const { alert, auth, job } = useSelector((state: RootStore) => state)
+
+  const handleClickApplicant = (item: IJob) => {
+    setOpenApplicantModal(true)
+    setSelectedItem(item)
+  }
 
   useEffect(() => {
     if (auth.accessToken) {
@@ -66,7 +73,7 @@ const OrganizationJobs = () => {
                         <td>x</td>
                         <td>
                           <button onClick={() => setOpenJobDetailModal(true)} className='mr-3 bg-blue-500 hover:bg-blue-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Detail</button>
-                          <button onClick={() => setOpenApplicantModal(true)} className='mr-3 bg-[#504ED7] hover:bg-[#2825C2] transition-[background] text-white text-xs px-3 py-1 rounded-md'>Applicant</button>
+                          <button onClick={() => handleClickApplicant(item)} className='mr-3 bg-[#504ED7] hover:bg-[#2825C2] transition-[background] text-white text-xs px-3 py-1 rounded-md'>Applicant</button>
                           <button className='mr-3 bg-orange-500 hover:bg-orange-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Edit</button>
                           <button onClick={() => setOpenDeleteModal(true)} className='mr-3 bg-red-500 hover:bg-red-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Delete</button>
                         </td>
@@ -95,6 +102,7 @@ const OrganizationJobs = () => {
       <ApplicantModal
         openModal={openApplicantModal}
         setOpenModal={setOpenApplicantModal}
+        jobId={selectedItem._id as string}
       />
 
       <CreateJobModal

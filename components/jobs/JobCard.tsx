@@ -6,9 +6,11 @@ interface IProps {
   item?: IJob
   isApplied?: boolean
   onClick?: () => void
+  status?: string
+  appliedAt?: string
 }
 
-const JobCard = ({ item, isApplied, onClick }: IProps) => {
+const JobCard = ({ item, isApplied, onClick, status, appliedAt }: IProps) => {
   const [province, setProvince] = useState('')
 
   useEffect(() =>{ 
@@ -40,14 +42,14 @@ const JobCard = ({ item, isApplied, onClick }: IProps) => {
       <div className='flex md:flex-row flex-col md:items-center md:justify-between'>
         {
           isApplied
-          ? <p className='mt-2 text-gray-500 text-xs'>Applied At: 16 My 2022, 09:30 PM</p>
+          ? <p className='mt-2 text-gray-500 text-xs'>Applied At: {new Date(`${appliedAt}`).toLocaleString()}</p>
           : <p className='mt-2 text-gray-500 text-xs'>{moment(item?.createdAt).fromNow()}</p>
         }
 
         {
           isApplied &&
-          <div className='text-sm bg-orange-500 w-fit text-white text-center py-2 px-4 rounded-md md:mt-0 mt-3'>
-            On Review
+          <div className='text-sm bg-orange-500 capitalize w-fit text-white text-center py-2 px-4 rounded-md md:mt-0 mt-3'>
+            {status}
           </div>
         }
       </div>

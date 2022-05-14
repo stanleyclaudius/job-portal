@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { MdCheck } from 'react-icons/md'
+import { IApplicant } from '../../redux/types/applicantTypes'
 import HireModal from './../modal/HireModal'
 import UserDescriptionModal from './../modal/UserDescriptionModal'
 
 interface IProps {
   isApplicant: boolean
+  item?: IApplicant
 }
 
-const UserCard = ({ isApplicant }: IProps) => {
+const UserCard = ({ isApplicant, item }: IProps) => {
   const [openUserDescriptionModal, setOpenUserDescriptionModal] = useState(false)
   const [openHireModal, setOpenHireModal] = useState(false)
 
@@ -18,8 +20,8 @@ const UserCard = ({ isApplicant }: IProps) => {
         <div className='flex items-center gap-5'>
           <div className='w-16 h-16 rounded-full bg-gray-300'></div>
           <div>
-            <h1 className='font-medium text-lg'>Lorem Ipsum</h1>
-            <p className='text-sm text-gray-500 mt-2'>Joined at: 17 Mar 2022</p>
+            <h1 className='font-medium text-lg'>{item?.jobseeker.user.name}</h1>
+            <p className='text-sm text-gray-500 mt-2'>Joined at: {new Date(`${item?.jobseeker.user.createdAt}`).toLocaleDateString()}</p>
           </div>
         </div>
         <div className='flex items-center gap-2 mt-5'>
