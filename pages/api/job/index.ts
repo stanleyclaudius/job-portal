@@ -13,9 +13,9 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case 'POST':
       if (isAuthorize.status === 'accepted') {
-        const { position, skills, salary, overview, requirements, keywords } = req.body
+        const { position, employmentType, jobLevel, skills, salary, overview, requirements, keywords } = req.body
 
-        if (!position || skills.length < 1 || salary < 1 || !overview ||!requirements || keywords.length < 1)
+        if (!position || !employmentType || !jobLevel || skills.length < 1 || salary < 1 || !overview ||!requirements || keywords.length < 1)
           return res.status(400).json({ msg: 'Please provide every field in form to create job.' })
 
         if (overview.length < 100)
@@ -24,6 +24,8 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
         const newJob = new Job({
           organization: isAuthorize._id,
           position,
+          jobLevel,
+          employmentType,
           skills,
           salary,
           overview,
@@ -40,7 +42,7 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
         return res.status(401).json({ msg: 'Your organization haven\'t been accepted yet by admin.' })
       }
     case 'GET':
-      const jobs = await Job.find({ organization: isAuthorize._id })
+      const jobs = await Job.find({ organization: isAuthorize._id }).sort('-createdAt')
       return res.status(200).json({ jobs })
     default:
       return res.status(405).json({ msg: `${req.method} method not allowed for this endpoint.` })

@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { IRegister } from './../../../utils/Interface'
 import connectDB from './../../../libs/db'
 import jwt from 'jsonwebtoken'
-import { IDecodedRegisterToken } from '../../../utils/Interface'
-import User from '../../../models/User'
-import Jobseeker from '../../../models/Jobseeker'
-import Organization from '../../../models/Organization'
+import User from './../../../models/User'
+import Jobseeker from './../../../models/Jobseeker'
+import Organization from './../../../models/Organization'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST')
@@ -14,7 +14,7 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (!token)
     return res.status(400).json({ msg: 'Please provide account activation token.' })
 
-  const decoded = <IDecodedRegisterToken>jwt.verify(token, `${process.env.ACTIVATION_TOKEN_SECRET}`)
+  const decoded = <IRegister>jwt.verify(token, `${process.env.ACTIVATION_TOKEN_SECRET}`)
   if (!decoded)
     return res.status(401).json({ msg: 'Invalid account activation token.' })
 

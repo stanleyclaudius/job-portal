@@ -1,11 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { validateEmail } from './../../../utils/validator'
 import { generateActivationToken } from './../../../utils/generateToken'
+import { authMsg } from './../../../utils/mailMsg'
 import bcrypt from 'bcrypt'
 import User from './../../../models/User'
 import sendEmail from './../../../utils/sendMail'
 import connectDB from './../../../libs/db'
-import { authMsg } from '../../../utils/mailMsg'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST')

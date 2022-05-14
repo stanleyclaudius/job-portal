@@ -1,9 +1,22 @@
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
+import { RootStore } from './../../utils/Interface'
 import Head from 'next/head'
 import Link from 'next/link'
 import Footer from './../../components/general/Footer'
 import Navbar from './../../components/general/Navbar'
 
 const Register = () => {
+  const router = useRouter()
+  const { auth } = useSelector((state: RootStore) => state)
+
+  useEffect(() => {
+    if (auth.accessToken) {
+      router.push('/')
+    }
+  }, [auth, router])
+
   return (
     <>
       <Head>

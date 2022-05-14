@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { RootStore } from './../../utils/Interface'
+import { getJobs } from './../../redux/actions/jobActions'
 import Head from 'next/head'
 import Footer from './../../components/general/Footer'
 import Navbar from './../../components/general/Navbar'
@@ -7,9 +9,7 @@ import JobDetailModal from './../../components/modal/JobDetailModal'
 import DeleteModal from './../../components/modal/DeleteModal'
 import ApplicantModal from './../../components/modal/ApplicantModal'
 import CreateJobModal from './../../components/modal/CreateJobModal'
-import { RootStore } from '../../utils/Interface'
-import { getJobs } from '../../redux/actions/jobActions'
-import Loader from '../../components/general/Loader'
+import Loader from './../../components/general/Loader'
 
 const OrganizationJobs = () => {
   const [openJobDetailModal, setOpenJobDetailModal] = useState(false)
@@ -47,6 +47,8 @@ const OrganizationJobs = () => {
                   <tr className='text-sm bg-[#504ED7] text-white'>
                     <th className='p-3'>No</th>
                     <th>Position</th>
+                    <th>Job Level</th>
+                    <th>Employment Type</th>
                     <th>Posted Date</th>
                     <th>Total Applicant</th>
                     <th>Action</th>
@@ -58,6 +60,8 @@ const OrganizationJobs = () => {
                       <tr className='text-center bg-[#F9F9FF] text-sm'>
                         <td className='p-3'>{idx + 1}</td>
                         <td>{item.position}</td>
+                        <td>{item.jobLevel}</td>
+                        <td>{item.employmentType}</td>
                         <td>{`${new Date(item.createdAt!).toLocaleDateString()}`}</td>
                         <td>{item.applicants?.length ?? 0}</td>
                         <td>

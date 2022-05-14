@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { authorizeRoles, isAuthenticated } from '../../../../middlewares/auth'
-import Organization from '../../../../models/Organization'
-import User from '../../../../models/User'
-import { orgStatusMsg } from '../../../../utils/mailMsg'
-import sendEmail from '../../../../utils/sendMail'
+import { authorizeRoles, isAuthenticated } from './../../../../middlewares/auth'
+import { orgStatusMsg } from './../../../../utils/mailMsg'
+import Organization from './../../../../models/Organization'
+import User from './../../../../models/User'
+import sendEmail from './../../../../utils/sendMail'
 import connectDB from './../../../../libs/db'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {

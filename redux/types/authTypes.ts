@@ -2,12 +2,12 @@ import { IUser } from './../../utils/Interface'
 
 export const AUTH = 'AUTH'
 
-export interface IAuthType {
+export interface IAuth {
   accessToken?: string
   user?: IUser
 }
 
 export interface IAuthAction {
   type: typeof AUTH
-  payload: IAuthType
+  payload: IAuth
 }

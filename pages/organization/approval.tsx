@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Loader from '../../components/general/Loader'
-import { acceptOrganization, getUnapprovedOrganizations, rejectOrganization } from '../../redux/actions/organizationActions'
-import { IUnapprovedOrganizationsType } from '../../redux/types/organizationTypes'
-import { RootStore } from '../../utils/Interface'
+import { acceptOrganization, getUnapprovedOrganizations, rejectOrganization } from './../../redux/actions/organizationActions'
+import { IOrganization } from './../../redux/types/organizationTypes'
+import { RootStore } from './../../utils/Interface'
 import Layout from './../../components/admin/Layout'
 import OrganizationDetailModal from './../../components/modal/OrganizationDetailModal'
+import Loader from './../../components/general/Loader'
 
 const OrganizationApproval = () => {
   const [openOrganizationDetailModal, setOpenOrganizationDetailModal] = useState(false)
-  const [selectedOrganization, setSelectedOrganization] = useState<Partial<IUnapprovedOrganizationsType>>({})
+  const [selectedOrganization, setSelectedOrganization] = useState<Partial<IOrganization>>({})
 
   const dispatch = useDispatch()
   const { alert, organization, auth } = useSelector((state: RootStore) => state)
 
-  const handleClickDetail = (organization: IUnapprovedOrganizationsType) => {
+  const handleClickDetail = (organization: IOrganization) => {
     setOpenOrganizationDetailModal(true)
     setSelectedOrganization(organization)
   }
@@ -79,7 +79,7 @@ const OrganizationApproval = () => {
         <OrganizationDetailModal
           openModal={openOrganizationDetailModal}
           setOpenModal={setOpenOrganizationDetailModal}
-          selectedOrganization={selectedOrganization as IUnapprovedOrganizationsType}
+          selectedOrganization={selectedOrganization as IOrganization}
         />
       }
     </>

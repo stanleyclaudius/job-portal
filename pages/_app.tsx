@@ -1,9 +1,9 @@
 import type { AppProps } from 'next/app'
 import { ReactNode, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import Alert from '../components/general/Alert'
 import { refreshToken } from './../redux/actions/authActions'
 import DataProvider from './../redux/store'
+import Alert from './../components/general/Alert'
 import './../styles/globals.css'
 
 interface IProps {

@@ -1,6 +1,6 @@
 export const ALERT = 'ALERT'
 
-export interface IAlertType {
+export interface IAlert {
   error?: string
   success?: string
   loading?: boolean
@@ -8,5 +8,5 @@ export interface IAlertType {
 
 export interface IAlertAction {
   type: typeof ALERT
-  payload: IAlertType
+  payload: IAlert
 }

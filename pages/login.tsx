@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { FormSubmit, InputChange, RootStore } from './../utils/Interface'
 import { login } from './../redux/actions/authActions'
@@ -18,8 +19,9 @@ const Login = () => {
   })
   const [showPassword, setShowPassword] = useState(false)
 
+  const router = useRouter()
   const dispatch = useDispatch()
-  const { alert } = useSelector((state: RootStore) => state)
+  const { alert, auth } = useSelector((state: RootStore) => state)
 
   const handleChange = (e: InputChange) => {
     const { name, value } = e.target
@@ -53,6 +55,12 @@ const Login = () => {
     await dispatch(login(userData))
     setUserData({ email: '', password: '' })
   }
+
+  useEffect(() => {
+    if (auth.accessToken) {
+      router.push('/')
+    }
+  }, [auth, router])
 
   return (
     <>

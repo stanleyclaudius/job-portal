@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { BsBookmark } from 'react-icons/bs'
-import { IJob } from '../../redux/types/jobTypes'
-import { numberFormatter } from '../../utils/numberFormatter'
+import { IJob } from './../../redux/types/jobTypes'
+import { numberFormatter } from './../../utils/numberFormatter'
 
 interface IProps {
   job?: IJob

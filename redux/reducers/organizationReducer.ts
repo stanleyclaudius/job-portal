@@ -1,10 +1,10 @@
-import { ACCEPT_ORGANIZATION, GET_UNAPPROVED_ORGANIZATIONS, IAcceptOrganizationAction, IUnapprovedOrganizationsAction, IUnapprovedOrganizationsType } from './../types/organizationTypes'
+import { CHANGE_ORGANIZATION_STATUS, GET_UNAPPROVED_ORGANIZATIONS, IChangeOrganizationStatusAction, IGetUnapprovedOrganizationsAction, IOrganization } from './../types/organizationTypes'
 
-const organizationReducer = (state: IUnapprovedOrganizationsType[] = [], action: IUnapprovedOrganizationsAction | IAcceptOrganizationAction) =>{
+const organizationReducer = (state: IOrganization[] = [], action: IGetUnapprovedOrganizationsAction | IChangeOrganizationStatusAction) =>{
   switch (action.type) {
     case GET_UNAPPROVED_ORGANIZATIONS:
       return action.payload
-    case ACCEPT_ORGANIZATION:
+    case CHANGE_ORGANIZATION_STATUS:
       return state.filter(item => item._id !== action.payload)
     default:
       return state

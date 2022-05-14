@@ -1,6 +1,6 @@
-import { AUTH, IAuthAction, IAuthType } from './../types/authTypes'
+import { AUTH, IAuthAction, IAuth } from './../types/authTypes'
 
-const authReducer = (state: IAuthType = {}, action: IAuthAction) => {
+const authReducer = (state: IAuth = {}, action: IAuthAction) => {
   switch (action.type) {
     case AUTH:
       return action.payload

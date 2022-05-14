@@ -2,7 +2,7 @@ import { Dispatch } from 'redux'
 import { AUTH, IAuthAction } from './../types/authTypes'
 import { getDataAPI, postDataAPI } from './../../utils/fetchData'
 import { ALERT, IAlertAction } from './../types/alertTypes'
-import { IDecodedRegisterToken, IUserLogin } from '../../utils/Interface'
+import { IRegister, IUserLogin } from '../../utils/Interface'
 import Cookie from 'js-cookie'
 import { uploadImage } from '../../utils/imageHelper'
 
@@ -46,7 +46,7 @@ export const login = (userData: IUserLogin) => async(dispatch: Dispatch<IAuthAct
   }
 }
 
-export const register = (userData: IDecodedRegisterToken, avatar: File[] = []) => async(dispatch: Dispatch<IAlertAction>) => {
+export const register = (userData: IRegister, avatar: File[] = []) => async(dispatch: Dispatch<IAlertAction>) => {
   try {
     dispatch({
       type: ALERT,
@@ -97,4 +97,22 @@ export const refreshToken = () => async(dispatch: Dispatch<IAuthAction | IAlertA
       }
     })
   }
+}
+
+export const logout = () => async(dispatch: Dispatch<IAuthAction | IAlertAction>) => {
+  dispatch({
+    type: AUTH,
+    payload: {}
+  })
+
+  localStorage.removeItem('jobseek_logged')
+
+  Cookie.remove('jobseek_rfToken')
+
+  dispatch({
+    type: ALERT,
+    payload: {
+      success: 'Logout success.'
+    }
+  })
 }

@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
-import { FormSubmit, RootStore } from '../../utils/Interface'
+import { FormSubmit, RootStore } from './../../utils/Interface'
+import { createJob } from './../../redux/actions/jobActions'
+import { ALERT } from './../../redux/types/alertTypes'
 import Editor from './../../utils/Editor'
-import { createJob } from '../../redux/actions/jobActions'
-import Loader from '../general/Loader'
-import { ALERT } from '../../redux/types/alertTypes'
+import Loader from './../general/Loader'
 
 interface IProps {
   openModal: boolean
@@ -17,6 +17,8 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
   const [description, setDescription] = useState('')
   const [requirement, setRequirement] = useState('')
   const [position, setPosition] = useState('')
+  const [jobLevel, setJobLevel] = useState('')
+  const [employmentType, setEmploymentType] = useState('')
   const [salary, setSalary] = useState(0)
   const [keywords, setKeywords] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
@@ -72,6 +74,20 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
       })
     }
 
+    if (!jobLevel) {
+      return dispatch({
+        type: ALERT,
+        payload: { error: 'Please provide job level.' }
+      })
+    }
+
+    if (!employmentType) {
+      return dispatch({
+        type: ALERT,
+        payload: { error: 'Please provide employment type.' }
+      })
+    }
+
     if (skills.length < 1) {
       return dispatch({
         type: ALERT,
@@ -115,7 +131,7 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
     }
 
     setLoading(true)
-    await dispatch(createJob({ position, skills, keywords, salary, requirements: requirement, overview: description }, `${auth.accessToken}`))
+    await dispatch(createJob({ position, jobLevel, employmentType, skills, keywords, salary, requirements: requirement, overview: description }, `${auth.accessToken}`))
     setLoading(false)
   }
 
@@ -141,7 +157,28 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
           <form onSubmit={handleSubmit}>  
             <div className='mb-6'>
               <label htmlFor='position' className='text-sm'>Position</label>
-              <input type='text' id='position' name='position' value={position} onChange={e => setPosition(e.target.value)} className='outline-0 border border-gray-300 mt-3 text-sm rounded-md w-full px-2 h-10  ' />
+              <input type='text' id='position' name='position' value={position} onChange={e => setPosition(e.target.value)} className='outline-0 border border-gray-300 mt-3 text-sm rounded-md w-full px-2 h-10' />
+            </div>
+            <div className='mb-6'>
+              <label htmlFor='jobLevel' className='text-sm'>Job Level</label>
+              <select name='jobLevel' id='jobLevel' value={jobLevel} onChange={e => setJobLevel(e.target.value)} className='outline-0 border border-gray-300 mt-3 text-sm rounded-md w-full px-2 h-10 bg-white'>
+                <option value=''>- Job Level -</option>
+                <option value='internship'>Internship</option>
+                <option value='entryLevel'>Entry Level / Junior</option>
+                <option value='associate'>Associate / Supervisor</option>
+                <option value='manager'>Mid-Senior Level / Manager</option>
+                <option value='director'>Director / Executive</option>
+              </select>
+            </div>
+            <div className='mb-6'>
+              <label htmlFor='employmentType' className='text-sm'>Employment Type</label>
+              <select name='employmentType' id='employmentType' value={employmentType} onChange={e => setEmploymentType(e.target.value)} className='outline-0 border border-gray-300 mt-3 text-sm rounded-md w-full px-2 h-10 bg-white'>
+                <option value=''>- Employment Type -</option>
+                <option value='fullTime'>Full Time</option>
+                <option value='partTime'>Part TIme</option>
+                <option value='freelance'>Freelance</option>
+                <option value='contractual'>Contractual</option>
+              </select>
             </div>
             <div className='mb-6'>
               <label htmlFor='skills' className='text-sm'>Skills Required</label>

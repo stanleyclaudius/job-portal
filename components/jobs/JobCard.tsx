@@ -1,6 +1,6 @@
-import { IJob } from "../../redux/types/jobTypes"
+import { useState, useEffect } from 'react'
+import { IJob } from './../../redux/types/jobTypes'
 import moment from 'moment'
-import React, { useEffect, useState } from "react"
 
 interface IProps {
   item?: IJob

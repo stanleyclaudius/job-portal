@@ -1,6 +1,6 @@
-import { ALERT, IAlertAction, IAlertType } from "../types/alertTypes";
+import { ALERT, IAlertAction, IAlert } from '../types/alertTypes'
 
-const alertReducer = (state: IAlertType = {}, action: IAlertAction) => {
+const alertReducer = (state: IAlert = {}, action: IAlertAction) => {
   switch (action.type) {
     case ALERT:
       return action.payload

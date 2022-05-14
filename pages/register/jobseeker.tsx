@@ -1,16 +1,17 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiFillEye, AiFillEyeInvisible, AiOutlineUser } from 'react-icons/ai'
 import { BiLock } from 'react-icons/bi'
+import { validateEmail } from './../../utils/validator'
+import { register } from './../../redux/actions/authActions'
+import { FormSubmit, InputChange, RootStore } from './../../utils/Interface'
+import { ALERT } from './../../redux/types/alertTypes'
 import Link from 'next/link'
 import Head from 'next/head'
 import Footer from './../../components/general/Footer'
 import Navbar from './../../components/general/Navbar'
-import { FormSubmit, InputChange, RootStore } from '../../utils/Interface'
-import Loader from '../../components/general/Loader'
-import { ALERT } from '../../redux/types/alertTypes'
-import { validateEmail } from '../../utils/validator'
-import { register } from '../../redux/actions/authActions'
+import Loader from './../../components/general/Loader'
 
 const Jobseeker = () => {
   const [userData, setUserData] = useState({
@@ -22,8 +23,9 @@ const Jobseeker = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false)
 
+  const router = useRouter()
   const dispatch = useDispatch()
-  const { alert } = useSelector((state: RootStore) => state)
+  const { alert, auth } = useSelector((state: RootStore) => state)
 
   const handleChange = (e: InputChange) => {
     const { name, value } = e.target
@@ -84,6 +86,12 @@ const Jobseeker = () => {
 
     await dispatch(register({ ...userData, role: 'jobseeker' }))
   }
+
+  useEffect(() => {
+    if (auth.accessToken) {
+      router.push('/')
+    }
+  }, [])
 
   return (
     <>

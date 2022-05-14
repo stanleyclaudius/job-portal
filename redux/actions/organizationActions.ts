@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux'
 import { deleteDataAPI, getDataAPI, patchDataAPI } from '../../utils/fetchData'
 import { ALERT, IAlertAction } from './../types/alertTypes'
-import { ACCEPT_ORGANIZATION, GET_UNAPPROVED_ORGANIZATIONS, IAcceptOrganizationAction, IUnapprovedOrganizationsAction } from './../types/organizationTypes'
+import { CHANGE_ORGANIZATION_STATUS, GET_UNAPPROVED_ORGANIZATIONS, IChangeOrganizationStatusAction, IGetUnapprovedOrganizationsAction } from './../types/organizationTypes'
 
-export const getUnapprovedOrganizations = (token: string) => async(dispatch: Dispatch<IUnapprovedOrganizationsAction | IAlertAction>) => {
+export const getUnapprovedOrganizations = (token: string) => async(dispatch: Dispatch<IGetUnapprovedOrganizationsAction | IAlertAction>) => {
   try {
     dispatch({
       type: ALERT,
@@ -32,11 +32,11 @@ export const getUnapprovedOrganizations = (token: string) => async(dispatch: Dis
   }
 }
 
-export const acceptOrganization = (id: string, token: string) => async(dispatch: Dispatch<IAcceptOrganizationAction | IAlertAction>) => {
+export const acceptOrganization = (id: string, token: string) => async(dispatch: Dispatch<IChangeOrganizationStatusAction | IAlertAction>) => {
   try {
     const res = await patchDataAPI(`organization/accept/${id}`, {}, token)
     dispatch({
-      type: ACCEPT_ORGANIZATION,
+      type: CHANGE_ORGANIZATION_STATUS,
       payload: id
     })
 
@@ -56,11 +56,11 @@ export const acceptOrganization = (id: string, token: string) => async(dispatch:
   }
 }
 
-export const rejectOrganization = (id: string, token: string) => async(dispatch: Dispatch<IAcceptOrganizationAction | IAlertAction>) => {
+export const rejectOrganization = (id: string, token: string) => async(dispatch: Dispatch<IChangeOrganizationStatusAction | IAlertAction>) => {
   try {
     const res = await deleteDataAPI(`organization/reject/${id}`, token)
     dispatch({
-      type: ACCEPT_ORGANIZATION,
+      type: CHANGE_ORGANIZATION_STATUS,
       payload: id
     })
 

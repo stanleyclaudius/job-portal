@@ -1,29 +1,17 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
+import { FormSubmit, ICityData, IDistrictData, InputChange, IProvinceData, RootStore } from './../../utils/Interface'
+import { validateEmail } from './../../utils/validator'
+import { register } from './../../redux/actions/authActions'
+import { ALERT } from './../../redux/types/alertTypes'
 import Head from 'next/head'
 import Link from 'next/link'
 import Editor from './../../utils/Editor'
 import Footer from './../../components/general/Footer'
 import Navbar from './../../components/general/Navbar'
-import { FormSubmit, InputChange, RootStore } from '../../utils/Interface'
-import { ALERT } from '../../redux/types/alertTypes'
-import { validateEmail } from '../../utils/validator'
-import { register } from '../../redux/actions/authActions'
-import Loader from '../../components/general/Loader'
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-
-interface IProvinceData {
-  id: number
-  nama: string
-}
-
-interface ICityData extends IProvinceData {
-  id_provinsi: string
-}
-
-interface IDistrictData extends IProvinceData {
-  id_kota: string
-}
+import Loader from './../../components/general/Loader'
 
 const Organization = () => {
   const [provinceData, setProvinceData] = useState<IProvinceData[]>([])
@@ -50,8 +38,9 @@ const Organization = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false)
 
+  const router = useRouter()
   const dispatch = useDispatch()
-  const { alert } = useSelector((state: RootStore) => state)
+  const { alert, auth } = useSelector((state: RootStore) => state)
 
   const handleChangeInput = (e: InputChange) => {
     const { name, value } = e.target
@@ -210,6 +199,12 @@ const Organization = () => {
     
     return () => setDistrictData([])
   }, [organizationData.city])
+
+  useEffect(() => {
+    if (auth.accessToken) {
+      router.push('/')
+    }
+  }, [router, auth])
 
   return (
     <>

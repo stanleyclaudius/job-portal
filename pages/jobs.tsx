@@ -1,16 +1,16 @@
+import { useState } from 'react'
+import { GetServerSideProps } from 'next'
 import { AiOutlineSearch } from 'react-icons/ai'
+import { MdOutlineMapsHomeWork } from 'react-icons/md'
 import { IoLocation } from 'react-icons/io5'
+import { IJob } from './../redux/types/jobTypes'
 import Head from 'next/head'
+import axios from 'axios'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
 import Filter from './../components/jobs/Filter'
 import JobCard from './../components/jobs/JobCard'
 import JobDetail from './../components/jobs/JobDetail'
-import { GetServerSideProps } from 'next'
-import axios from 'axios'
-import { IJob } from '../redux/types/jobTypes'
-import { useState } from 'react'
-import { MdOutlineMapsHomeWork } from 'react-icons/md'
 
 interface IProps {
   data: IJob[]

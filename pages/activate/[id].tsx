@@ -1,9 +1,9 @@
-import axios from 'axios'
-import { GetServerSideProps } from 'next'
 import { useEffect } from 'react'
+import { GetServerSideProps } from 'next'
 import { useDispatch } from 'react-redux'
-import { ALERT } from '../../redux/types/alertTypes'
 import { useRouter } from 'next/router'
+import { ALERT } from './../../redux/types/alertTypes'
+import axios from 'axios'
 
 interface IProps {
   success?: string

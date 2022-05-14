@@ -7,14 +7,11 @@ export type FormSubmit = FormEvent<HTMLFormElement>
 
 export type RootStore = ReturnType<typeof RootReducer>
 
-export interface ISocialMediaRegister extends IUserLogin {
+export interface IUser extends IUserLogin {
+  _id: string
   name: string
   avatar: string
   type: string
-}
-
-export interface IUser extends ISocialMediaRegister {
-  _id: string
   role: string
   province: number
   city: number
@@ -38,7 +35,7 @@ export interface IDecodedToken {
   id: string
 }
 
-export interface IDecodedRegisterToken {
+export interface IRegister {
   name: string
   email: string
   password: string
@@ -54,4 +51,17 @@ export interface IDecodedRegisterToken {
   totalEmployee?: number
   industryType?: string
   phoneNumber?: string
+}
+
+export interface IProvinceData {
+  id: number
+  nama: string
+}
+
+export interface ICityData extends IProvinceData {
+  id_provinsi: string
+}
+
+export interface IDistrictData extends IProvinceData {
+  id_kota: string
 }

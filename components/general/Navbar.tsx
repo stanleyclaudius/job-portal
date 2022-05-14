@@ -1,16 +1,21 @@
 import { useState, useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { AiOutlineClose } from 'react-icons/ai'
+import { logout } from './../../redux/actions/authActions'
+import { RootStore } from './../../utils/Interface'
 import Link from 'next/link'
 import Image from 'next/image'
 import Logo from './../../public/images/logo.png'
 
 const Navbar = () => {
-  const { pathname } = useRouter()
+  const [openSidebar, setOpenSidebar] = useState(false)
 
   const router = useRouter()
-  const [openSidebar, setOpenSidebar] = useState(false)
+  const dispatch = useDispatch()
+  const { auth } = useSelector((state: RootStore) => state)
+  const { pathname } = useRouter()
 
   const sidebarRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
@@ -52,16 +57,28 @@ const Navbar = () => {
           </Link>
         </div>
         <div className='text-sm flex lg:flex-row flex-col lg:items-center items-start lg:gap-8 gap-4 mt-10 lg:mt-0'>
-          <Link href='/login'>
-            <a className={`navbar-link ${pathname === '/login' ? 'active' : undefined}`}>
-              Login
-            </a>
-          </Link>
-          <Link href='/register'>
-            <a className={`px-6 py-2 border-2 rounded-full border-[#504ED7] ${pathname === '/register' || pathname === '/register/jobseeker' || pathname === '/register/organization' ? 'bg-[#504ED7] text-white' : 'text-[#504ED7]'}`}>
-              Register Now
-            </a>
-          </Link>
+          {
+            !auth.accessToken
+            ? (
+              <>
+                <Link href='/login'>
+                  <a className={`navbar-link ${pathname === '/login' ? 'active' : undefined}`}>
+                    Login
+                  </a>
+                </Link>
+                <Link href='/register'>
+                  <a className={`px-6 py-2 border-2 rounded-full border-[#504ED7] ${pathname === '/register' || pathname === '/register/jobseeker' || pathname === '/register/organization' ? 'bg-[#504ED7] text-white' : 'text-[#504ED7]'}`}>
+                    Register Now
+                  </a>
+                </Link>
+              </>
+            )
+            : (
+              <div onClick={() => dispatch(logout())}>
+                <p className='navbar-link cursor-pointer'>Logout</p>
+              </div>
+            )
+          }
         </div>
       </div>
     </div>

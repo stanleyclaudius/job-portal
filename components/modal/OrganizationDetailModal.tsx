@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
-import { IUnapprovedOrganizationsType } from '../../redux/types/organizationTypes'
+import { IOrganization } from './../../redux/types/organizationTypes'
 
 interface IProps {
   openModal: boolean
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
-  selectedOrganization: IUnapprovedOrganizationsType
+  selectedOrganization: IOrganization
 }
 
 const OrganizationDetailModal = ({ openModal, setOpenModal, selectedOrganization }: IProps) => {
