@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/general/Loader'
-import { acceptOrganization, getUnapprovedOrganizations } from '../../redux/actions/organizationActions'
+import { acceptOrganization, getUnapprovedOrganizations, rejectOrganization } from '../../redux/actions/organizationActions'
 import { IUnapprovedOrganizationsType } from '../../redux/types/organizationTypes'
 import { RootStore } from '../../utils/Interface'
 import Layout from './../../components/admin/Layout'
@@ -62,7 +62,7 @@ const OrganizationApproval = () => {
                         <td>
                           <button onClick={() => handleClickDetail(item)} className='text-xs mr-3 text-white px-3 py-2 bg-blue-500 hover:bg-blue-600 transition-[background] rounded-md'>Detail</button>
                           <button onClick={() => handleAcceptOrg(item._id)} className='bg-green-600 mr-3 hover:bg-green-700 transition-[background] rounded-md text-white px-3 text-xs py-2'>Accept</button>
-                          <button className='bg-red-500 hover:bg-red-600 transition-[background[ rounded-md text-white px-3 py-2 text-xs'>Reject</button>
+                          <button onClick={() => dispatch(rejectOrganization(item._id, `${auth.accessToken}`))} className='bg-red-500 hover:bg-red-600 transition-[background[ rounded-md text-white px-3 py-2 text-xs'>Reject</button>
                         </td>
                       </tr>
                     ))

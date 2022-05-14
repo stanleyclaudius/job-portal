@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt'
 import User from './../../../models/User'
 import sendEmail from './../../../utils/sendMail'
 import connectDB from './../../../libs/db'
+import { authMsg } from '../../../utils/mailMsg'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST')
@@ -121,7 +122,9 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
 
     const url = `${process.env.CLIENT_URL}/activate/${token}`
 
-    sendEmail(email, 'Account Activation', url)
+    const emailMsg = authMsg('Account Activation', url)
+
+    sendEmail(email, 'Account Activation', emailMsg)
 
     return res.status(200).json({ msg: `An account activation link has been sent to ${email}` })
   } else {
