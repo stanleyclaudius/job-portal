@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
+import { FormSubmit, RootStore } from '../../utils/Interface'
 import Editor from './../../utils/Editor'
+import { createJob } from '../../redux/actions/jobActions'
+import Loader from '../general/Loader'
+import { ALERT } from '../../redux/types/alertTypes'
 
 interface IProps {
   openModal: boolean
@@ -11,8 +16,15 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
   const [skills, setSkills] = useState<string[]>([])
   const [description, setDescription] = useState('')
   const [requirement, setRequirement] = useState('')
+  const [position, setPosition] = useState('')
+  const [salary, setSalary] = useState(0)
+  const [keywords, setKeywords] = useState<string[]>([])
+  const [loading, setLoading] = useState(false)
 
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
+
+  const dispatch = useDispatch()
+  const { auth } = useSelector((state: RootStore) => state)
 
   const handleChangeSkills = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === ',' && (e.target as HTMLInputElement).value !== ',') {
@@ -26,10 +38,85 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
     }
   }
 
+  const handleChangeKeywords = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === ',' && (e.target as HTMLInputElement).value !== ',') {
+      const val = (e.target as HTMLInputElement).value
+      if (keywords.includes(val.substring(0, val.length - 1)))
+        (e.target as HTMLInputElement).value = ''
+      else {
+        setKeywords([...keywords, val.substring(0, val.length - 1)]);
+        (e.target as HTMLInputElement).value = ''
+      }
+    }
+  }
+
   const handleRemoveSkill = (idx: number) => {
     const skillCopy = [...skills]
     skillCopy.splice(idx, 1)
     setSkills(skillCopy)
+  }
+
+  const handleRemoveKeyword = (idx: number) => {
+    const keywordCopy = [...keywords]
+    keywordCopy.splice(idx, 1)
+    setKeywords(keywordCopy)
+  }
+
+  const handleSubmit = async(e: FormSubmit) => {
+    e.preventDefault()
+
+    if (!position) {
+      return dispatch({
+        type: ALERT,
+        payload: { error: 'Please provide job position.' }
+      })
+    }
+
+    if (skills.length < 1) {
+      return dispatch({
+        type: ALERT,
+        payload: { error: 'Please provide at least 1 skill.' }
+      })
+    }
+
+    if (salary < 10000) {
+      return dispatch({
+        type: ALERT,
+        payload: { error: 'Salary should be at least IDR 10.000' }
+      })
+    }
+
+    if (!description) {
+      return dispatch({
+        type: ALERT,
+        payload: { error: 'Please provide job overview.' }
+      })
+    }
+
+    if (description.length < 100) {
+      return dispatch({
+        type: ALERT,
+        payload: { error: 'Job overview should be at least 100 characters.' }
+      })
+    }
+
+    if (!requirement) {
+      return dispatch({
+        type: ALERT,
+        payload: { error: 'Please provide job requirement.' }
+      })
+    }
+
+    if (keywords.length < 1) {
+      return dispatch({
+        type: ALERT,
+        payload: { error: 'Please provide at least 1 keyword.' }
+      })
+    }
+
+    setLoading(true)
+    await dispatch(createJob({ position, skills, keywords, salary, requirements: requirement, overview: description }, `${auth.accessToken}`))
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -51,10 +138,10 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
           <AiOutlineClose onClick={() => setOpenModal(false)} className='cursor-pointer' />
         </div>
         <div className='p-7'>
-          <form>  
+          <form onSubmit={handleSubmit}>  
             <div className='mb-6'>
               <label htmlFor='position' className='text-sm'>Position</label>
-              <input type='text' id='position' name='position' className='outline-0 border border-gray-300 mt-3 text-sm rounded-md w-full px-2 h-10  ' />
+              <input type='text' id='position' name='position' value={position} onChange={e => setPosition(e.target.value)} className='outline-0 border border-gray-300 mt-3 text-sm rounded-md w-full px-2 h-10  ' />
             </div>
             <div className='mb-6'>
               <label htmlFor='skills' className='text-sm'>Skills Required</label>
@@ -76,7 +163,7 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
             </div>
             <div className='mb-6'>
               <label htmlFor='salary' className='text-sm'>Salary</label>
-              <input type='number' className='outline-0 border border-gray-300 mt-3 rounded-md w-full text-sm px-2 h-10' min={1} /> 
+              <input type='number' id='salary' name='salary' value={salary} onChange={e => setSalary(parseInt(e.target.value))} className='outline-0 border border-gray-300 mt-3 rounded-md w-full text-sm px-2 h-10' min={1} /> 
             </div>
             <div className='mb-6'>
               <label htmlFor='description' className='text-sm'>Job Overview</label>
@@ -92,7 +179,31 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
                 setContent={setRequirement}
               />
             </div>
-            <button className='bg-[#504ED7] hover:bg-[#2825C2] transition-[background] text-sm text-white w-full rounded-md py-3'>Post Job</button>
+            <div className='mb-6'>
+              <label htmlFor='skills' className='text-sm'>Keywords</label>
+              <div className='border border-gray-300 mt-3 rounded-md flex items-center px-2 min-h-20 flex-wrap'>
+                <div className='flex items-center gap-3 flex-wrap my-2'>
+                  {
+                    keywords.map((item, idx) => (
+                      <div key={item} className='rounded-md bg-gray-100 px-3 py-1 flex items-center gap-2 break-words'>
+                        <p className='text-sm'>{item}</p>
+                        <div className='bg-gray-300 text-gray-600 w-fit rounded-full p-1 cursor-pointer'>
+                          <AiOutlineClose onClick={() => handleRemoveKeyword(idx)} className='text-xs' />
+                        </div>
+                      </div>
+                    ))
+                  }
+                </div>
+                <input type='text' onKeyUp={e => handleChangeKeywords(e)} className='outline-0 text-sm w-full px-2 h-10 flex-1' />
+              </div>
+            </div>
+            <button className={`${loading ? 'bg-gray-200 hover:bg-gray-200 cursor-auto' : 'bg-[#504ED7] hover:bg-[#2825C2] cursor-pointer'} transition-[background] text-sm text-white w-full rounded-md py-3`}>
+              {
+                loading
+                ? <Loader />
+                : 'Post Job'
+              }
+            </button>
           </form>
         </div>
       </div>

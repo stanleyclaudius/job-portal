@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { IDecodedToken } from './../utils/Interface'
 import jwt from 'jsonwebtoken'
 import User from './../models/User'
+import Organization from '../models/Organization'
 
 export const isAuthenticated = async(req: NextApiRequest, res: NextApiResponse) => {
   const token = req.headers.authorization
@@ -24,5 +25,12 @@ export const authorizeRoles = async(userId: string, res: NextApiResponse, ...rol
   if (!roles.includes(user.role)) {
     return res.status(401).json({ msg: `${user.role} role don\'t have access to this resource.` })
   }
+
+  let userDetail
+  if (user.role === 'organization') {
+    userDetail = await Organization.findOne({ user: userId }).populate('user')
+    return userDetail
+  }
+
   return true
 }
