@@ -63,7 +63,7 @@ const OrganizationJobs = () => {
                         <td>{item.jobLevel}</td>
                         <td>{item.employmentType}</td>
                         <td>{`${new Date(item.createdAt!).toLocaleDateString()}`}</td>
-                        <td>{item.applicants?.length ?? 0}</td>
+                        <td>x</td>
                         <td>
                           <button onClick={() => setOpenJobDetailModal(true)} className='mr-3 bg-blue-500 hover:bg-blue-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Detail</button>
                           <button onClick={() => setOpenApplicantModal(true)} className='mr-3 bg-[#504ED7] hover:bg-[#2825C2] transition-[background] text-white text-xs px-3 py-1 rounded-md'>Applicant</button>

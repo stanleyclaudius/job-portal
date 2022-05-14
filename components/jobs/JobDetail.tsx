@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { BsBookmark } from 'react-icons/bs'
 import { IJob } from './../../redux/types/jobTypes'
 import { numberFormatter } from './../../utils/numberFormatter'
+import { RootStore } from './../../utils/Interface'
+import { postDataAPI } from './../../utils/fetchData'
+import { ALERT } from './../../redux/types/alertTypes'
 
 interface IProps {
   job?: IJob
@@ -11,6 +15,24 @@ const JobDetail = ({ job }: IProps) => {
   const [province, setProvince] = useState('')
   const [city, setCity] = useState('')
   const [district, setDistrict] = useState('')
+
+  const dispatch = useDispatch()
+  const { auth } = useSelector((state: RootStore) => state)
+
+  const applyJob = async() => {
+    try {
+      const res = await postDataAPI('job/apply', { job: job?._id, userId: auth.user?._id }, `${auth.accessToken}`)
+      dispatch({
+        type: ALERT,
+        payload: { success: res.data.msg }
+      })
+    } catch (err: any) {
+      dispatch({
+        type: ALERT,
+        payload: { error: err.response.data.msg }
+      })
+    }
+  }
 
   useEffect(() =>{ 
     const getProvinceData = () => {
@@ -56,14 +78,14 @@ const JobDetail = ({ job }: IProps) => {
         </div>
         <div className='flex items-center gap-7'>
           <BsBookmark className='cursor-pointer text-xl' />
-          <button className='bg-[#504ED7] hover:bg-[#2825C2] outline-0 transition-[background] text-white rounded-md text-sm px-4 py-2'>Apply</button>
+          <button onClick={applyJob} className='bg-[#504ED7] hover:bg-[#2825C2] outline-0 transition-[background] text-white rounded-md text-sm px-4 py-2'>Apply</button>
         </div>
       </div>
       <div className='mt-5'>
         <p className='font-medium mb-4'>Job Overview</p>
         <div className='text-sm leading-relaxed mb-3' dangerouslySetInnerHTML={{ __html: `${job?.overview}` }} />
         <p className='font-medium mb-4 mt-6'>Skills and Expertise</p>
-        <div className='flex items-center gap-3 mb-7'>
+        <div className='flex items-center gap-3 mb-7 flex-wrap'>
           {
             job?.skills.map(item => (
               <p key={item} className='bg-gray-200 text-gray-600 text-xs px-3 py-2 rounded-full'>{item}</p>

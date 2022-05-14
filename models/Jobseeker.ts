@@ -13,6 +13,13 @@ const jobseekerSchema = new mongoose.Schema({
   dob: {
     type: Date,
     default: ''
+  },
+  skills: {
+    type: Array
+  },
+  about: {
+    type: String,
+    minlength: 100
   }
 }, {
   timestamps: true

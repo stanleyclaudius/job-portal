@@ -19,6 +19,11 @@ const Navbar = () => {
 
   const sidebarRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
+  const handleLogout = async() => {
+    await dispatch(logout())
+    router.push('/login')
+  }
+
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
       if (openSidebar && sidebarRef.current && !sidebarRef.current.contains(e.target as Node)) {
@@ -74,9 +79,40 @@ const Navbar = () => {
               </>
             )
             : (
-              <div onClick={() => dispatch(logout())}>
-                <p className='navbar-link cursor-pointer'>Logout</p>
-              </div>
+              <>
+                {
+                  auth.user?.role === 'jobseeker'
+                  ? (
+                    <>
+                      <Link href='/edit_profile'>
+                        <a className={`navbar-link ${pathname === '/edit_profile' ? 'active' : undefined}`}>
+                          Edit Profile
+                        </a>
+                      </Link>
+                      <Link href='/job_applied'>
+                        <a className={`navbar-link ${pathname === '/job_applied' ? 'active' : undefined}`}>
+                          Jobs Applied
+                        </a>
+                      </Link>
+                    </>
+                  )
+                  : auth.user?.role === 'organization'
+                    ? (
+                      <Link href='/organization/jobs'>
+                        <a className={`navbar-link ${pathname === '/organization/jobs' ? 'active' : undefined}`}>
+                          Jobs Posted
+                        </a>
+                      </Link>
+                    )
+                    : ''
+                }
+                <div onClick={handleLogout}>
+                  <p className='navbar-link cursor-pointer'>Logout</p>
+                </div>
+                <div>
+                  <p>Hi, {auth.user?.name}</p>
+                </div>
+              </>
             )
           }
         </div>
