@@ -48,7 +48,7 @@ const JobCard = ({ item, isApplied, onClick, status, appliedAt }: IProps) => {
 
         {
           isApplied &&
-          <div className='text-sm bg-orange-500 capitalize w-fit text-white text-center py-2 px-4 rounded-md md:mt-0 mt-3'>
+          <div className={`text-sm ${status === 'accepted' ? 'bg-green-600' : status === 'rejected' ? 'bg-red-500' : 'bg-orange-500'} capitalize w-fit text-white text-center py-2 px-4 rounded-md md:mt-0 mt-3`}>
             {status}
           </div>
         }

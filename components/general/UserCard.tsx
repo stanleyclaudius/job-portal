@@ -1,9 +1,12 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { MdCheck } from 'react-icons/md'
 import { IApplicant } from '../../redux/types/applicantTypes'
 import HireModal from './../modal/HireModal'
 import UserDescriptionModal from './../modal/UserDescriptionModal'
+import { RootStore } from '../../utils/Interface'
+import { changeApplicantStatus } from '../../redux/actions/applicantActions'
 
 interface IProps {
   isApplicant: boolean
@@ -14,11 +17,16 @@ const UserCard = ({ isApplicant, item }: IProps) => {
   const [openUserDescriptionModal, setOpenUserDescriptionModal] = useState(false)
   const [openHireModal, setOpenHireModal] = useState(false)
 
+  const dispatch = useDispatch()
+  const { auth } = useSelector((state: RootStore) => state)
+
   return (
     <>
       <div className='bg-white rounded-md border border-gray-200 shadow-md p-5 cursor-pointer hover:scale-105 transition-[transform]'>
         <div className='flex items-center gap-5'>
-          <div className='w-16 h-16 rounded-full bg-gray-300'></div>
+          <div className='w-16 h-16 rounded-full bg-gray-300 shrink-0'>
+            <img src={item?.jobseeker.user.avatar} alt={item?.jobseeker.user.name} className='w-full h-full rounded-full' />
+          </div>
           <div>
             <h1 className='font-medium text-lg'>{item?.jobseeker.user.name}</h1>
             <p className='text-sm text-gray-500 mt-2'>Joined at: {new Date(`${item?.jobseeker.user.createdAt}`).toLocaleDateString()}</p>
@@ -36,10 +44,20 @@ const UserCard = ({ isApplicant, item }: IProps) => {
           {
             isApplicant
             ? (
-              <div className='flex items-center gap-2'>
-                <button className='bg-green-600 hover:bg-green-700 transition-[background] rounded-md text-white px-3 text-lg py-2'><MdCheck /></button>
-                <button className='bg-red-500 hover:bg-red-600 transition-[background[ rounded-md text-white px-3 py-2 text-lg'><AiOutlineClose /></button>
-              </div>
+              <>
+                {
+                  item?.status !== 'accepted' && item?.status !== 'rejected'
+                  ? (
+                    <div className='flex items-center gap-2'>
+                      <button onClick={() => dispatch(changeApplicantStatus(`${item?.job}`, `${item?.jobseeker._id}`, 'accepted', `${auth.accessToken}`))} className='bg-green-600 hover:bg-green-700 transition-[background] rounded-md text-white px-3 text-lg py-2'><MdCheck /></button>
+                      <button onClick={() => dispatch(changeApplicantStatus(`${item?.job}`, `${item?.jobseeker._id}`, 'rejected', `${auth.accessToken}`))} className='bg-red-500 hover:bg-red-600 transition-[background] rounded-md text-white px-3 py-2 text-lg'><AiOutlineClose /></button>
+                    </div>
+                  )
+                  : (
+                    <div className={`${item?.status === 'accepted' ? 'bg-green-600' : 'bg-red-500'} rounded-md capitalize text-white px-3 py-2 `}>{item?.status}</div>
+                  )
+                }
+              </>
             )
             : <button onClick={() => setOpenHireModal(true)} className='bg-green-600 hover:bg-green-700 transition-[background] text-white rounded-md px-4 py-2 text-sm'>Hire</button>
           }

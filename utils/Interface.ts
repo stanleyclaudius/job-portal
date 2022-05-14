@@ -13,6 +13,8 @@ export interface IJobseeker {
   dob?: string
   user: IUser
   status: string
+  skills: string[]
+  about: string
 }
 
 export interface IUser extends IUserLogin {
