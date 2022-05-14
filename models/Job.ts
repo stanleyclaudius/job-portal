@@ -30,7 +30,13 @@ const jobSchema = new mongoose.Schema({
   keywords: {
     type: Array,
     required: true
-  }
+  },
+  applicants: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'jobseeker'
+    }
+  ]
 }, {
   timestamps: true
 })

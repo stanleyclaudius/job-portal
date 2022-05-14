@@ -10,6 +10,8 @@ export interface IJob {
   overview: string
   requirements: string
   keywords: string[]
+  createdAt?: string
+  applicants?: any[]
 }
 
 export interface IGetJobsAction {
