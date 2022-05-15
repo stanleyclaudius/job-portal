@@ -19,9 +19,9 @@ const Navbar = () => {
 
   const sidebarRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
-  const handleLogout = async() => {
-    await dispatch(logout())
+  const handleLogout = () => {
     router.push('/login')
+    dispatch(logout())
   }
 
   useEffect(() => {

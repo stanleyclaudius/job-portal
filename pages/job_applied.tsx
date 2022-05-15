@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Footer from './../components/general/Footer'
@@ -9,6 +9,7 @@ import { RootStore } from '../utils/Interface'
 import { getDataAPI } from '../utils/fetchData'
 import { IJob } from '../redux/types/jobTypes'
 import Loader from '../components/general/Loader'
+import { ALERT } from '../redux/types/alertTypes'
 
 interface IData {
   _id: string
@@ -23,14 +24,22 @@ const JobApplied = () => {
   const [loading, setLoading] = useState(false)
 
   const router = useRouter()
+  const dispatch = useDispatch()
   const { auth } = useSelector((state: RootStore) => state)
 
   useEffect(() => {
     const fetchData = async() => {
       setLoading(true)
-      const res = await getDataAPI('jobs-applied', `${auth.accessToken}`)
+      try {
+        const res = await getDataAPI('jobs-applied', `${auth.accessToken}`)
+        setData(res.data.jobs)
+      } catch (err: any) {
+        dispatch({
+          type: ALERT,
+          payload: { error: err.response.data.msg }
+        })
+      }
       setLoading(false)
-      setData(res.data.jobs)
     }
 
     if (auth.accessToken) {
@@ -40,7 +49,7 @@ const JobApplied = () => {
 
   useEffect(() => {
     if (!auth.accessToken) {
-      router.push('/login')
+      router.push('/login?r=job_applied')
     } else {
       if (auth.user?.role !== 'jobseeker') {
         router.push('/')

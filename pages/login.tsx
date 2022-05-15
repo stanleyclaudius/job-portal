@@ -20,6 +20,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
 
   const router = useRouter()
+  const { query } = useRouter()
   const dispatch = useDispatch()
   const { alert, auth } = useSelector((state: RootStore) => state)
 
@@ -58,7 +59,11 @@ const Login = () => {
 
   useEffect(() => {
     if (auth.accessToken) {
-      router.push('/')
+      if (query.r) {
+        router.push(`/${query.r}`)
+      } else {
+        router.push('/')
+      }
     }
   }, [auth, router])
 
