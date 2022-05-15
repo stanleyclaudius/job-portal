@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent } from 'react'
 import RootReducer from './../redux/reducers'
 
-export type InputChange = ChangeEvent<HTMLInputElement | HTMLSelectElement>
+export type InputChange = ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
 
 export type FormSubmit = FormEvent<HTMLFormElement>
 
@@ -13,6 +13,19 @@ export interface IJobseeker {
   dob?: string
   user: IUser
   status: string
+  skills: string[]
+  about: string
+}
+
+export interface IEditProfile {
+  avatar: string
+  name: string
+  dob: string
+  cv: string
+  province: string
+  city: string
+  district: string
+  postalCode: number
   skills: string[]
   about: string
 }

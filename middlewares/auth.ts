@@ -3,6 +3,7 @@ import { IDecodedToken } from './../utils/Interface'
 import jwt from 'jsonwebtoken'
 import User from './../models/User'
 import Organization from '../models/Organization'
+import Jobseeker from '../models/Jobseeker'
 
 export const isAuthenticated = async(req: NextApiRequest, res: NextApiResponse) => {
   const token = req.headers.authorization
@@ -29,6 +30,9 @@ export const authorizeRoles = async(userId: string, res: NextApiResponse, ...rol
   let userDetail
   if (user.role === 'organization') {
     userDetail = await Organization.findOne({ user: userId }).populate('user')
+    return userDetail
+  } else if (user.role === 'jobseeker') {
+    userDetail = await Jobseeker.findOne({ user: userId }).populate('user')
     return userDetail
   }
 

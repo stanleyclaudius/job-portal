@@ -1,8 +1,8 @@
 import { Dispatch } from 'redux'
-import { AUTH, IAuthAction } from './../types/authTypes'
-import { getDataAPI, postDataAPI } from './../../utils/fetchData'
+import { AUTH, IAuth, IAuthAction } from './../types/authTypes'
+import { getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
 import { ALERT, IAlertAction } from './../types/alertTypes'
-import { IRegister, IUserLogin } from '../../utils/Interface'
+import { IEditProfile, IRegister, IUserLogin } from '../../utils/Interface'
 import Cookie from 'js-cookie'
 import { uploadImage } from '../../utils/imageHelper'
 
@@ -115,4 +115,51 @@ export const logout = () => async(dispatch: Dispatch<IAuthAction | IAlertAction>
       success: 'Logout success.'
     }
   })
+}
+
+export const editProfile = (profileData: IEditProfile, tempAvatar: File[], tempCv: File[], token: string) => async(dispatch: Dispatch<IAuthAction | IAlertAction>) => {
+  try {
+    dispatch({
+      type: ALERT,
+      payload: {
+        loading: true
+      }
+    })
+
+    let avatarUrl = ''
+    let cvUrl = ''
+
+    if (tempAvatar.length > 0) {
+      let url = await uploadImage(tempAvatar, 'avatar')
+      avatarUrl = url[0]
+    }
+
+    if (tempCv.length > 0) {
+      let url = await uploadImage(tempCv, 'cv')
+      cvUrl = url[0]
+    }
+
+    const res = await patchDataAPI('jobseeker', { ...profileData, avatar: avatarUrl ? avatarUrl : profileData.avatar, cv: cvUrl ? cvUrl : profileData.cv }, token)
+    dispatch({
+      type: AUTH,
+      payload: {
+        accessToken: token,
+        user: res.data.user
+      }
+    })
+
+    dispatch({
+      type: ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    })
+  }
 }
