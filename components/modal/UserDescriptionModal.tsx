@@ -1,38 +1,45 @@
 import { useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
+import { RootStore } from '../../utils/Interface'
+import { OPEN_DESCRIPTION_MODAL } from '../../redux/types/userDescriptionTypes'
+import Link from 'next/link'
 
-interface IProps {
-  openModal: boolean
-  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-const UserDescriptionModal = ({ openModal, setOpenModal }: IProps) => {
+const UserDescriptionModal = () => {
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
+
+  const dispatch = useDispatch()
+  const { userDescription } = useSelector((state: RootStore) => state)
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
-      if (openModal && modalRef.current && !modalRef.current.contains(e.target as Node)) {
-        setOpenModal(false)
+      if (userDescription && modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        dispatch({
+          type: OPEN_DESCRIPTION_MODAL,
+          payload: null
+        })
       }
     }
 
     document.addEventListener('mousedown', checkIfClickedOutside)
     return () => document.removeEventListener('mousedown', checkIfClickedOutside)
-  }, [openModal])
+  }, [userDescription])
   
   return (
-    <div className={`${openModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} modal-background`}>
-      <div ref={modalRef} className={`${openModal ? 'translate-y-0' : '-translate-y-12'} modal-box max-w-[600px]`}>
+    <div className={`${userDescription ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} modal-background z-[999999]`}>
+      <div ref={modalRef} className={`${userDescription ? 'translate-y-0' : '-translate-y-12'} modal-box max-w-[600px] max-h-[550px] hide-scrollbar overflow-auto`}>
         <div className='modal-box-header'>
-          <h1 className='font-medium text-lg'>Lorem Ipsum Profile</h1>
-          <AiOutlineClose onClick={() => setOpenModal(false)} className='cursor-pointer' />
+          <h1 className='font-medium text-lg'>{userDescription?.user.name} Profile</h1>
+          <AiOutlineClose onClick={() => dispatch({ type: OPEN_DESCRIPTION_MODAL, payload: null })} className='cursor-pointer' />
         </div>
         <div className='p-7'>
           <div className='mb-8'>
             <div className='flex items-center gap-5'>
-              <div className='w-16 h-16 w-full bg-gray-300 rounded-full shrink-0'></div>
+              <div className='w-16 h-16 w-full rounded-full shrink-0 shadow-xl border border-gray-300'>
+                <img src={userDescription?.user.avatar} alt={userDescription?.user.name} className='w-full h-full rounded-full' />
+              </div>
               <div>
-                <h1 className='font-medium text-lg'>Lorem Ipsum</h1>
+                <h1 className='font-medium text-lg'>{userDescription?.user.name}</h1>
                 <p className='text-gray-700 text-sm mt-2'>Jawa Tengah</p>
               </div>
             </div>
@@ -40,18 +47,30 @@ const UserDescriptionModal = ({ openModal, setOpenModal }: IProps) => {
           <div className='mb-8'>
             <h1 className='font-medium text-lg'>Skills</h1>
             <div className='flex items-center gap-3 mt-3'>
-              <p className='bg-gray-200 text-sm rounded-full px-3 py-1 w-fit truncate'>Frontend</p>
-              <p className='bg-gray-200 text-sm rounded-full px-3 py-1 w-fit truncate'>Backend</p>
-              <p className='bg-gray-200 text-sm rounded-full px-3 py-1 w-fit truncate'>Data Analyst</p>
+              {
+                userDescription?.skills.map(item => (
+                  <p key={item} className='bg-gray-200 text-sm rounded-full px-3 py-1 w-fit truncate'>{item}</p>
+                ))
+              }
             </div>
           </div>
           <div className='mb-8'>
             <h1 className='font-medium text-lg'>About</h1>
             <p className='text-sm text-gray-700 leading-loose mt-3 text-justify'>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. A quidem, cumque nisi ad odio sunt iure ullam dolores pariatur repudiandae illum itaque optio ratione! Quam excepturi praesentium nostrum fugiat, sunt labore a rem quod aut deserunt perspiciatis. Explicabo totam doloribus atque, inventore nostrum ex, modi assumenda provident quo impedit reiciendis.
+              {userDescription?.about}
             </p>
           </div>
-          <button className='bg-red-500 hover:bg-red-600 transition-[background] w-full rounded-md text-white py-2'>View CV</button>
+          {
+            userDescription?.cv
+            ? (
+              <Link href={`/cv/${userDescription?._id}`}>
+                <a target='_blank' className='bg-red-500 block text-center hover:bg-red-600 transition-[background] w-full rounded-md text-white py-2'>View CV</a>
+              </Link>
+            )
+            : (
+              <p className='bg-red-500 text-center w-full rounded-md text-white py-2'>CV is not provided by the candidate</p>
+            )
+          }
         </div>
       </div>
     </div>

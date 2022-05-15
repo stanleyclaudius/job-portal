@@ -15,7 +15,7 @@ const ApplicantModal = ({ openModal, setOpenModal, jobId }: IProps) => {
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
   const dispatch = useDispatch()
-  const { auth, applicant } = useSelector((state: RootStore) => state)
+  const { auth, applicant, userDescription } = useSelector((state: RootStore) => state)
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
@@ -39,7 +39,7 @@ const ApplicantModal = ({ openModal, setOpenModal, jobId }: IProps) => {
       <div ref={modalRef} className={`${openModal ? 'translate-y-0' : '-translate-y-12'} modal-box max-w-[950px] max-h-[600px] overflow-auto hide-scrollbar`}>
         <div className='modal-box-header'>
           <h1 className='text-lg font-medium'>Applicant List</h1>
-          <AiOutlineClose className='cursor-auto' />
+          <AiOutlineClose onClick={() => setOpenModal(false)} className='cursor-pointer' />
         </div>
         <div className='p-7 grid lg:grid-cols-2 grid-cols-1 gap-8'>
           {

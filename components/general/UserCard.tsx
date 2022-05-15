@@ -1,12 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { MdCheck } from 'react-icons/md'
 import { IApplicant } from '../../redux/types/applicantTypes'
 import HireModal from './../modal/HireModal'
-import UserDescriptionModal from './../modal/UserDescriptionModal'
 import { RootStore } from '../../utils/Interface'
 import { changeApplicantStatus } from '../../redux/actions/applicantActions'
+import { OPEN_DESCRIPTION_MODAL } from '../../redux/types/userDescriptionTypes'
 
 interface IProps {
   isApplicant: boolean
@@ -14,17 +14,31 @@ interface IProps {
 }
 
 const UserCard = ({ isApplicant, item }: IProps) => {
-  const [openUserDescriptionModal, setOpenUserDescriptionModal] = useState(false)
   const [openHireModal, setOpenHireModal] = useState(false)
+  const [province, setProvince] = useState('')
 
   const dispatch = useDispatch()
   const { auth } = useSelector((state: RootStore) => state)
+
+  useEffect(() =>{ 
+    const getProvinceData = () => {
+      fetch(`https://dev.farizdotid.com/api/daerahindonesia/provinsi/${item?.jobseeker.user.province}`)
+        .then(res => res.json())
+        .then(res => setProvince(res.nama))
+    }
+    
+    if (item?.jobseeker.user.province) {
+      getProvinceData()
+    }
+
+    return () => setProvince('Not provided.')
+  }, [item?.jobseeker.user.province])
 
   return (
     <>
       <div className='bg-white rounded-md border border-gray-200 shadow-md p-5 cursor-pointer hover:scale-105 transition-[transform]'>
         <div className='flex items-center gap-5'>
-          <div className='w-16 h-16 rounded-full bg-gray-300 shrink-0'>
+          <div className='w-16 h-16 rounded-full bg-gray-300 shrink-0 shadow-xl border border-gray-300'>
             <img src={item?.jobseeker.user.avatar} alt={item?.jobseeker.user.name} className='w-full h-full rounded-full' />
           </div>
           <div>
@@ -33,14 +47,15 @@ const UserCard = ({ isApplicant, item }: IProps) => {
           </div>
         </div>
         <div className='flex items-center gap-2 mt-5'>
-          <p className='bg-gray-200 rounded-full px-3 py-1 text-xs w-fit truncate'>Frontend Engineer</p>
-          <p className='bg-gray-200 rounded-full px-3 py-1 text-xs w-fit truncate'>IT</p>
-          <p className='bg-gray-200 rounded-full px-3 py-1 text-xs w-fit truncate'>Programmer</p>
-          <p className='bg-gray-200 rounded-full px-3 py-1 text-xs w-fit truncate'>Software Engineer</p>
+          {
+            item?.jobseeker.skills.map(item => (
+              <p key={item} className='bg-gray-200 rounded-full px-3 py-1 text-xs w-fit truncate'>{item}</p>
+            ))
+          }
         </div>
-        <p className='mt-6 text-sm text-gray-700'>Based at: West Java</p>
+        <p className='mt-6 text-sm text-gray-700'>Based at: {province}</p>
         <div className='mt-3 flex items-center justify-between'>
-          <button onClick={() => setOpenUserDescriptionModal(true)} className='bg-blue-500 hover:bg-blue-600 transition-[background] text-sm text-white rounded-md px-4 py-2'>Detail</button>
+          <button onClick={() => dispatch({ type: OPEN_DESCRIPTION_MODAL, payload: item?.jobseeker })} className='bg-blue-500 hover:bg-blue-600 transition-[background] text-sm text-white rounded-md px-4 py-2'>Detail</button>
           {
             isApplicant
             ? (
@@ -63,11 +78,6 @@ const UserCard = ({ isApplicant, item }: IProps) => {
           }
         </div>
       </div>
-
-      <UserDescriptionModal
-        openModal={openUserDescriptionModal}
-        setOpenModal={setOpenUserDescriptionModal}
-      />
 
       <HireModal
         openModal={openHireModal}

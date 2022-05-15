@@ -5,6 +5,7 @@ import { refreshToken } from './../redux/actions/authActions'
 import DataProvider from './../redux/store'
 import Alert from './../components/general/Alert'
 import './../styles/globals.css'
+import UserDescriptionModal from '../components/modal/UserDescriptionModal'
 
 interface IProps {
   children: ReactNode
@@ -28,6 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <DataProvider>
       <Alert />
+      <UserDescriptionModal />
       <App>
         <Component {...pageProps} />
       </App>
