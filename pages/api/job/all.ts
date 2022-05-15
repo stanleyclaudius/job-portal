@@ -6,7 +6,9 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET')
     return res.status(405).json({ msg: `${req.method} method is not allowed for this endpoint.` })
 
-  const jobs = await Job.aggregate([
+  const searchQuery = req.query.q
+  
+  const jobAggregate: any[] = [
     {
       $lookup: {
         from: 'organizations',
@@ -30,7 +32,23 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
       }
     },
     { $unwind: '$organization' }
-  ])
+  ]
+
+  if (searchQuery) {
+    const searchAggregate = {
+      $search: {
+        index: 'job',
+        text: {
+          path: ['position', 'skills', 'keywords'],
+          query: searchQuery
+        }
+      }
+    }
+
+    jobAggregate.unshift(searchAggregate)
+  }
+
+  const jobs = await Job.aggregate(jobAggregate)
   return res.status(200).json({ jobs })
 }
 
