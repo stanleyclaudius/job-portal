@@ -1,12 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import connectDB from './../../../libs/db'
 import Job from './../../../models/Job'
+import mongoose from 'mongoose'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET')
     return res.status(405).json({ msg: `${req.method} method is not allowed for this endpoint.` })
 
   const searchQuery = req.query.q
+  const jobLevelQuery = []
+  const employmentTypeQuery = []
   
   const jobAggregate: any[] = [
     {
@@ -34,6 +37,44 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
     { $unwind: '$organization' },
     { $sort: { createdAt: -1 } }
   ]
+
+  if (req.query.jobLevel) {
+    if (typeof req.query.jobLevel === 'string') {
+      jobLevelQuery.push(req.query.jobLevel)
+    } else {
+      for (let i = 0; i < `${req.query.jobLevel}`.length; i++) {
+        jobLevelQuery.push((req.query.jobLevel as string[])[i])
+      }
+    }
+  }
+
+  if (req.query.employmentType) {
+    if (typeof req.query.employmentType === 'string') {
+      employmentTypeQuery.push(req.query.employmentType)
+    } else {
+      for (let i = 0; i < `${req.query.employmenType}`.length; i++) {
+        employmentTypeQuery.push((req.query.employmentType as string[])[i])
+      }
+    }
+  }
+
+  if (jobLevelQuery.length !== 0) {
+    jobAggregate.unshift({
+      $match: { jobLevel: { $in: jobLevelQuery } }
+    })
+  }
+
+  if (employmentTypeQuery.length !== 0) {
+    jobAggregate.unshift({
+      $match: { employmentType: { $in: employmentTypeQuery } }
+    })
+  }
+
+  if (req.query.salary) {
+    jobAggregate.unshift({
+      $match: { salary: { $gte: parseInt(`${req.query.salary}`) } }
+    })
+  }
 
   if (searchQuery) {
     const searchAggregate = {
