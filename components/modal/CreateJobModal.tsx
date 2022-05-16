@@ -6,6 +6,8 @@ import { createJob } from './../../redux/actions/jobActions'
 import { ALERT } from './../../redux/types/alertTypes'
 import Editor from './../../utils/Editor'
 import Loader from './../general/Loader'
+import { ICategory } from '../../redux/types/categoryTypes'
+import { getDataAPI } from '../../utils/fetchData'
 
 interface IProps {
   openModal: boolean
@@ -22,6 +24,8 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
   const [salary, setSalary] = useState(0)
   const [keywords, setKeywords] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
+  const [category, setCategory] = useState('')
+  const [categoryData, setCategoryData] = useState<ICategory[]>([])
 
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
@@ -131,7 +135,7 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
     }
 
     setLoading(true)
-    await dispatch(createJob({ position, jobLevel, employmentType, skills, keywords, salary, requirements: requirement, overview: description }, `${auth.accessToken}`))
+    await dispatch(createJob({ position, jobLevel, category, employmentType, skills, keywords, salary, requirements: requirement, overview: description }, `${auth.accessToken}`))
     setLoading(false)
   }
 
@@ -145,6 +149,15 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
     document.addEventListener('mousedown', checkIfClickedOutside)
     return () => document.removeEventListener('mousedown', checkIfClickedOutside)
   }, [openModal])
+
+  useEffect(() => {
+    const fetchCategory = async() => {
+      const res = await getDataAPI('category')
+      setCategoryData(res.data.categories)
+    }
+
+    fetchCategory()
+  }, [])
   
   return (
     <div className={`${openModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} modal-background`}>
@@ -158,6 +171,17 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
             <div className='mb-6'>
               <label htmlFor='position' className='text-sm'>Position</label>
               <input type='text' id='position' name='position' value={position} onChange={e => setPosition(e.target.value)} className='outline-0 border border-gray-300 mt-3 text-sm rounded-md w-full px-2 h-10' />
+            </div>
+            <div className='mb-6'>
+              <label htmlFor='category' className='text-sm'>Category</label>
+              <select name='category' id='category' value={category} onChange={e => setCategory(e.target.value)} className='outline-0 border border-gray-300 mt-3 text-sm rounded-md w-full px-2 h-10 bg-white'>
+                <option value=''>- Category -</option>
+                {
+                  categoryData.map(item => (
+                    <option key={item._id} value={item._id}>{item.name}</option>
+                  ))
+                }
+              </select>
             </div>
             <div className='mb-6'>
               <label htmlFor='jobLevel' className='text-sm'>Job Level</label>

@@ -15,6 +15,7 @@ export interface IJob {
   requirements: string
   keywords: string[]
   createdAt?: string
+  category?: string
 }
 
 export interface IGetJobsAction {

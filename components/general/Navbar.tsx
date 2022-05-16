@@ -105,7 +105,11 @@ const Navbar = () => {
                       </Link>
                     )
                     : (
-                      <Link href='/organization/approval'>Dashboard</Link>
+                      <Link href='/dashboard'>
+                        <a className='navbar-link'>
+                          Dashboard
+                        </a>
+                      </Link>
                     )
                 }
                 <div onClick={handleLogout}>

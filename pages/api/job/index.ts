@@ -13,9 +13,9 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case 'POST':
       if (isAuthorize.status === 'accepted') {
-        const { position, employmentType, jobLevel, skills, salary, overview, requirements, keywords } = req.body
+        const { position, employmentType, jobLevel, category, skills, salary, overview, requirements, keywords } = req.body
 
-        if (!position || !employmentType || !jobLevel || skills.length < 1 || salary < 1 || !overview ||!requirements || keywords.length < 1)
+        if (!position || !employmentType || !category || !jobLevel || skills.length < 1 || salary < 1 || !overview ||!requirements || keywords.length < 1)
           return res.status(400).json({ msg: 'Please provide every field in form to create job.' })
 
         if (overview.length < 100)
@@ -26,6 +26,7 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
           position,
           jobLevel,
           employmentType,
+          category,
           skills,
           salary,
           overview,

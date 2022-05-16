@@ -5,6 +5,7 @@ import organization from './organizationReducer'
 import job from './jobReducer'
 import applicant from './applicantReducer'
 import userDescription from './userDescriptionReducer'
+import category from './categoryReducer'
 
 export default combineReducers({
   auth,
@@ -12,5 +13,6 @@ export default combineReducers({
   organization,
   job,
   applicant,
-  userDescription
+  userDescription,
+  category
 })
