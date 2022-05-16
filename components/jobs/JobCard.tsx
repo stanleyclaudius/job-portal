@@ -26,8 +26,8 @@ const JobCard = ({ item, isApplied, onClick, status, appliedAt }: IProps) => {
   return (
     <div onClick={onClick} className='bg-white rounded-md border border-gray-200 p-5 mb-3 cursor-pointer'>
       <div className='flex items-center gap-3 mb-7'>
-        <div className='w-16 h-16 rounded-md bg-gray-200 shrink-0'>
-          <img src={item?.organization?.user.avatar} alt={item?.organization?.user.name} className='w-full h-full rounded-md' />
+        <div className='w-16 h-16 rounded-full border border-gray-300 shrink-0'>
+          <img src={item?.organization?.user.avatar} alt={item?.organization?.user.name} className='w-full h-full rounded-md object-cover' />
         </div>
         <div>
           <p className='text-[#504ED7] text-lg'>{item?.position}</p>

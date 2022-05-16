@@ -9,11 +9,18 @@ import { GetServerSideProps } from 'next'
 import axios from 'axios'
 import { IJob } from '../redux/types/jobTypes'
 
-interface IProps {
-  latestJobs: IJob[]
+export interface ICategories {
+  _id: string
+  name: string
+  count: number
 }
 
-const Home = ({ latestJobs }: IProps) => {
+interface IProps {
+  latestJobs: IJob[]
+  categories: ICategories[]
+}
+
+const Home = ({ latestJobs, categories }: IProps) => {
   return (
     <>
       <Head>
@@ -22,7 +29,7 @@ const Home = ({ latestJobs }: IProps) => {
       <Navbar />
       <div>
         <Jumbotron />
-        <CategoryContainer />
+        <CategoryContainer categories={categories} />
         <JobContainer jobs={latestJobs} />
         <ReviewContainer />
       </div>
@@ -38,7 +45,8 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
 
   return {
     props: {
-      latestJobs: res.data.latestJob
+      latestJobs: res.data.latestJob,
+      categories: res.data.categoryDisplay
     }
   }
 }

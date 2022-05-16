@@ -33,7 +33,36 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
     { $limit: 8 }
   ])
 
-  return res.status(200).json({ latestJob })
+  const categoryDisplay = await Job.aggregate([
+    {
+      $lookup: {
+        from: 'categories',
+        localField: 'category',
+        foreignField: '_id',
+        as: 'category'
+      }
+    },
+    { $unwind: '$category' },
+    {
+      $group: {
+        _id: '$category._id',
+        name: { $first: '$category.name' },
+        count: { $sum: 1 }
+      }
+    },
+    {
+      $project: {
+        count: 1,
+        name: 1
+      }
+    },
+    { $limit: 8 }
+  ])
+
+  return res.status(200).json({
+    latestJob,
+    categoryDisplay
+  })
 }
 
 export default connectDB(handler)
