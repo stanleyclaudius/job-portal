@@ -1,17 +1,23 @@
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { IJob } from './../../redux/types/jobTypes'
 import moment from 'moment'
 
 interface IProps {
   item?: IJob
   isApplied?: boolean
-  onClick?: () => void
   status?: string
   appliedAt?: string
 }
 
-const JobCard = ({ item, isApplied, onClick, status, appliedAt }: IProps) => {
+const JobCard = ({ item, isApplied, status, appliedAt }: IProps) => {
   const [province, setProvince] = useState('')
+
+  const router = useRouter()
+
+  const handleClick = () => {
+    router.push(`/job/${item?._id}`)
+  }
 
   useEffect(() =>{ 
     const getProvinceData = () => {
@@ -24,10 +30,10 @@ const JobCard = ({ item, isApplied, onClick, status, appliedAt }: IProps) => {
   }, [item?.organization?.user.province])
 
   return (
-    <div onClick={onClick} className='bg-white rounded-md border border-gray-200 p-5 mb-3 cursor-pointer'>
+    <div onClick={handleClick} className='bg-white rounded-md border border-gray-200 p-5 cursor-pointer'>
       <div className='flex items-center gap-3 mb-7'>
         <div className='w-16 h-16 rounded-full border border-gray-300 shrink-0'>
-          <img src={item?.organization?.user.avatar} alt={item?.organization?.user.name} className='w-full h-full rounded-md object-cover' />
+          <img src={item?.organization?.user.avatar} alt={item?.organization?.user.name} className='w-full h-full rounded-full object-cover' />
         </div>
         <div>
           <p className='text-[#504ED7] text-lg'>{item?.position}</p>

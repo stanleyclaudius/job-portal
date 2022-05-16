@@ -5,26 +5,37 @@ import Job from '../../../../models/Job'
 import JobsApplied from '../../../../models/JobsApplied'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== 'PATCH')
-    return res.status(405).json({ msg: `${req.method} method is not allowed for this endpoint.` })
-
   const user = await isAuthenticated(req, res)
   if (!user) return
 
-  const isAuthorize = await authorizeRoles(user._id, res, 'organization')
-  if (!isAuthorize) return
+  let isAuthorize
 
-  const { job, status } = req.body
-  
-  const findJob = await Job.findOne({ _id: job, organization: isAuthorize._id })
-  if (!findJob)
-    return res.status(404).json({ msg: `Job not found within your organization.` })
+  switch (req.method) {
+    case 'PATCH':
+      isAuthorize = await authorizeRoles(user._id, res, 'organization')
+      if (!isAuthorize) return
 
-  await JobsApplied.findOneAndUpdate({ jobseeker: req.query.id, job }, {
-    status
-  })
+      const { job, status } = req.body
+      
+      const findJob = await Job.findOne({ _id: job, organization: isAuthorize._id })
+      if (!findJob)
+        return res.status(404).json({ msg: `Job not found within your organization.` })
 
-  return res.status(200).json({ msg: `Status has been changed to ${status}` })
+      await JobsApplied.findOneAndUpdate({ jobseeker: req.query.id, job }, {
+        status
+      })
+
+      return res.status(200).json({ msg: `Status has been changed to ${status}` })
+    case 'GET':
+      isAuthorize = await authorizeRoles(user._id, res, 'jobseeker')
+      if (!isAuthorize) return
+      
+      const isApplied = await JobsApplied.findOne({ jobseeker: isAuthorize._id, job: req.query.id })
+      
+      return res.status(200).json({ isApplied: isApplied ? true : false })
+    default:
+      return res.status(405).json({ msg: `${req.method} method is not allowed for this endpoint.` })
+  }
 }
 
 export default connectDB(handler)

@@ -18,7 +18,7 @@ interface IProps {
 }
 
 const Jobs = ({ data }: IProps) => {
-  const [selectedJob, setSelectedJob] = useState<Partial<IJob>>({})
+  // const [selectedJob, setSelectedJob] = useState<Partial<IJob>>({})
   const [search, setSearch] = useState('')
 
   const router = useRouter()
@@ -27,7 +27,6 @@ const Jobs = ({ data }: IProps) => {
   const handleSearch = (e: FormSubmit) => {
     e.preventDefault()
     router.push(`/jobs?q=${search}`)
-    setSelectedJob({})
   }
 
   useEffect(() => {
@@ -52,15 +51,15 @@ const Jobs = ({ data }: IProps) => {
         </div>
       </div>
       <Filter />
-      <div className='bg-gray-100 flex pt-10 pb-7 md:px-16 px-5 gap-8 h-[750px]'>
-        <div className='flex-1 overflow-auto hide-scrollbar'>
+      <div className='bg-gray-100 pt-10 pb-7 md:px-16 px-5'>
+        <div className='grid gap-8 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
           {
             jobs.map(item => (
-              <JobCard key={item._id} item={item} onClick={() => setSelectedJob(item)} />
+              <JobCard key={item._id} item={item} />
             ))
           }
         </div>
-        <div className='flex-[2] bg-white rounded-md border border-gray-200 p-5 overflow-auto hide-scrollbar fixed top-0 right-0 bottom-0 left-[3000px] transition-all shadow-xl z-[999] md:z-auto md:static md:shadow-none'>
+        {/* <div className='flex-[2] bg-white rounded-md border border-gray-200 p-5 overflow-auto hide-scrollbar fixed top-0 right-0 bottom-0 left-[3000px] transition-all shadow-xl z-[999] md:z-auto md:static md:shadow-none'>
           {
             Object.keys(selectedJob).length > 0
             ? <JobDetail job={selectedJob as IJob} />
@@ -71,7 +70,7 @@ const Jobs = ({ data }: IProps) => {
               </div>
             )
           }
-        </div>
+        </div> */}
       </div>
       <Footer />
     </>
