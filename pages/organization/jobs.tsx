@@ -30,20 +30,16 @@ const OrganizationJobs = () => {
   }
 
   useEffect(() => {
-    if (auth.accessToken) {
-      dispatch(getJobs(auth.accessToken))
-    }
-  }, [dispatch, auth])
-
-  useEffect(() => {
     if (!auth.accessToken) {
       router.push('/login?r=organization/jobs')
     } else {
       if (auth.user?.role !== 'organization') {
         router.push('/')
+      } else {
+        dispatch(getJobs(auth.accessToken))
       }
     }
-  }, [router, auth])
+  }, [router, dispatch, auth])
 
   return (
     <>

@@ -64,8 +64,8 @@ const OrganizationDetailModal = ({ openModal, setOpenModal, selectedOrganization
         </div>
         <div className='p-7'>
           <div className='flex items-center gap-4'>
-            <div className='w-20 h-20 rounded-full border border-gray-300 shadow-xl'>
-              <img src={selectedOrganization.user?.avatar} alt={selectedOrganization.user?.name} className='w-full h-full rounded-full' />
+            <div className='w-20 h-20 rounded-full border border-gray-300 shadow-xl shrink-0'>
+              <img src={selectedOrganization.user?.avatar} alt={selectedOrganization.user?.name} className='w-full h-full rounded-full object-cover' />
             </div>
             <div>
               <h1 className='font-medium text-lg'>{selectedOrganization.user?.name}</h1>

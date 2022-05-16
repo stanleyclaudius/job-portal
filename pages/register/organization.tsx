@@ -318,10 +318,10 @@ const Organization = () => {
             <div className='md:mb-10 mb-7'>
               <label htmlFor='logo' className='text-sm'>Organization Logo</label>
               <div className='flex gap-3 mt-3'>
-                <div className='w-16 h-16 rounded-full shadow-xl border border-gray-300 shrink-0'>
+                <div className='w-20 h-20 rounded-full shadow-xl border border-gray-300 shrink-0'>
                   {
                     avatar.length > 0 &&
-                    <img src={URL.createObjectURL(avatar[0])} alt={organizationData.name} className='w-full h-full rounded-full' />
+                    <img src={URL.createObjectURL(avatar[0])} alt={organizationData.name} className='w-full h-full rounded-full object-contain' />
                   }
                 </div>
                 <input type='file' id='logo' onChange={handleChangeImage} className='outline-0 w-full px-3 text-sm h-10 border border-gray-300 rounded-md' />
