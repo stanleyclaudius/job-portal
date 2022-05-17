@@ -16,6 +16,7 @@ const CategoryContainer = ({ categories }: IProps) => {
               key={item._id}
               title={item.name}
               total={item.count}
+              image={item.image}
             />
           ))
         }

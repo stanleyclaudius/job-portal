@@ -4,6 +4,7 @@ export const GET_CATEGORY = 'GET_CATEGORY'
 export interface ICategory {
   _id?: string
   name: string
+  image: string | File[]
 }
 
 export interface ICreateCategoryAction {

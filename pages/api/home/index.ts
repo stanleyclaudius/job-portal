@@ -47,12 +47,14 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
       $group: {
         _id: '$category._id',
         name: { $first: '$category.name' },
+        image: { $first: '$category.image' },
         count: { $sum: 1 }
       }
     },
     {
       $project: {
         count: 1,
+        image: 1,
         name: 1
       }
     },

@@ -14,11 +14,12 @@ const JobContainer = ({ jobs }: IProps) => {
         {
           jobs.map(item => (
             <JobCard
+              id={item._id as string}
               key={item._id}
               logo={item.organization?.user.avatar as string}
               organization={item.organization?.user.name as string}
-              province='Jawa Tengah'
-              city='Kebumen'
+              province={`${item.organization?.user.province}`}
+              city={`${item.organization?.user.city}`}
               description={item.overview}
               title={item.position}
               salary={item.salary}

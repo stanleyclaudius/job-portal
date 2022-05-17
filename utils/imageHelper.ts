@@ -9,7 +9,9 @@ export const uploadImage = async(files: File[], type: string) => {
     ? formData.append('upload_preset', 'erszbrb2')
     : type === 'cv'
       ? formData.append('upload_preset', 'k6kmr9vg')
-      : formData.append('upload_preset', '')
+      : type === 'category'
+        ? formData.append('upload_preset', 'gmlca55a')
+        : formData.append('upload_preset', '')
     formData.append('cloud_name', 'dpef9sjqt')
 
     try {

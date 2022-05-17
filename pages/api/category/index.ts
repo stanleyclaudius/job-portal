@@ -12,15 +12,15 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
       const isAuthorize = await authorizeRoles(user._id, res, 'admin')
         if (!isAuthorize) return
 
-      const { name } = req.body
-      if (!name)
-        return res.status(400).json({ msg: 'Please provide category name.' })
+      const { name, image } = req.body
+      if (!name || !image)
+        return res.status(400).json({ msg: 'Please provide category name and image.' })
 
       const findCategory = await Category.findOne({ name })
       if (findCategory)
         return res.status(400).json({ msg: `${name} category already exists.` })
         
-      const newCategory = new Category({ name })
+      const newCategory = new Category({ name, image })
       await newCategory.save()
 
       return res.status(200).json({

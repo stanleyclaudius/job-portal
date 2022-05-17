@@ -13,6 +13,7 @@ export interface ICategories {
   _id: string
   name: string
   count: number
+  image: string
 }
 
 interface IProps {

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
-import { FormSubmit, RootStore } from '../../utils/Interface'
+import { FormSubmit, InputChange, RootStore } from '../../utils/Interface'
 import { ALERT } from '../../redux/types/alertTypes'
 import { createCategory } from '../../redux/actions/categoryActions'
 import Loader from '../general/Loader'
@@ -14,6 +14,7 @@ export interface IProps {
 const CreateCategoryModal = ({ openModal, setOpenModal }: IProps) => {
   const [category, setCategory] = useState('')
   const [loading, setLoading] = useState(false)
+  const [image, setImage] = useState<File[]>([])
 
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
@@ -31,8 +32,14 @@ const CreateCategoryModal = ({ openModal, setOpenModal }: IProps) => {
     }
 
     setLoading(true)
-    await dispatch(createCategory({ name: category }, `${auth.accessToken}`))
+    await dispatch(createCategory({ name: category, image }, `${auth.accessToken}`))
     setLoading(false)
+  }
+
+  const handleChangeImage = (e: InputChange) => {
+    const target = e.target as HTMLInputElement
+    const files = [...Object.values(target.files!)]
+    setImage([...files])
   }
 
   useEffect(() => {
@@ -58,6 +65,18 @@ const CreateCategoryModal = ({ openModal, setOpenModal }: IProps) => {
             <div className='mb-6'>
               <label htmlFor='category' className='text-sm'>Category</label>
               <input type='text' id='category' name='category' value={category} onChange={e => setCategory(e.target.value)} className='outline-0 border border-gray-300 mt-3 text-sm rounded-md w-full px-2 h-10' />
+            </div>
+            <div className='mb-6'>
+              <label htmlFor='image' className='text-sm'>Image</label>
+              <div className='flex gap-5 mt-3'>
+                <div className='w-20 h-20 rounded-full border border-gray-300 shrink-0'>
+                  {
+                    image.length > 0 &&
+                    <img src={URL.createObjectURL(image[0])} alt={category} className='w-full h-full rounded-full object-cover' />
+                  }
+                </div>
+                <input type='file' id='image' accept='image/*' onChange={handleChangeImage} className='outline-0 border border-gray-300 text-sm rounded-md w-full px-2 h-10' />
+              </div>
             </div>
             <button className={`${loading ? 'bg-gray-200 hover:bg-gray-200 cursor-auto' : 'bg-[#504ED7] hover:bg-[#2825C2] cursor-pointer'} transition-[background] mt-2 text-sm text-white w-full rounded-md py-3`}>
               {

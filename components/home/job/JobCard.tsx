@@ -1,6 +1,9 @@
+import { useState, useEffect } from 'react'
 import { numberFormatter } from "../../../utils/numberFormatter"
+import { useRouter } from 'next/router'
 
 interface IProps {
+  id: string
   logo: string
   organization: string
   province: string
@@ -13,6 +16,7 @@ interface IProps {
 }
 
 const JobCard = ({
+  id,
   logo,
   organization,
   province,
@@ -23,15 +27,40 @@ const JobCard = ({
   salary,
   salaryType
 }: IProps) => {
+  const [provinceDetail, setProvinceDetail] = useState('')
+  const [cityDetail, setCityDetail] = useState('')
+
+  const router = useRouter()
+
+  useEffect(() =>{ 
+    const getProvinceData = () => {
+      fetch(`https://dev.farizdotid.com/api/daerahindonesia/provinsi/${province}`)
+        .then(res => res.json())
+        .then(res => setProvinceDetail(res.nama))
+    }
+
+    getProvinceData()
+  }, [province])
+
+  useEffect(() =>{ 
+    const getCityData = () => {
+      fetch(`https://dev.farizdotid.com/api/daerahindonesia/kota/${city}`)
+        .then(res => res.json())
+        .then(res => setCityDetail(res.nama))
+    }
+
+    getCityData()
+  }, [city])
+
   return (
-    <div className='hover:border-2 border hover:border-[#504ED7] border-gray-200 shadow-md p-5 hover:scale-105 rounded-md transition-[transform] cursor-pointer'>
+    <div onClick={() => router.push(`/job/${id}`)} className='hover:border-2 border hover:border-[#504ED7] border-gray-200 shadow-md p-5 hover:scale-105 rounded-md transition-[transform] cursor-pointer'>
       <div className='flex items-center gap-2'>
         <div className='w-12 h-12 rounded-full border border-gray-300 shrink-0'>
           <img src={logo} alt={organization} className='w-full h-full rounded-full object-cover' />
         </div>
         <div>
           <h1 className='font-medium'>{organization}</h1>
-          <p className='mt-2 text-xs text-gray-500'>{province}, {city}</p>
+          <p className='mt-2 text-xs text-gray-500'>{provinceDetail}, {cityDetail}</p>
         </div>
       </div>
       <div className='mb-10 mt-6'>
