@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
@@ -8,6 +8,7 @@ import { FormSubmit, IJobseeker, RootStore } from '../utils/Interface'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
 import UserCard from './../components/general/UserCard'
+import { getJobs } from '../redux/actions/jobActions'
 
 interface IProps {
   data: IJobseeker[]
@@ -17,6 +18,7 @@ const Candidates = ({ data }: IProps) => {
   const [keyword, setKeyword] = useState('')
 
   const router = useRouter()
+  const dispatch = useDispatch()
   const { auth } = useSelector((state: RootStore) => state)
 
   const handleSubmit = (e: FormSubmit) => {
@@ -33,6 +35,12 @@ const Candidates = ({ data }: IProps) => {
       }
     }
   }, [router, auth])
+
+  useEffect(() => {
+    if (auth.user?.role === 'organization') {
+      dispatch(getJobs(`${auth.accessToken}`))
+    }
+  }, [auth])
 
   return (
     <>

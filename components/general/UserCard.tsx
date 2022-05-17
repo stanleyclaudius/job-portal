@@ -20,6 +20,7 @@ const UserCard = ({ isApplicant, item, info }: IProps) => {
 
   const dispatch = useDispatch()
   const { auth } = useSelector((state: RootStore) => state)
+  const { job } = useSelector((state: RootStore) => state)
 
   useEffect(() =>{ 
     const getProvinceData = () => {
@@ -107,10 +108,17 @@ const UserCard = ({ isApplicant, item, info }: IProps) => {
         </div>
       </div>
 
-      <HireModal
-        openModal={openHireModal}
-        setOpenModal={setOpenHireModal}
-      />
+
+      {
+        info &&
+        <HireModal
+          openModal={openHireModal}
+          setOpenModal={setOpenHireModal}
+          userName={info.user.name}
+          id={info.user?._id}
+          job={job}
+        />
+      }
     </>
   )
 }

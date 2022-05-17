@@ -1,9 +1,30 @@
 import Head from 'next/head'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootStore } from '../utils/Interface'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
 import OrganizationCard from './../components/general/OrganizationCard'
+import { getReceivedInvitations } from '../redux/actions/invitationActions'
 
 const ReceivedInvitation = () => {
+  const router = useRouter()
+  const dispatch = useDispatch()
+  const { auth, invitation } = useSelector((state: RootStore) => state)
+
+  useEffect(() => {
+    if (!auth.accessToken) {
+      router.push('/login?r=received_invitation')
+    } else {
+      if (auth.user?.role !== 'jobseeker') {
+        router.push('/')
+      } else {
+        dispatch(getReceivedInvitations(`${auth.accessToken}`))
+      }
+    }
+  }, [auth])
+  
   return (
     <>
       <Head>
@@ -13,18 +34,11 @@ const ReceivedInvitation = () => {
       <div className='md:py-10 py-6 md:px-16 px-8'>
         <h1 className='text-xl font-medium'>Received Invitation</h1>
         <div className='mt-6 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:gap-10 gap-8'>
-          <OrganizationCard />
-          <OrganizationCard />
-          <OrganizationCard />
-          <OrganizationCard />
-          <OrganizationCard />
-          <OrganizationCard />
-          <OrganizationCard />
-          <OrganizationCard />
-          <OrganizationCard />
-          <OrganizationCard />
-          <OrganizationCard />
-          <OrganizationCard />
+          {
+            invitation.map(item => (
+              <OrganizationCard key={item._id} data={item} />
+            ))
+          }
         </div>
       </div>
       <Footer />
