@@ -54,9 +54,12 @@ const Navbar = () => {
           <Link href='/jobs'>
             <a className={`navbar-link ${pathname === '/jobs' ? 'active' : undefined}`}>Find Jobs</a>
           </Link>
-          <Link href='/find_candidate'>
-            <a className={`navbar-link ${pathname === '/find_candidate' ? 'active' : undefined}`}>Find Candidates</a>
-          </Link>
+          {
+            ((auth.user?.role === 'organization') || (auth.user?.role === 'admin')) &&
+            <Link href='/find_candidate'>
+              <a className={`navbar-link ${pathname === '/find_candidate' ? 'active' : undefined}`}>Find Candidates</a>
+            </Link>
+          }
           <Link href='/'>
             <a className='navbar-link'>Career Advice</a>
           </Link>

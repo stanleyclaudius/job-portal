@@ -10,7 +10,7 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   const user = await isAuthenticated(req, res)
   if (!user) return
 
-  const isAuthorize = await authorizeRoles(user._id, res, 'organization')
+  const isAuthorize = await authorizeRoles(user._id, res, 'organization', 'admin')
   if (!isAuthorize) return
 
   const jobseeker = await Jobseeker.findOne({ _id: req.query.id }).populate('user', 'name')
