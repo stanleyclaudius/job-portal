@@ -1,9 +1,12 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FaUsers } from 'react-icons/fa'
 import { MdCheck } from 'react-icons/md'
 import { IInvitation } from '../../redux/types/invitationTypes'
 import JobDetailModal from './../modal/JobDetailModal'
+import { RootStore } from '../../utils/Interface'
+import { changeInvitationStatus } from '../../redux/actions/invitationActions'
 
 interface IProps {
   data: IInvitation
@@ -11,6 +14,9 @@ interface IProps {
 
 const OrganizationCard = ({ data }: IProps) => {
   const [openJobDetailModal, setOpenJobDetailModal] = useState(false)
+
+  const dispatch = useDispatch()
+  const { auth } = useSelector((state: RootStore) => state)
 
   return (
     <>
@@ -33,10 +39,16 @@ const OrganizationCard = ({ data }: IProps) => {
         </div>
         <div className='flex items-center justify-between mt-5'>
           <button onClick={() => setOpenJobDetailModal(true)} className='bg-blue-500 hover:bg-blue-600 transition-[background] rounded-md text-white px-4 py-2 text-sm'>Detail</button>
-          <div className='flex items-center gap-2'>
-            <button className='bg-green-600 hover:bg-green-700 transition-[background] rounded-md text-white px-3 text-lg py-2'><MdCheck /></button>
-            <button className='bg-red-500 hover:bg-red-600 transition-[background[ rounded-md text-white px-3 py-2 text-lg'><AiOutlineClose /></button>
-          </div>
+          {
+            data.status === 'on review'
+            ? (
+              <div className='flex items-center gap-2'>
+                <button onClick={() => dispatch(changeInvitationStatus(`${data._id}`, 'accepted', `${auth.accessToken}`))} className='bg-green-600 hover:bg-green-700 transition-[background] rounded-md text-white px-3 text-lg py-2'><MdCheck /></button>
+                <button onClick={() => dispatch(changeInvitationStatus(`${data._id}`, 'rejected', `${auth.accessToken}`))} className='bg-red-500 hover:bg-red-600 transition-[background] rounded-md text-white px-3 py-2 text-lg'><AiOutlineClose /></button>
+              </div>
+            )
+            : <p className={`${data.status === 'accepted' ? 'bg-green-600' : 'bg-red-500'} rounded-md capitalize text-sm text-white px-3 py-2`}>{data.status}</p>
+          }
         </div>
       </div>
 
