@@ -43,7 +43,32 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
         return res.status(401).json({ msg: 'Your organization haven\'t been accepted yet by admin.' })
       }
     case 'GET':
-      const jobs = await Job.find({ organization: isAuthorize._id }).sort('-createdAt')
+      const jobs = await Job.aggregate([
+        { $match: { organization: isAuthorize._id } },
+        {
+          $lookup: {
+            from: 'organizations',
+            let: { org_id: '$organization' },
+            pipeline: [
+              { $match: { $expr: { $eq: ['$_id', '$$org_id'] } } },
+              {
+                $lookup: {
+                  from: 'users',
+                  let: { user_id: '$user' },
+                  pipeline: [
+                    { $match: { $expr: { $eq: ['$_id', '$$user_id'] } } },
+                    { $project: { name: 1, avatar: 1, province: 1, city: 1, district: 1, postalCode: 1 } }
+                  ],
+                  as: 'user'
+                }
+              },
+              { $unwind: '$user' }
+            ],
+            as: 'organization'
+          }
+        },
+        { $unwind: '$organization' }
+      ])
       return res.status(200).json({ jobs })
     default:
       return res.status(405).json({ msg: `${req.method} method not allowed for this endpoint.` })

@@ -29,6 +29,11 @@ const OrganizationJobs = () => {
     setSelectedItem(item)
   }
 
+  const handleClickDetail = (item: IJob) => {
+    setOpenJobDetailModal(true)
+    setSelectedItem(item)
+  }
+
   useEffect(() => {
     if (!auth.accessToken) {
       router.push('/login?r=organization/jobs')
@@ -80,7 +85,7 @@ const OrganizationJobs = () => {
                         <td>{`${new Date(item.createdAt!).toLocaleDateString()}`}</td>
                         <td>x</td>
                         <td>
-                          <button onClick={() => setOpenJobDetailModal(true)} className='mr-3 bg-blue-500 hover:bg-blue-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Detail</button>
+                          <button onClick={() => handleClickDetail(item)} className='mr-3 bg-blue-500 hover:bg-blue-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Detail</button>
                           <button onClick={() => handleClickApplicant(item)} className='mr-3 bg-[#504ED7] hover:bg-[#2825C2] transition-[background] text-white text-xs px-3 py-1 rounded-md'>Applicant</button>
                           <button className='mr-3 bg-orange-500 hover:bg-orange-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Edit</button>
                           <button onClick={() => setOpenDeleteModal(true)} className='mr-3 bg-red-500 hover:bg-red-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Delete</button>
@@ -96,17 +101,21 @@ const OrganizationJobs = () => {
       </div>
       <Footer />
 
-      <JobDetailModal
-        openModal={openJobDetailModal}
-        setOpenModal={setOpenJobDetailModal}
-      />
+      {
+        (selectedItem && openJobDetailModal) &&
+        <JobDetailModal
+          openModal={openJobDetailModal}
+          setOpenModal={setOpenJobDetailModal}
+          jobDetail={selectedItem as IJob}
+        />
+      }
 
       <DeleteModal
         openModal={openDeleteModal}
         setOpenModal={setOpenDeleteModal}
         text='job'
       />
-
+      
       <ApplicantModal
         openModal={openApplicantModal}
         setOpenModal={setOpenApplicantModal}
