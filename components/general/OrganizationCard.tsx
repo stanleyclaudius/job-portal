@@ -43,6 +43,7 @@ const OrganizationCard = ({ data }: IProps) => {
       <JobDetailModal
         openModal={openJobDetailModal}
         setOpenModal={setOpenJobDetailModal}
+        invitationData={data}
       />
     </>
   )

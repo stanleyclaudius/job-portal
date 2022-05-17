@@ -92,6 +92,11 @@ const Navbar = () => {
                           Edit Profile
                         </a>
                       </Link>
+                      <Link href='/received_invitation'>
+                        <a className={`navbar-link ${pathname === '/received_invitation' ? 'active' : undefined}`}>
+                          Invitation
+                        </a>
+                      </Link>
                       <Link href='/job_applied'>
                         <a className={`navbar-link ${pathname === '/job_applied' ? 'active' : undefined}`}>
                           Jobs Applied
@@ -101,11 +106,18 @@ const Navbar = () => {
                   )
                   : auth.user?.role === 'organization'
                     ? (
-                      <Link href='/organization/jobs'>
-                        <a className={`navbar-link ${pathname === '/organization/jobs' ? 'active' : undefined}`}>
-                          Jobs Posted
-                        </a>
-                      </Link>
+                      <>
+                        <Link href='/organization/jobs'>
+                          <a className={`navbar-link ${pathname === '/organization/jobs' ? 'active' : undefined}`}>
+                            Jobs Posted
+                          </a>
+                        </Link>
+                        <Link href='/sent_invitation'>
+                          <a className={`navbar-link ${pathname === '/sent_invitation' ? 'active' : undefined}`}>
+                            Sent Invitation
+                          </a>
+                        </Link>
+                      </>
                     )
                     : (
                       <Link href='/dashboard'>
