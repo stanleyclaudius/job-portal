@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootStore } from './../../utils/Interface'
 import { useRouter } from 'next/router'
-import { getJobs } from './../../redux/actions/jobActions'
+import { deleteJob, getJobs } from './../../redux/actions/jobActions'
 import Head from 'next/head'
 import Footer from './../../components/general/Footer'
 import Navbar from './../../components/general/Navbar'
@@ -32,6 +32,16 @@ const OrganizationJobs = () => {
   const handleClickDetail = (item: IJob) => {
     setOpenJobDetailModal(true)
     setSelectedItem(item)
+  }
+
+  const handleClickDelete = (item: IJob) => {
+    setOpenDeleteModal(true)
+    setSelectedItem(item)
+  }
+
+  const handleDeleteJob = () => {
+    dispatch(deleteJob(`${selectedItem._id}`, `${auth.accessToken}`))
+    setOpenDeleteModal(false)
   }
 
   useEffect(() => {
@@ -88,7 +98,7 @@ const OrganizationJobs = () => {
                           <button onClick={() => handleClickDetail(item)} className='mr-3 bg-blue-500 hover:bg-blue-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Detail</button>
                           <button onClick={() => handleClickApplicant(item)} className='mr-3 bg-[#504ED7] hover:bg-[#2825C2] transition-[background] text-white text-xs px-3 py-1 rounded-md'>Applicant</button>
                           <button className='mr-3 bg-orange-500 hover:bg-orange-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Edit</button>
-                          <button onClick={() => setOpenDeleteModal(true)} className='mr-3 bg-red-500 hover:bg-red-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Delete</button>
+                          <button onClick={() => handleClickDelete(item)} className='mr-3 bg-red-500 hover:bg-red-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Delete</button>
                         </td>
                       </tr>
                     ))
@@ -114,6 +124,7 @@ const OrganizationJobs = () => {
         openModal={openDeleteModal}
         setOpenModal={setOpenDeleteModal}
         text='job'
+        onSuccess={handleDeleteJob}
       />
       
       <ApplicantModal

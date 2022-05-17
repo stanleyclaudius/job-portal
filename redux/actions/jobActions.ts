@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux'
-import { getDataAPI, postDataAPI } from '../../utils/fetchData'
+import { deleteDataAPI, getDataAPI, postDataAPI } from '../../utils/fetchData'
 import { ALERT, IAlertAction } from '../types/alertTypes'
-import { CREATE_JOB, GET_JOBS, ICreateJobAction, IGetJobsAction, IJob } from '../types/jobTypes'
+import { CREATE_JOB, DELETE_JOB, GET_JOBS, ICreateJobAction, IDeleteJobAction, IGetJobsAction, IJob } from '../types/jobTypes'
 
 export const getJobs = (token: string) => async(dispatch: Dispatch<IGetJobsAction | IAlertAction>) => {
   try {
@@ -34,6 +34,30 @@ export const createJob = (jobData: IJob, token: string) => async(dispatch: Dispa
     dispatch({
       type: CREATE_JOB,
       payload: res.data.job
+    })
+
+    dispatch({
+      type: ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    })
+  }
+}
+
+export const deleteJob = (id: string, token: string) => async(dispatch: Dispatch<IDeleteJobAction | IAlertAction>) => {
+  try {
+    const res = await deleteDataAPI(`job/${id}`, token)
+    dispatch({
+      type: DELETE_JOB,
+      payload: id
     })
 
     dispatch({
