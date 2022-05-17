@@ -75,7 +75,8 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
 
         return res.status(200).json({ invitations })
       } else if (userRole === 'organization') {
-
+        const invitations = await Invitation.find().populate('job')
+        return res.status(200).json({ invitations })
       }
     default:
       return res.status(405).json({ msg: `${req.method} method is not allowed for this endpoint.` })

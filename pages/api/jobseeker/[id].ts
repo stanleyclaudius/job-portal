@@ -10,7 +10,7 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   const user = await isAuthenticated(req, res)
   if (!user) return
 
-  const jobseeker = await Jobseeker.findOne({ user: req.query.id })
+  const jobseeker = await Jobseeker.findOne({ user: req.query.id }).populate('user')
   if (!jobseeker)
     return res.status(404).json({ msg: `Jobseeker with user ID ${req.query.id} not found.` })
 

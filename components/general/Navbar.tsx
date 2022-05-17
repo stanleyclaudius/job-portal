@@ -60,9 +60,6 @@ const Navbar = () => {
               <a className={`navbar-link ${pathname === '/find_candidate' ? 'active' : undefined}`}>Find Candidates</a>
             </Link>
           }
-          <Link href='/'>
-            <a className='navbar-link'>Career Advice</a>
-          </Link>
         </div>
         <div className='text-sm flex lg:flex-row flex-col lg:items-center items-start lg:gap-8 gap-4 mt-10 lg:mt-0'>
           {

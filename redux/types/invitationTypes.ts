@@ -8,6 +8,7 @@ export interface IInvitation {
   _id?: string
   job: IJob
   user: IUser
+  status?: string
 }
 
 export interface ISendInvitationAction {
