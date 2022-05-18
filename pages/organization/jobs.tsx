@@ -39,9 +39,19 @@ const OrganizationJobs = () => {
     setSelectedItem(item)
   }
 
+  const handleClickEdit = (item: IJob) => {
+    setSelectedItem(item)
+    setOpenCreateJobModal(true)
+  }
+
   const handleDeleteJob = () => {
     dispatch(deleteJob(`${selectedItem._id}`, `${auth.accessToken}`))
     setOpenDeleteModal(false)
+  }
+
+  const handleClickCreateJob = () => {
+    setSelectedItem({})
+    setOpenCreateJobModal(true)
   }
 
   useEffect(() => {
@@ -65,7 +75,7 @@ const OrganizationJobs = () => {
       <div className='md:py-10 py-7 md:px-16 px-8'>
         <div className='flex items-center justify-between'>
           <h1 className='md:text-2xl text-lg font-medium'>Job Management</h1>
-          <button onClick={() => setOpenCreateJobModal(true)} className='bg-blue-500 hover:bg-blue-600 transition-[background] text-white text-sm rounded-md px-4 py-2'>Create Job</button>
+          <button onClick={handleClickCreateJob} className='bg-blue-500 hover:bg-blue-600 transition-[background] text-white text-sm rounded-md px-4 py-2'>Create Job</button>
         </div>
         {
           alert.loading
@@ -80,7 +90,6 @@ const OrganizationJobs = () => {
                     <th>Job Level</th>
                     <th>Employment Type</th>
                     <th>Posted Date</th>
-                    <th>Total Applicant</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -93,11 +102,10 @@ const OrganizationJobs = () => {
                         <td>{item.jobLevel}</td>
                         <td>{item.employmentType}</td>
                         <td>{`${new Date(item.createdAt!).toLocaleDateString()}`}</td>
-                        <td>x</td>
                         <td>
                           <button onClick={() => handleClickDetail(item)} className='mr-3 bg-blue-500 hover:bg-blue-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Detail</button>
                           <button onClick={() => handleClickApplicant(item)} className='mr-3 bg-[#504ED7] hover:bg-[#2825C2] transition-[background] text-white text-xs px-3 py-1 rounded-md'>Applicant</button>
-                          <button className='mr-3 bg-orange-500 hover:bg-orange-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Edit</button>
+                          <button onClick={() => handleClickEdit(item)} className='mr-3 bg-orange-500 hover:bg-orange-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Edit</button>
                           <button onClick={() => handleClickDelete(item)} className='mr-3 bg-red-500 hover:bg-red-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Delete</button>
                         </td>
                       </tr>
@@ -136,6 +144,7 @@ const OrganizationJobs = () => {
       <CreateJobModal
         openModal={openCreateJobModal}
         setOpenModal={setOpenCreateJobModal}
+        selectedItem={selectedItem as IJob}
       />
     </>
   )

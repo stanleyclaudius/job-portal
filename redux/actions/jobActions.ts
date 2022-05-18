@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux'
-import { deleteDataAPI, getDataAPI, postDataAPI } from '../../utils/fetchData'
+import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from '../../utils/fetchData'
 import { ALERT, IAlertAction } from '../types/alertTypes'
-import { CREATE_JOB, DELETE_JOB, GET_JOBS, ICreateJobAction, IDeleteJobAction, IGetJobsAction, IJob } from '../types/jobTypes'
+import { CREATE_JOB, DELETE_JOB, GET_JOBS, ICreateJobAction, IDeleteJobAction, IGetJobsAction, IJob, IUpdateJobAction, UPDATE_JOB } from '../types/jobTypes'
 
 export const getJobs = (token: string) => async(dispatch: Dispatch<IGetJobsAction | IAlertAction>) => {
   try {
@@ -58,6 +58,30 @@ export const deleteJob = (id: string, token: string) => async(dispatch: Dispatch
     dispatch({
       type: DELETE_JOB,
       payload: id
+    })
+
+    dispatch({
+      type: ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    })
+  }
+}
+
+export const updateJob = (id: string, jobData: IJob, token: string) => async(dispatch: Dispatch<IUpdateJobAction | IAlertAction>) => {
+  try {
+    const res = await patchDataAPI(`job/${id}`, jobData, token)
+    dispatch({
+      type: UPDATE_JOB,
+      payload: res.data.job
     })
 
     dispatch({

@@ -2,19 +2,21 @@ import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FormSubmit, RootStore } from './../../utils/Interface'
-import { createJob } from './../../redux/actions/jobActions'
+import { createJob, updateJob } from './../../redux/actions/jobActions'
 import { ALERT } from './../../redux/types/alertTypes'
 import Editor from './../../utils/Editor'
 import Loader from './../general/Loader'
 import { ICategory } from '../../redux/types/categoryTypes'
 import { getDataAPI } from '../../utils/fetchData'
+import { IJob } from '../../redux/types/jobTypes'
 
 interface IProps {
   openModal: boolean
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
+  selectedItem: IJob
 }
 
-const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
+const CreateJobModal = ({ openModal, setOpenModal, selectedItem }: IProps) => {
   const [skills, setSkills] = useState<string[]>([])
   const [description, setDescription] = useState('')
   const [requirement, setRequirement] = useState('')
@@ -135,7 +137,12 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
     }
 
     setLoading(true)
-    await dispatch(createJob({ position, jobLevel, category, employmentType, skills, keywords, salary, requirements: requirement, overview: description }, `${auth.accessToken}`))
+    
+    if (Object.keys(selectedItem).length > 0) {
+      await dispatch(updateJob(`${selectedItem._id}`, { position, jobLevel, category, employmentType, skills, keywords, salary, requirements: requirement, overview: description }, `${auth.accessToken}`))
+    } else {
+      await dispatch(createJob({ position, jobLevel, category, employmentType, skills, keywords, salary, requirements: requirement, overview: description }, `${auth.accessToken}`))
+    }
     setLoading(false)
   }
 
@@ -158,6 +165,32 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
 
     fetchCategory()
   }, [])
+
+  useEffect(() => {
+    if (Object.keys(selectedItem).length > 0) {
+      setSkills(selectedItem.skills)
+      setDescription(selectedItem.overview)
+      setRequirement(selectedItem.requirements)
+      setPosition(selectedItem.position)
+      setJobLevel(selectedItem.jobLevel)
+      setEmploymentType(selectedItem.employmentType)
+      setSalary(selectedItem.salary)
+      setKeywords(selectedItem.keywords)
+      setCategory(selectedItem.category as string)
+    }
+
+    return () => {
+      setSkills([])
+      setDescription('')
+      setRequirement('')
+      setPosition('')
+      setJobLevel('')
+      setEmploymentType('')
+      setSalary(0)
+      setKeywords([])
+      setCategory('')
+    }
+  }, [selectedItem])
   
   return (
     <div className={`${openModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} modal-background`}>
@@ -262,7 +295,9 @@ const CreateJobModal = ({ openModal, setOpenModal }: IProps) => {
               {
                 loading
                 ? <Loader />
-                : 'Post Job'
+                : Object.keys(selectedItem).length > 0
+                  ? 'Save Changes'
+                  : 'Post Job'
               }
             </button>
           </form>
