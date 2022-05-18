@@ -20,9 +20,14 @@ export interface IJob {
   category?: string
 }
 
+export interface IJobState {
+  data: IJob[]
+  totalPage: number
+}
+
 export interface IGetJobsAction {
   type: typeof GET_JOBS
-  payload: IJob[]
+  payload: IJobState
 }
 
 export interface ICreateJobAction {

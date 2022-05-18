@@ -3,17 +3,20 @@ import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from '../../util
 import { ALERT, IAlertAction } from '../types/alertTypes'
 import { CREATE_JOB, DELETE_JOB, GET_JOBS, ICreateJobAction, IDeleteJobAction, IGetJobsAction, IJob, IUpdateJobAction, UPDATE_JOB } from '../types/jobTypes'
 
-export const getJobs = (token: string) => async(dispatch: Dispatch<IGetJobsAction | IAlertAction>) => {
+export const getJobs = (token: string, page: number = 1) => async(dispatch: Dispatch<IGetJobsAction | IAlertAction>) => {
   try {
     dispatch({
       type: ALERT,
       payload: { loading: true }
     })
 
-    const res = await getDataAPI('job', token)
+    const res = await getDataAPI(`job?page=${page}`, token)
     dispatch({
       type: GET_JOBS,
-      payload: res.data.jobs
+      payload: {
+        data: res.data.jobs,
+        totalPage: res.data.totalPage
+      }
     })
 
     dispatch({

@@ -3,6 +3,13 @@ import { authorizeRoles, isAuthenticated } from './../../../middlewares/auth'
 import Job from './../../../models/Job'
 import connectDB from './../../../libs/db'
 
+const Pagination = (req: NextApiRequest) => {
+  const page = Number(req.query.page) || 1
+  const limit = Number(req.query.limit) || 6
+  const skip = (page - 1) * limit
+  return { page, skip, limit }
+}
+
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   const user = await isAuthenticated(req, res)
   if (!user) return
@@ -43,33 +50,68 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
         return res.status(401).json({ msg: 'Your organization haven\'t been accepted yet by admin.' })
       }
     case 'GET':
-      const jobs = await Job.aggregate([
-        { $match: { organization: isAuthorize._id } },
+      const { skip, limit } = Pagination(req)
+
+      const data = await Job.aggregate([
         {
-          $lookup: {
-            from: 'organizations',
-            let: { org_id: '$organization' },
-            pipeline: [
-              { $match: { $expr: { $eq: ['$_id', '$$org_id'] } } },
+          $facet: {
+            totalData: [
+              { $match: { organization: isAuthorize._id } },
               {
                 $lookup: {
-                  from: 'users',
-                  let: { user_id: '$user' },
+                  from: 'organizations',
+                  let: { org_id: '$organization' },
                   pipeline: [
-                    { $match: { $expr: { $eq: ['$_id', '$$user_id'] } } },
-                    { $project: { name: 1, avatar: 1, province: 1, city: 1, district: 1, postalCode: 1 } }
+                    { $match: { $expr: { $eq: ['$_id', '$$org_id'] } } },
+                    {
+                      $lookup: {
+                        from: 'users',
+                        let: { user_id: '$user' },
+                        pipeline: [
+                          { $match: { $expr: { $eq: ['$_id', '$$user_id'] } } },
+                          { $project: { name: 1, avatar: 1, province: 1, city: 1, district: 1, postalCode: 1 } }
+                        ],
+                        as: 'user'
+                      }
+                    },
+                    { $unwind: '$user' }
                   ],
-                  as: 'user'
+                  as: 'organization'
                 }
               },
-              { $unwind: '$user' }
+              { $unwind: '$organization' },
+              { $sort: { createdAt: -1 } },
+              { $skip: skip },
+              { $limit: limit }
             ],
-            as: 'organization'
+            totalCount: [
+              { $match: { organization: isAuthorize._id } },
+              { $count: 'count' }
+            ]
           }
         },
-        { $unwind: '$organization' }
+        {
+          $project: {
+            totalData: 1,
+            count: { $arrayElemAt: ['$totalCount.count', 0] }
+          }
+        }
       ])
-      return res.status(200).json({ jobs })
+
+      const jobs = data[0].totalData
+      const jobsCount = data[0].count
+      let totalPage = 0
+
+      if (jobs.length === 0) totalPage = 0
+      else {
+        if (jobsCount % limit === 0) {
+          totalPage = jobsCount / limit
+        } else {
+          totalPage = Math.floor(jobsCount / limit) + 1
+        }
+      }
+
+      return res.status(200).json({ jobs, totalPage })
     default:
       return res.status(405).json({ msg: `${req.method} method not allowed for this endpoint.` })
   }

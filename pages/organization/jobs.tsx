@@ -12,6 +12,7 @@ import ApplicantModal from './../../components/modal/ApplicantModal'
 import CreateJobModal from './../../components/modal/CreateJobModal'
 import Loader from './../../components/general/Loader'
 import { IJob } from '../../redux/types/jobTypes'
+import Pagination from '../../components/general/Pagination'
 
 const OrganizationJobs = () => {
   const [openJobDetailModal, setOpenJobDetailModal] = useState(false)
@@ -19,6 +20,7 @@ const OrganizationJobs = () => {
   const [openApplicantModal, setOpenApplicantModal] = useState(false)
   const [openCreateJobModal, setOpenCreateJobModal] = useState(false)
   const [selectedItem, setSelectedItem] = useState<Partial<IJob>>({})
+  const [currPage, setCurrPage] = useState(1)
 
   const router = useRouter()
   const dispatch = useDispatch()
@@ -60,11 +62,14 @@ const OrganizationJobs = () => {
     } else {
       if (auth.user?.role !== 'organization') {
         router.push('/')
-      } else {
-        dispatch(getJobs(auth.accessToken))
       }
     }
   }, [router, dispatch, auth])
+
+  useEffect(() => {
+    if (auth.accessToken)
+      dispatch(getJobs(auth.accessToken, currPage))
+  }, [auth, currPage])
 
   return (
     <>
@@ -81,39 +86,49 @@ const OrganizationJobs = () => {
           alert.loading
           ? <Loader size='xl' />
           : (
-            <div className='overflow-x-auto mt-8'>
-              <table className='w-full'>
-                <thead>
-                  <tr className='text-sm bg-[#504ED7] text-white'>
-                    <th className='p-3'>No</th>
-                    <th>Position</th>
-                    <th>Job Level</th>
-                    <th>Employment Type</th>
-                    <th>Posted Date</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    job.map((item, idx) => (
-                      <tr key={item._id} className='text-center bg-[#F9F9FF] text-sm'>
-                        <td className='p-3'>{idx + 1}</td>
-                        <td>{item.position}</td>
-                        <td>{item.jobLevel}</td>
-                        <td>{item.employmentType}</td>
-                        <td>{`${new Date(item.createdAt!).toLocaleDateString()}`}</td>
-                        <td>
-                          <button onClick={() => handleClickDetail(item)} className='mr-3 bg-blue-500 hover:bg-blue-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Detail</button>
-                          <button onClick={() => handleClickApplicant(item)} className='mr-3 bg-[#504ED7] hover:bg-[#2825C2] transition-[background] text-white text-xs px-3 py-1 rounded-md'>Applicant</button>
-                          <button onClick={() => handleClickEdit(item)} className='mr-3 bg-orange-500 hover:bg-orange-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Edit</button>
-                          <button onClick={() => handleClickDelete(item)} className='mr-3 bg-red-500 hover:bg-red-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Delete</button>
-                        </td>
-                      </tr>
-                    ))
-                  }
-                </tbody>
-              </table>
-            </div>
+            <>
+              <div className='overflow-x-auto mt-8'>
+                <table className='w-full'>
+                  <thead>
+                    <tr className='text-sm bg-[#504ED7] text-white'>
+                      <th className='p-3'>No</th>
+                      <th>Position</th>
+                      <th>Job Level</th>
+                      <th>Employment Type</th>
+                      <th>Posted Date</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      job.data.map((item, idx) => (
+                        <tr key={item._id} className='text-center bg-[#F9F9FF] text-sm'>
+                          <td className='p-3'>{idx + 1}</td>
+                          <td>{item.position}</td>
+                          <td>{item.jobLevel}</td>
+                          <td>{item.employmentType}</td>
+                          <td>{`${new Date(item.createdAt!).toLocaleDateString()}`}</td>
+                          <td>
+                            <button onClick={() => handleClickDetail(item)} className='mr-3 bg-blue-500 hover:bg-blue-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Detail</button>
+                            <button onClick={() => handleClickApplicant(item)} className='mr-3 bg-[#504ED7] hover:bg-[#2825C2] transition-[background] text-white text-xs px-3 py-1 rounded-md'>Applicant</button>
+                            <button onClick={() => handleClickEdit(item)} className='mr-3 bg-orange-500 hover:bg-orange-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Edit</button>
+                            <button onClick={() => handleClickDelete(item)} className='mr-3 bg-red-500 hover:bg-red-600 transition-[background] text-white text-xs px-3 py-1 rounded-md'>Delete</button>
+                          </td>
+                        </tr>
+                      ))
+                    }
+                  </tbody>
+                </table>
+              </div>
+              {
+                job.totalPage > 1 &&
+                <Pagination
+                  totalPage={job.totalPage}
+                  currPage={currPage}
+                  setCurrPage={setCurrPage}
+                />
+              }
+            </>
           )
         }
       </div>
