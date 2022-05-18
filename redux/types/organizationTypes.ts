@@ -16,9 +16,14 @@ export interface IOrganization {
   createdAt: string
 }
 
+export interface IOrganizationType {
+  data: IOrganization[]
+  totalPage: number
+}
+
 export interface IGetUnapprovedOrganizationsAction {
   type: typeof GET_UNAPPROVED_ORGANIZATIONS
-  payload: IOrganization[]
+  payload: IOrganizationType
 }
 
 export interface IChangeOrganizationStatusAction {

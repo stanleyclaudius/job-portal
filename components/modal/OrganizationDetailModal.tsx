@@ -74,7 +74,7 @@ const OrganizationDetailModal = ({ openModal, setOpenModal, selectedOrganization
           </div>
           <div className='mt-7'>
             <h1 className='font-medium text-lg mb-3'>Description</h1>
-            <div className='text-sm text-gray-600 leading-loose' dangerouslySetInnerHTML={{ __html: selectedOrganization.description }} />
+            <div className='text-sm text-gray-600 leading-loose break-words' dangerouslySetInnerHTML={{ __html: selectedOrganization.description }} />
           </div>
           <div className='mt-7'>
             <h1 className='font-medium text-lg mb-3'>Address</h1>

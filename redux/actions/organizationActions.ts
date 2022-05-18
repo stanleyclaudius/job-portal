@@ -3,7 +3,7 @@ import { deleteDataAPI, getDataAPI, patchDataAPI } from '../../utils/fetchData'
 import { ALERT, IAlertAction } from './../types/alertTypes'
 import { CHANGE_ORGANIZATION_STATUS, GET_UNAPPROVED_ORGANIZATIONS, IChangeOrganizationStatusAction, IGetUnapprovedOrganizationsAction } from './../types/organizationTypes'
 
-export const getUnapprovedOrganizations = (token: string) => async(dispatch: Dispatch<IGetUnapprovedOrganizationsAction | IAlertAction>) => {
+export const getUnapprovedOrganizations = (token: string, page: number = 1) => async(dispatch: Dispatch<IGetUnapprovedOrganizationsAction | IAlertAction>) => {
   try {
     dispatch({
       type: ALERT,
@@ -12,10 +12,13 @@ export const getUnapprovedOrganizations = (token: string) => async(dispatch: Dis
       }
     })
 
-    const res = await getDataAPI('organization/unapproved', token)
+    const res = await getDataAPI(`organization/unapproved?page=${page}`, token)
     dispatch({
       type: GET_UNAPPROVED_ORGANIZATIONS,
-      payload: res.data.organizations
+      payload: {
+        data: res.data.organizations,
+        totalPage: res.data.totalPage
+      }
     })
 
     dispatch({
