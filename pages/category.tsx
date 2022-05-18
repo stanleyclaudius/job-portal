@@ -4,15 +4,17 @@ import { useRouter } from 'next/router'
 import Layout from "../components/admin/Layout"
 import CreateCategoryModal from '../components/modal/CreateCategoryModal'
 import { RootStore } from '../utils/Interface'
-import { getCategory } from '../redux/actions/categoryActions'
+import { getAdminCategory } from '../redux/actions/categoryActions'
 import Loader from '../components/general/Loader'
+import Pagination from '../components/general/Pagination'
 
 const Category = () => {
   const [openModal, setOpenModal] = useState(false)
+  const [currPage, setCurrPage] = useState(1)
 
   const router = useRouter()
   const dispatch = useDispatch()
-  const { alert, auth, category } = useSelector((state: RootStore) => state)
+  const { alert, auth, adminCategory: category } = useSelector((state: RootStore) => state)
 
   useEffect(() => {
     if (!auth.accessToken) {
@@ -20,11 +22,15 @@ const Category = () => {
     } else {
       if (auth.user?.role !== 'admin') {
         router.push('/')
-      } else {
-        dispatch(getCategory(auth.accessToken))
       }
     }
   }, [router, dispatch, auth])
+
+  useEffect(() => {
+    if (auth.accessToken) {
+      dispatch(getAdminCategory(auth.accessToken, currPage))
+    }
+  }, [dispatch, auth, currPage])
 
   return (
     <>
@@ -38,31 +44,42 @@ const Category = () => {
             alert.loading
             ? <Loader size='xl' />
             : (
-              <div className='overflow-x-auto'>
-                <table className='w-full'>
-                  <thead>
-                    <tr className='text-sm bg-[#504ED7] text-white'>
-                      <th className='p-3'>No</th>
-                      <th>Category</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {
-                      category.map((item, idx) => (
-                        <tr className='text-center bg-[#F9F9FF] text-sm'>
-                          <td className='p-3'>{idx + 1}</td>
-                          <td>{item.name}</td>
-                          <td>
-                            <button className='bg-orange-400 hover:bg-orange-500 transition-[background] rounded-md text-white px-2 py-1 text-xs'>Update</button>
-                            <button className='bg-red-500 text-white hover:bg-red-600 transiiton-[background] rounded-md px-2 py-1 text-xs ml-5'>Delete</button>
-                          </td>
-                        </tr>
-                      ))
-                    }
-                  </tbody>
-                </table>
-              </div>
+              <>
+                <div className='overflow-x-auto'>
+                  <table className='w-full'>
+                    <thead>
+                      <tr className='text-sm bg-[#504ED7] text-white'>
+                        <th className='p-3'>No</th>
+                        <th>Category</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        category.data.map((item, idx) => (
+                          <tr className='text-center bg-[#F9F9FF] text-sm'>
+                            <td className='p-3'>{idx + 1}</td>
+                            <td>{item.name}</td>
+                            <td>
+                              <button className='bg-orange-400 hover:bg-orange-500 transition-[background] rounded-md text-white px-2 py-1 text-xs'>Update</button>
+                              <button className='bg-red-500 text-white hover:bg-red-600 transiiton-[background] rounded-md px-2 py-1 text-xs ml-5'>Delete</button>
+                            </td>
+                          </tr>
+                        ))
+                      }
+                    </tbody>
+                  </table>
+                </div>
+
+                {
+                  category.totalPage > 1 &&
+                  <Pagination
+                    currPage={currPage}
+                    setCurrPage={setCurrPage}
+                    totalPage={category.totalPage}
+                  />
+                }
+              </>
             )
           }
         </>

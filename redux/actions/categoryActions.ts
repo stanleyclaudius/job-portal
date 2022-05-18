@@ -2,7 +2,39 @@ import { Dispatch } from 'redux'
 import { getDataAPI, postDataAPI } from '../../utils/fetchData'
 import { uploadImage } from '../../utils/imageHelper'
 import { ALERT, IAlertAction } from '../types/alertTypes'
-import { CREATE_CATEGORY, GET_CATEGORY, ICategory, ICreateCategoryAction, IGetCategoryAction } from '../types/categoryTypes'
+import { CREATE_CATEGORY, GET_ADMIN_CATEGORY, GET_CATEGORY, ICategory, ICreateCategoryAction, IGetAdminCategoryAction, IGetCategoryAction } from '../types/categoryTypes'
+
+export const getAdminCategory = (token: string, page: number = 1) => async(dispatch: Dispatch<IGetAdminCategoryAction | IAlertAction>) => {
+  try {
+    dispatch({
+      type: ALERT,
+      payload: {
+        loading: true
+      }
+    })
+
+    const res = await getDataAPI(`category/admin?page=${page}`, token)
+    dispatch({
+      type: GET_ADMIN_CATEGORY,
+      payload: {
+        data: res.data.categories,
+        totalPage: res.data.totalPage
+      }
+    })
+
+    dispatch({
+      type: ALERT,
+      payload: {}
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        error: err.response.data.msg
+      }
+    })
+  }
+}
 
 export const getCategory = (token: string) => async(dispatch: Dispatch<IGetCategoryAction | IAlertAction>) => {
   try {

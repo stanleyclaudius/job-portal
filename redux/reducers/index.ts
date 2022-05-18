@@ -7,6 +7,7 @@ import applicant from './applicantReducer'
 import userDescription from './userDescriptionReducer'
 import category from './categoryReducer'
 import invitation from './invitationReducer'
+import adminCategory from './adminCategoryReducer'
 
 export default combineReducers({
   auth,
@@ -16,5 +17,6 @@ export default combineReducers({
   applicant,
   userDescription,
   category,
-  invitation
+  invitation,
+  adminCategory
 })
