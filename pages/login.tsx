@@ -91,7 +91,7 @@ const Login = () => {
                   : <AiFillEye onClick={() => setShowPassword(true)} className='text-gray-400 cursor-pointer' />
                 }
               </div>
-              <Link href='/forget_password'>
+              <Link href='/forgot_password'>
                 <a className='text-blue-500 text-xs mt-2 float-right outline-0'>Forgot password?</a>
               </Link>
               <div className='clear-both' />
