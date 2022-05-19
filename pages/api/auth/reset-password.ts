@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import User from "../../../models/User";
+import connectDB from "../../../libs/db";
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'PATCH')
@@ -31,3 +32,5 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
 
   return res.status(200).json({ msg: 'Password has been reset successfully.' })
 }
+
+export default connectDB(handler)
