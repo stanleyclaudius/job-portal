@@ -20,7 +20,7 @@
     <a href="https://github.com/stanleyclaudius/job-portal.git"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/stanleyclaudius/job-portal">View Demo</a>
+    <a href="https://job-portal-six.vercel.app">View Demo</a>
     ·
     <a href="https://github.com/stanleyclaudius/job-portal/issues">Report Bug</a>
     ·
