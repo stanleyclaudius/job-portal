@@ -88,7 +88,7 @@ const Category = () => {
                           <tbody>
                             {
                               category.data.map((item, idx) => (
-                                <tr className='text-center bg-[#F9F9FF] text-sm'>
+                                <tr key={item._id} className='text-center bg-[#F9F9FF] text-sm'>
                                   <td className='p-3'>{idx + 1}</td>
                                   <td>{item.name}</td>
                                   <td>
