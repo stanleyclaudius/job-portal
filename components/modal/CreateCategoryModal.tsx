@@ -3,18 +3,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FormSubmit, InputChange, RootStore } from '../../utils/Interface'
 import { ALERT } from '../../redux/types/alertTypes'
-import { createCategory } from '../../redux/actions/categoryActions'
+import { createCategory, updateCategory } from '../../redux/actions/categoryActions'
 import Loader from '../general/Loader'
+import { ICategory } from '../../redux/types/categoryTypes'
 
 export interface IProps {
   openModal: boolean
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
+  selectedItem: ICategory
 }
 
-const CreateCategoryModal = ({ openModal, setOpenModal }: IProps) => {
+const CreateCategoryModal = ({ openModal, setOpenModal, selectedItem }: IProps) => {
   const [category, setCategory] = useState('')
   const [loading, setLoading] = useState(false)
   const [image, setImage] = useState<File[]>([])
+  const [urlImage, setUrlImage] = useState('')
 
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
@@ -32,8 +35,13 @@ const CreateCategoryModal = ({ openModal, setOpenModal }: IProps) => {
     }
 
     setLoading(true)
-    await dispatch(createCategory({ name: category, image }, `${auth.accessToken}`))
+    if (Object.keys(selectedItem).length > 0) {
+      await dispatch(updateCategory({ name: category, image, _id: selectedItem._id }, urlImage, `${auth.accessToken}`))
+    } else {
+      await dispatch(createCategory({ name: category, image }, `${auth.accessToken}`))
+    }
     setLoading(false)
+    setOpenModal(false)
   }
 
   const handleChangeImage = (e: InputChange) => {
@@ -53,6 +61,19 @@ const CreateCategoryModal = ({ openModal, setOpenModal }: IProps) => {
     return () => document.removeEventListener('mousedown', checkIfClickedOutside)
   }, [openModal])
 
+  useEffect(() => {
+    if (Object.keys(selectedItem).length > 0) {
+      setCategory(selectedItem.name)
+      setUrlImage(selectedItem.image as string)
+    }
+
+    return () => {
+      setCategory('')
+      setUrlImage('')
+      setImage([])
+    }
+  }, [selectedItem])
+
   return (
     <div className={`${openModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} modal-background`}>
       <div ref={modalRef} className={`${openModal ? 'translate-y-0' : '-translate-y-12'} modal-box max-w-[550px] overflow-auto hide-scrollbar`}>
@@ -70,10 +91,7 @@ const CreateCategoryModal = ({ openModal, setOpenModal }: IProps) => {
               <label htmlFor='image' className='text-sm'>Image</label>
               <div className='flex gap-5 mt-3'>
                 <div className='w-20 h-20 rounded-full border border-gray-300 shrink-0'>
-                  {
-                    image.length > 0 &&
-                    <img src={URL.createObjectURL(image[0])} alt={category} className='w-full h-full rounded-full object-cover' />
-                  }
+                  <img src={image.length > 0 ? URL.createObjectURL(image[0]) : urlImage} alt={category} className='w-full h-full rounded-full object-cover' />
                 </div>
                 <input type='file' id='image' accept='image/*' onChange={handleChangeImage} className='outline-0 border border-gray-300 text-sm rounded-md w-full px-2 h-10' />
               </div>

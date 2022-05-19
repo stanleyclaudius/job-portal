@@ -69,13 +69,23 @@ const JobApplied = () => {
           loading
           ? <Loader size='xl' />
           : (
-            <div className='mt-6 grid lg:grid-cols-2 grid-cols-1 md:gap-10 gap-5'>
+            <>
               {
-                data.map(item => (
-                  <JobCard key={item._id} isApplied={true} item={item.job} status={item.status} appliedAt={item.createdAt} />
-                ))
+                data.length === 0
+                ? (
+                  <div className='mt-6 bg-red-500 text-center text-white rounded-md py-3'>There's no job applied data found.</div>
+                )
+                : (
+                  <div className='mt-6 grid lg:grid-cols-2 grid-cols-1 md:gap-10 gap-5'>
+                    {
+                      data.map(item => (
+                        <JobCard key={item._id} isApplied={true} item={item.job} status={item.status} appliedAt={item.createdAt} />
+                      ))
+                    }
+                  </div>
+                )
               }
-            </div>
+            </>
           )
         }
       </div>

@@ -46,6 +46,8 @@ const JobDetail = ({ job }: IProps) => {
         type: ALERT,
         payload: { success: res.data.msg }
       })
+
+      setIsApplied(true)
     } catch (err: any) {
       dispatch({
         type: ALERT,
@@ -54,7 +56,6 @@ const JobDetail = ({ job }: IProps) => {
     }
 
     setOpenModal(false)
-    setIsApplied(true)
   }
 
   useEffect(() => {
@@ -124,7 +125,12 @@ const JobDetail = ({ job }: IProps) => {
                 </p>
               )
               : (
-                <button onClick={applyJob} className='bg-[#504ED7] hover:bg-[#2825C2] outline-0 transition-[background] text-white rounded-md text-sm px-4 py-2'>Apply</button>
+                <>
+                  {
+                    auth.user?.role === 'jobseeker' &&
+                    <button onClick={applyJob} className='bg-[#504ED7] hover:bg-[#2825C2] outline-0 transition-[background] text-white rounded-md text-sm px-4 py-2'>Apply</button>
+                  }
+                </>
               )
             }
           </div>

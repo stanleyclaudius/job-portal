@@ -10,7 +10,10 @@ const organizationReducer = (state: IOrganizationType = initialState, action: IG
     case GET_UNAPPROVED_ORGANIZATIONS:
       return action.payload
     case CHANGE_ORGANIZATION_STATUS:
-      return state.data.filter(item => item._id !== action.payload)
+      return {
+        ...state,
+        data: state.data.filter(item => item._id !== action.payload)
+      }
     default:
       return state
   }

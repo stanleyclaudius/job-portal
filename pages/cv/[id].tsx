@@ -36,7 +36,7 @@ const JobseekerCV = () => {
     if (!auth.accessToken) {
       router.push(`/login?r=cv/${query.id}`)
     } else {
-      if (auth.user?.role !== 'organization') {
+      if (auth.user?.role !== 'organization' && auth.user?.role !== 'admin') {
         router.push('/')
       }
     }

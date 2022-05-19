@@ -1,20 +1,32 @@
 import { BsBuilding } from 'react-icons/bs'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 import Head from 'next/head'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
-import { FormSubmit } from '../utils/Interface'
+import { FormSubmit, RootStore } from '../utils/Interface'
 
 const FindCandidate = () => {
   const [keyword, setKeyword] = useState('')
 
   const router = useRouter()
+  const { auth } = useSelector((state: RootStore) => state)
 
   const handleSubmit = (e: FormSubmit) => {
     e.preventDefault()
     router.push(`/candidates?q=${keyword}`)
   }
+
+  useEffect(() => {
+    if (!auth.accessToken) {
+      router.push('/login?r=find_candidate')
+    } else {
+      if (auth.user?.role !== 'organization' && auth.user?.role !== 'admin') {
+        router.push('/')
+      }
+    }
+  }, [router, auth])
 
   return (
     <>

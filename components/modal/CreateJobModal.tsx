@@ -144,6 +144,7 @@ const CreateJobModal = ({ openModal, setOpenModal, selectedItem }: IProps) => {
       await dispatch(createJob({ position, jobLevel, category, employmentType, skills, keywords, salary, requirements: requirement, overview: description }, `${auth.accessToken}`))
     }
     setLoading(false)
+    setOpenModal(false)
   }
 
   useEffect(() => {

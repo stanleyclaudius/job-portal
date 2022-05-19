@@ -116,7 +116,7 @@ const UserCard = ({ isApplicant, item, info }: IProps) => {
           setOpenModal={setOpenHireModal}
           userName={info.user.name}
           id={info.user?._id}
-          job={job}
+          job={job.data}
         />
       }
     </>

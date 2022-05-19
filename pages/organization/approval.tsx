@@ -51,48 +51,58 @@ const OrganizationApproval = () => {
           ? <Loader size='xl' />
           : (
             <>
-              <div className='overflow-x-auto'>
-                <table className='w-full'>
-                  <thead>
-                    <tr className='text-sm bg-[#504ED7] text-white'>
-                      <th className='p-3'>No</th>
-                      <th>Organization Name</th>
-                      <th>Organization Email</th>
-                      <th>Industry Type</th>
-                      <th>Created Date</th>
-                      <th>Registered Date</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {
-                      (organization as IOrganizationType).data.map((item, idx) => (
-                        <tr key={item._id} className='text-center bg-[#F9F9FF] text-sm'>
-                          <td className='p-3'>{idx + 1}</td>
-                          <td>{item.user.name}</td>
-                          <td>{item.user.email}</td>
-                          <td>{item.industryType}</td>
-                          <td>{new Date(item.createdDate).toLocaleDateString()}</td>
-                          <td>{new Date(item.createdAt).toLocaleDateString()}</td>
-                          <td>
-                            <button onClick={() => handleClickDetail(item)} className='text-xs mr-3 text-white px-3 py-2 bg-blue-500 hover:bg-blue-600 transition-[background] rounded-md'>Detail</button>
-                            <button onClick={() => handleAcceptOrg(item._id)} className='bg-green-600 mr-3 hover:bg-green-700 transition-[background] rounded-md text-white px-3 text-xs py-2'>Accept</button>
-                            <button onClick={() => dispatch(rejectOrganization(item._id, `${auth.accessToken}`))} className='bg-red-500 hover:bg-red-600 transition-[background[ rounded-md text-white px-3 py-2 text-xs'>Reject</button>
-                          </td>
-                        </tr>
-                      ))
-                    }
-                  </tbody>
-                </table>
-              </div>
-
               {
-                (organization as IOrganizationType).totalPage > 1 &&
-                <Pagination
-                  currPage={currPage}
-                  setCurrPage={setCurrPage}
-                  totalPage={(organization as IOrganizationType).totalPage}
-                />
+                organization.data.length === 0
+                ? (
+                  <div className='text-white text-center bg-red-500 rounded-md py-3'>There's no organization that needs approval yet.</div>
+                )
+                : (
+                  <>
+                    <div className='overflow-x-auto'>
+                      <table className='w-full'>
+                        <thead>
+                          <tr className='text-sm bg-[#504ED7] text-white'>
+                            <th className='p-3'>No</th>
+                            <th>Organization Name</th>
+                            <th>Organization Email</th>
+                            <th>Industry Type</th>
+                            <th>Created Date</th>
+                            <th>Registered Date</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {
+                            organization.data.map((item, idx) => (
+                              <tr key={item._id} className='text-center bg-[#F9F9FF] text-sm'>
+                                <td className='p-3'>{idx + 1}</td>
+                                <td>{item.user.name}</td>
+                                <td>{item.user.email}</td>
+                                <td>{item.industryType}</td>
+                                <td>{new Date(item.createdDate).toLocaleDateString()}</td>
+                                <td>{new Date(item.createdAt).toLocaleDateString()}</td>
+                                <td>
+                                  <button onClick={() => handleClickDetail(item)} className='text-xs mr-3 text-white px-3 py-2 bg-blue-500 hover:bg-blue-600 transition-[background] rounded-md'>Detail</button>
+                                  <button onClick={() => handleAcceptOrg(item._id)} className='bg-green-600 mr-3 hover:bg-green-700 transition-[background] rounded-md text-white px-3 text-xs py-2'>Accept</button>
+                                  <button onClick={() => dispatch(rejectOrganization(item._id, `${auth.accessToken}`))} className='bg-red-500 hover:bg-red-600 transition-[background[ rounded-md text-white px-3 py-2 text-xs'>Reject</button>
+                                </td>
+                              </tr>
+                            ))
+                          }
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {
+                      organization.totalPage > 1 &&
+                      <Pagination
+                        currPage={currPage}
+                        setCurrPage={setCurrPage}
+                        totalPage={organization.totalPage}
+                      />
+                    }
+                  </>
+                )
               }
             </>
           )

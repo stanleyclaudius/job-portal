@@ -104,10 +104,6 @@ const Login = () => {
               }
             </button>
           </form>
-          <p className='text-center text-gray-400 my-7 text-sm'>Or Sign In With</p>
-          <div className='flex justify-center items-center'>
-            
-          </div>
           <p className='text-sm text-gray-500 text-center mt-8'>Don't have a Job Seek account yet? <Link href='/register'><a className='text-blue-500 outline-0'>Sign Up</a></Link></p>
         </div>
       </div>

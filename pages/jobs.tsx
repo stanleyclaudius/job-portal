@@ -116,13 +116,21 @@ const Jobs = ({ data }: IProps) => {
         handleFilter={handleFilter}
       />
       <div className='bg-gray-100 pt-10 pb-7 md:px-16 px-5'>
-        <div className='grid gap-8 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
-          {
-            jobs.map(item => (
-              <JobCard key={item._id} item={item} />
-            ))
-          }
-        </div>
+        {
+          jobs.length === 0
+          ? (
+            <div className='bg-red-500 text-center text-white rounded-md py-3'>There's no job available.</div>
+          )
+          : (
+            <div className='grid gap-8 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
+              {
+                jobs.map(item => (
+                  <JobCard key={item._id} item={item} />
+                ))
+              }
+            </div>
+          )
+        }
       </div>
       <Footer />
     </>

@@ -56,9 +56,19 @@ const Candidates = ({ data }: IProps) => {
       </div>
       <div className='bg-gray-100 pt-10 pb-7 md:px-16 px-5 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8'>
         {
-          data.map(item => (
-            <UserCard key={item._id} info={item} isApplicant={false} />
-          ))
+          data.length === 0
+          ? (
+            <div className='bg-red-500 text-white text-center rounded-md py-3'>There's no candidate data found.</div>
+          )
+          : (
+            <>
+              {
+                data.map(item => (
+                  <UserCard key={item._id} info={item} isApplicant={false} />
+                ))
+              }
+            </>
+          )
         }
       </div>
       <Footer />

@@ -117,7 +117,7 @@ const Navbar = () => {
                       </>
                     )
                     : (
-                      <Link href='/dashboard'>
+                      <Link href='/organization/approval'>
                         <a className='navbar-link'>
                           Dashboard
                         </a>
