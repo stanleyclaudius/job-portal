@@ -12,10 +12,10 @@
     <img src="public/images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Online Shop Application</h3>
+  <h3 align="center">Job Portal Application</h3>
 
   <p align="center">
-    An awesome online shop application based on website
+    An awesome job portal application based on website
     <br />
     <a href="https://github.com/stanleyclaudius/job-portal.git"><strong>Explore the docs »</strong></a>
     <br />
