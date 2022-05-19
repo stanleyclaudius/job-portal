@@ -30,7 +30,7 @@ const JobseekerCV = () => {
     }
 
     fetchData()
-  }, [auth, query])
+  }, [auth, query, dispatch])
 
   useEffect(() => {
     if (!auth.accessToken) {

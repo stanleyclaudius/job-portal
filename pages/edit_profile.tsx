@@ -121,7 +121,7 @@ const EditProfile = () => {
     if (auth.accessToken) {
       fetchJobseeker()
     }
-  }, [auth])
+  }, [auth, dispatch])
 
   useEffect(() => {
     if (auth.accessToken) {

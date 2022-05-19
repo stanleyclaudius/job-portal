@@ -32,7 +32,7 @@ const Pagination = ({ totalPage, currPage, setCurrPage }: IProps) => {
       }
       {
         Array.from(Array(totalPage).keys()).map(item => (
-          <p onClick={() => handleClickPage(item + 1)} className={`cursor-pointer text-lg ${currPage === item + 1 ? 'text-white bg-blue-500 rounded-full w-7 h-7 text-center font-medium' : 'text-gray-600'}`}>{item + 1}</p>
+          <p key={item} onClick={() => handleClickPage(item + 1)} className={`cursor-pointer text-lg ${currPage === item + 1 ? 'text-white bg-blue-500 rounded-full w-7 h-7 text-center font-medium' : 'text-gray-600'}`}>{item + 1}</p>
         ))
       }
       {

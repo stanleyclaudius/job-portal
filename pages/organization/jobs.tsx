@@ -69,7 +69,7 @@ const OrganizationJobs = () => {
   useEffect(() => {
     if (auth.accessToken)
       dispatch(getJobs(auth.accessToken, currPage))
-  }, [auth, currPage])
+  }, [auth, currPage, dispatch])
 
   return (
     <>

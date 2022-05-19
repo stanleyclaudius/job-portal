@@ -65,7 +65,7 @@ const Login = () => {
         router.push('/')
       }
     }
-  }, [auth, router])
+  }, [auth, router, query.r])
 
   return (
     <>

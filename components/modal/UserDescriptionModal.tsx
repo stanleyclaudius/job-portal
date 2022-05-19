@@ -23,7 +23,7 @@ const UserDescriptionModal = () => {
 
     document.addEventListener('mousedown', checkIfClickedOutside)
     return () => document.removeEventListener('mousedown', checkIfClickedOutside)
-  }, [userDescription])
+  }, [userDescription, dispatch])
   
   return (
     <div className={`${userDescription ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} modal-background z-[999999]`}>

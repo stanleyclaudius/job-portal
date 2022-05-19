@@ -23,7 +23,7 @@ const ReceivedInvitation = () => {
         dispatch(getReceivedInvitations(`${auth.accessToken}`))
       }
     }
-  }, [auth])
+  }, [auth, dispatch, router])
   
   return (
     <>

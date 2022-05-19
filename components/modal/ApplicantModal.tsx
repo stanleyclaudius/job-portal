@@ -32,7 +32,7 @@ const ApplicantModal = ({ openModal, setOpenModal, jobId }: IProps) => {
     if (jobId && auth.accessToken) {
       dispatch(getApplicants(jobId, auth.accessToken))
     }
-  }, [jobId, auth])
+  }, [jobId, auth, dispatch])
 
   return (
     <div className={`modal-background ${openModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>

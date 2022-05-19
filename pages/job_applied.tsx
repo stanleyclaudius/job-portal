@@ -45,7 +45,7 @@ const JobApplied = () => {
     if (auth.accessToken) {
       fetchData()
     }
-  }, [auth])
+  }, [auth, dispatch])
 
   useEffect(() => {
     if (!auth.accessToken) {

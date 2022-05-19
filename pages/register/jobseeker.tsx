@@ -91,7 +91,7 @@ const Jobseeker = () => {
     if (auth.accessToken) {
       router.push('/')
     }
-  }, [])
+  }, [router, auth.accessToken])
 
   return (
     <>

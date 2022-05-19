@@ -24,7 +24,7 @@ const InvitationCard = ({ item }: IProps) => {
     if (auth.accessToken) {
       fetchJobseeker()
     }
-  }, [auth])
+  }, [auth, item.user])
 
   return (
     <div className='shadow-md rounded-md p-5 border border-gray-200'>

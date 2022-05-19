@@ -40,7 +40,7 @@ const Candidates = ({ data }: IProps) => {
     if (auth.user?.role === 'organization') {
       dispatch(getJobs(`${auth.accessToken}`))
     }
-  }, [auth])
+  }, [dispatch, auth])
 
   return (
     <>

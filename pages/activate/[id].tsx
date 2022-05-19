@@ -29,7 +29,7 @@ const ActivateAccount = ({ success, error }: IProps) => {
     }
 
     router.push('/login')
-  }, [])
+  }, [dispatch, router, error, success])
 
   return (
     <></>

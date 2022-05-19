@@ -34,7 +34,7 @@ const UserCard = ({ isApplicant, item, info }: IProps) => {
     }
 
     return () => setProvince('Not provided.')
-  }, [info?.user.province, item?.jobseeker.user.province])
+  }, [info, item?.jobseeker.user.province])
 
   return (
     <>
