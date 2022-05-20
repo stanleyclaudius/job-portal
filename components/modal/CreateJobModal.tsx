@@ -4,11 +4,11 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { FormSubmit, RootStore } from './../../utils/Interface'
 import { createJob, updateJob } from './../../redux/actions/jobActions'
 import { ALERT } from './../../redux/types/alertTypes'
+import { ICategory } from './../../redux/types/categoryTypes'
+import { getDataAPI } from './../../utils/fetchData'
+import { IJob } from './../../redux/types/jobTypes'
 import Editor from './../../utils/Editor'
 import Loader from './../general/Loader'
-import { ICategory } from '../../redux/types/categoryTypes'
-import { getDataAPI } from '../../utils/fetchData'
-import { IJob } from '../../redux/types/jobTypes'
 
 interface IProps {
   openModal: boolean

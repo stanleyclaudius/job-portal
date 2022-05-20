@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
+import { RootStore } from './../../utils/Interface'
+import { getApplicants } from './../../redux/actions/applicantActions'
 import UserCard from './../general/UserCard'
-import { RootStore } from '../../utils/Interface'
-import { getApplicants } from '../../redux/actions/applicantActions'
 
 interface IProps {
   openModal: boolean

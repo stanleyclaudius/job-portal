@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import Layout from "../components/admin/Layout"
-import CreateCategoryModal from '../components/modal/CreateCategoryModal'
-import { RootStore } from '../utils/Interface'
-import { deleteCategory, getAdminCategory } from '../redux/actions/categoryActions'
-import Loader from '../components/general/Loader'
-import Pagination from '../components/general/Pagination'
-import DeleteModal from '../components/modal/DeleteModal'
-import { ICategory } from '../redux/types/categoryTypes'
+import { ICategory } from './../redux/types/categoryTypes'
+import { RootStore } from './../utils/Interface'
+import { deleteCategory, getAdminCategory } from './../redux/actions/categoryActions'
+import Layout from './../components/admin/Layout'
+import CreateCategoryModal from './../components/modal/CreateCategoryModal'
+import Loader from './../components/general/Loader'
+import Pagination from './../components/general/Pagination'
+import DeleteModal from './../components/modal/DeleteModal'
 
 const Category = () => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false)

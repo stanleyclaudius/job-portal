@@ -1,14 +1,14 @@
-import Head from "next/head"
-import { useRouter } from "next/router"
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import Footer from "../components/general/Footer"
-import InvitationCard from "../components/general/InvitationCard"
-import Loader from "../components/general/Loader"
-import Navbar from "../components/general/Navbar"
-import { IInvitation } from "../redux/types/invitationTypes"
-import { getDataAPI } from "../utils/fetchData"
-import { RootStore } from "../utils/Interface"
+import { useRouter } from 'next/router'
+import { IInvitation } from './../redux/types/invitationTypes'
+import { getDataAPI } from './../utils/fetchData'
+import { RootStore } from './../utils/Interface'
+import Head from 'next/head'
+import Footer from './../components/general/Footer'
+import InvitationCard from './../components/general/InvitationCard'
+import Loader from './../components/general/Loader'
+import Navbar from './../components/general/Navbar'
 
 const SentInvitation = () => {
   const [data, setData] = useState<IInvitation[]>([])

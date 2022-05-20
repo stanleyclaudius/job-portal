@@ -1,5 +1,5 @@
+import { IJob } from './../../../redux/types/jobTypes'
 import Link from 'next/link'
-import { IJob } from '../../../redux/types/jobTypes'
 import JobCard from './JobCard'
 
 interface IProps {

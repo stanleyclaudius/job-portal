@@ -1,4 +1,3 @@
-import Avatar from './Avatar'
 import ReviewCard from './ReviewCard'
 
 const ReviewContainer = () => {

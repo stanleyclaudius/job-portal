@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { IRegister } from './../../../utils/Interface'
-import connectDB from './../../../libs/db'
 import jwt from 'jsonwebtoken'
+import connectDB from './../../../libs/db'
 import User from './../../../models/User'
 import Jobseeker from './../../../models/Jobseeker'
 import Organization from './../../../models/Organization'

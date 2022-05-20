@@ -1,5 +1,5 @@
-import Image from 'next/image'
 import { useEffect, useRef } from 'react'
+import Image from 'next/image'
 import SendImage from './../../public/images/send.svg'
 
 interface IProps {

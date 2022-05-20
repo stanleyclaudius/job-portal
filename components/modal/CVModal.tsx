@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { AiOutlineClose } from 'react-icons/ai'
-import PDFViewer from '../../utils/PDFViewer'
+import PDFViewer from './../../utils/PDFViewer'
 
 interface IProps {
   openModal: boolean

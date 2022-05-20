@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router'
-import { BsFillGrid1X2Fill } from 'react-icons/bs'
 import { RiBuilding2Fill } from 'react-icons/ri'
-import Link from 'next/link'
 import { BiCategory } from 'react-icons/bi'
+import Link from 'next/link'
 
 const Sidebar = () => {
   const { pathname } = useRouter()

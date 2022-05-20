@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import Head from "next/head"
-import Footer from "../components/general/Footer"
-import Navbar from "../components/general/Navbar"
-import { FormSubmit, RootStore } from '../utils/Interface'
-import { ALERT } from '../redux/types/alertTypes'
-import { validateEmail } from '../utils/validator'
-import { postDataAPI } from '../utils/fetchData'
-import Loader from '../components/general/Loader'
+import { FormSubmit, RootStore } from './../utils/Interface'
+import { ALERT } from './../redux/types/alertTypes'
+import { validateEmail } from './../utils/validator'
+import { postDataAPI } from './../utils/fetchData'
+import Head from 'next/head'
+import Footer from './../components/general/Footer'
+import Navbar from './../components/general/Navbar'
+import Loader from './../components/general/Loader'
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState('')

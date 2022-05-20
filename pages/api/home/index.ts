@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import Job from '../../../models/Job'
+import Job from './../../../models/Job'
 import connectDB from './../../../libs/db'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {

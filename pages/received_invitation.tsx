@@ -1,12 +1,12 @@
-import Head from 'next/head'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootStore } from '../utils/Interface'
+import { getReceivedInvitations } from './../redux/actions/invitationActions'
+import { RootStore } from './../utils/Interface'
+import Head from 'next/head'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
 import OrganizationCard from './../components/general/OrganizationCard'
-import { getReceivedInvitations } from '../redux/actions/invitationActions'
 
 const ReceivedInvitation = () => {
   const router = useRouter()

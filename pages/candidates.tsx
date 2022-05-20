@@ -1,14 +1,14 @@
-import axios from 'axios'
+import { GetServerSideProps } from 'next'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import { GetServerSideProps } from 'next'
+import { FormSubmit, IJobseeker, RootStore } from './../utils/Interface'
+import { getJobs } from './../redux/actions/jobActions'
+import axios from 'axios'
 import Head from 'next/head'
-import { FormSubmit, IJobseeker, RootStore } from '../utils/Interface'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
 import UserCard from './../components/general/UserCard'
-import { getJobs } from '../redux/actions/jobActions'
 
 interface IProps {
   data: IJobseeker[]

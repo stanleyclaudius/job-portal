@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { authorizeRoles, isAuthenticated } from './../../../middlewares/auth'
 import connectDB from './../../../libs/db'
 import JobApplied from './../../../models/JobsApplied'
-import Jobseeker from '../../../models/Jobseeker'
+import Jobseeker from './../../../models/Jobseeker'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET')

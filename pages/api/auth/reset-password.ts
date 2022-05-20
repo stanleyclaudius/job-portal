@@ -1,8 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from 'next'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
-import User from "../../../models/User";
-import connectDB from "../../../libs/db";
+import User from './../../../models/User'
+import connectDB from './../../../libs/db'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'PATCH')

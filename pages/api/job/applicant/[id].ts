@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { authorizeRoles, isAuthenticated } from './../../../../middlewares/auth'
-import connectDB from './../../../../libs/db'
-import JobsApplied from '../../../../models/JobsApplied'
-import Job from '../../../../models/Job'
 import mongoose from 'mongoose'
+import connectDB from './../../../../libs/db'
+import JobsApplied from './../../../../models/JobsApplied'
+import Job from './../../../../models/Job'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET')

@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FaUsers } from 'react-icons/fa'
 import { MdCheck } from 'react-icons/md'
-import { IInvitation } from '../../redux/types/invitationTypes'
+import { IInvitation } from './../../redux/types/invitationTypes'
+import { RootStore } from './../../utils/Interface'
+import { changeInvitationStatus } from './../../redux/actions/invitationActions'
 import JobDetailModal from './../modal/JobDetailModal'
-import { RootStore } from '../../utils/Interface'
-import { changeInvitationStatus } from '../../redux/actions/invitationActions'
 
 interface IProps {
   data: IInvitation

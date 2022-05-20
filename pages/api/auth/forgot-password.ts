@@ -1,10 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import connectDB from "../../../libs/db";
-import User from "../../../models/User";
-import { generateAccessToken } from "../../../utils/generateToken";
-import { authMsg } from "../../../utils/mailMsg";
-import sendEmail from "../../../utils/sendMail";
-import { validateEmail } from "../../../utils/validator";
+import { NextApiRequest, NextApiResponse } from 'next'
+import { generateAccessToken } from './../../../utils/generateToken'
+import { authMsg } from './../../../utils/mailMsg'
+import { validateEmail } from './../../../utils/validator'
+import connectDB from './../../../libs/db'
+import User from './../../../models/User'
+import sendEmail from './../../../utils/sendMail'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST')

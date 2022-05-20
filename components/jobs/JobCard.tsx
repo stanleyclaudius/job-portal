@@ -41,8 +41,30 @@ const JobCard = ({ item, isApplied, status, appliedAt }: IProps) => {
         </div>
       </div>
       <div className='flex items-center gap-3'>
-        <p className='text-xs bg-green-200 text-green-700 px-3 py-1 rounded-full'>{item?.jobLevel}</p>
-        <p className='text-xs bg-purple-200 text-purple-700 px-3 py-1 rounded-full'>{item?.employmentType}</p>
+        <p className='text-xs bg-green-200 text-green-700 px-3 py-1 rounded-full'>
+          {
+            item?.jobLevel === 'internship'
+            ? 'Internship'
+            : item?.jobLevel === 'entryLevel'
+              ? 'Entry Level'
+              : item?.jobLevel === 'associate'
+                ? 'Associate'
+                : item?.jobLevel === 'manager'
+                  ? 'Manager'
+                  : 'Director'
+          }
+        </p>
+        <p className='text-xs bg-purple-200 text-purple-700 px-3 py-1 rounded-full'>
+          {
+            item?.employmentType === 'fullTime'
+            ? 'Full Time'
+            : item?.employmentType === 'partTime'
+              ? 'Part Time'
+              : item?.employmentType === 'freelance'
+                ? 'Freelance'
+                : 'Contractual'
+          }
+        </p>
       </div>
       <p className='mt-4 font-medium'>{province}</p>
       <div className='flex md:flex-row flex-col md:items-center md:justify-between'>

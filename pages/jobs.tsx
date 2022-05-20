@@ -3,13 +3,13 @@ import { useRouter } from 'next/router'
 import { GetServerSideProps } from 'next'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { IJob } from './../redux/types/jobTypes'
+import { FormSubmit } from './../utils/Interface'
 import Head from 'next/head'
 import axios from 'axios'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
 import Filter from './../components/jobs/Filter'
 import JobCard from './../components/jobs/JobCard'
-import { FormSubmit } from '../utils/Interface'
 
 interface IProps {
   data: IJob[]

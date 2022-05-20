@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { BsPower } from 'react-icons/bs'
-import { RootStore } from '../../utils/Interface'
-import { logout } from '../../redux/actions/authActions'
+import { RootStore } from './../../utils/Interface'
+import { logout } from './../../redux/actions/authActions'
 
 const Navbar = () => {
   const router = useRouter()

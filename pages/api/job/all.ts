@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import connectDB from './../../../libs/db'
 import Job from './../../../models/Job'
-import mongoose from 'mongoose'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET')

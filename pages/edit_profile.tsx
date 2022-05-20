@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
+import { AiOutlineClose } from 'react-icons/ai'
+import { ALERT } from './../redux/types/alertTypes'
+import { getDataAPI } from './../utils/fetchData'
+import { editProfile } from './../redux/actions/authActions'
+import { FormSubmit, ICityData, IDistrictData, IJobseeker, InputChange, IProvinceData, RootStore } from './../utils/Interface'
 import Head from 'next/head'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
-import { FormSubmit, ICityData, IDistrictData, IJobseeker, InputChange, IProvinceData, RootStore } from '../utils/Interface'
-import { AiOutlineClose } from 'react-icons/ai'
-import { ALERT } from '../redux/types/alertTypes'
-import { getDataAPI } from '../utils/fetchData'
-import CVModal from '../components/modal/CVModal'
-import { editProfile } from '../redux/actions/authActions'
-import Loader from '../components/general/Loader'
+import CVModal from './../components/modal/CVModal'
+import Loader from './../components/general/Loader'
 
 const EditProfile = () => {
   const [userData, setUserData] = useState({

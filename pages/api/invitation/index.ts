@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { authorizeRoles, isAuthenticated } from '../../../middlewares/auth'
-import Invitation from '../../../models/Invitation'
+import { authorizeRoles, isAuthenticated } from './../../../middlewares/auth'
+import Invitation from './../../../models/Invitation'
 import connectDB from './../../../libs/db'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {

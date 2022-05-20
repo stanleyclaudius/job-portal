@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { AiFillCaretDown } from 'react-icons/ai'
-import { InputChange } from '../../utils/Interface'
+import { InputChange } from './../../utils/Interface'
 
 interface IProps {
   selectedJobLevel: string[]

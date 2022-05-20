@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
-import { IInvitation } from '../../redux/types/invitationTypes'
-import { IJob } from '../../redux/types/jobTypes'
-import { numberFormatter } from '../../utils/numberFormatter'
+import { IInvitation } from './../../redux/types/invitationTypes'
+import { IJob } from './../../redux/types/jobTypes'
+import { numberFormatter } from './../../utils/numberFormatter'
 
 interface IProps {
   openModal: boolean

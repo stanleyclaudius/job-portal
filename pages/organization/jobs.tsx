@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootStore } from './../../utils/Interface'
-import { useRouter } from 'next/router'
 import { deleteJob, getJobs } from './../../redux/actions/jobActions'
+import { IJob } from './../../redux/types/jobTypes'
 import Head from 'next/head'
 import Footer from './../../components/general/Footer'
 import Navbar from './../../components/general/Navbar'
@@ -11,8 +12,7 @@ import DeleteModal from './../../components/modal/DeleteModal'
 import ApplicantModal from './../../components/modal/ApplicantModal'
 import CreateJobModal from './../../components/modal/CreateJobModal'
 import Loader from './../../components/general/Loader'
-import { IJob } from '../../redux/types/jobTypes'
-import Pagination from '../../components/general/Pagination'
+import Pagination from './../../components/general/Pagination'
 
 const OrganizationJobs = () => {
   const [openJobDetailModal, setOpenJobDetailModal] = useState(false)

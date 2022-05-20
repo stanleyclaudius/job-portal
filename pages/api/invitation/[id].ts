@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import connectDB from "../../../libs/db";
-import { authorizeRoles, isAuthenticated } from "../../../middlewares/auth";
-import Invitation from "../../../models/Invitation";
+import { NextApiRequest, NextApiResponse } from 'next'
+import { authorizeRoles, isAuthenticated } from './../../../middlewares/auth'
+import connectDB from './../../../libs/db'
+import Invitation from './../../../models/Invitation'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'PATCH')

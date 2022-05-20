@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
-import { RootStore } from '../../utils/Interface'
-import { OPEN_DESCRIPTION_MODAL } from '../../redux/types/userDescriptionTypes'
+import { RootStore } from './../../utils/Interface'
+import { OPEN_DESCRIPTION_MODAL } from './../../redux/types/userDescriptionTypes'
 import Link from 'next/link'
 
 const UserDescriptionModal = () => {

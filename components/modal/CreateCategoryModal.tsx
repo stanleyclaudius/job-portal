@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
-import { FormSubmit, InputChange, RootStore } from '../../utils/Interface'
-import { ALERT } from '../../redux/types/alertTypes'
-import { createCategory, updateCategory } from '../../redux/actions/categoryActions'
-import Loader from '../general/Loader'
-import { ICategory } from '../../redux/types/categoryTypes'
+import { FormSubmit, InputChange, RootStore } from './../../utils/Interface'
+import { ALERT } from './../../redux/types/alertTypes'
+import { createCategory, updateCategory } from './../../redux/actions/categoryActions'
+import { ICategory } from './../../redux/types/categoryTypes'
+import Loader from './../general/Loader'
 
 export interface IProps {
   openModal: boolean

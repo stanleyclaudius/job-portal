@@ -2,10 +2,10 @@ import { BsBuilding } from 'react-icons/bs'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
+import { FormSubmit, RootStore } from './../utils/Interface'
 import Head from 'next/head'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
-import { FormSubmit, RootStore } from '../utils/Interface'
 
 const FindCandidate = () => {
   const [keyword, setKeyword] = useState('')

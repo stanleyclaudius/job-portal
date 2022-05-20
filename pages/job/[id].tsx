@@ -1,16 +1,16 @@
-import axios from "axios"
+import { GetServerSideProps } from 'next'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetServerSideProps } from "next"
-import Head from "next/head"
-import { useEffect, useState } from "react"
-import Footer from "../../components/general/Footer"
-import Navbar from "../../components/general/Navbar"
-import { IJob } from "../../redux/types/jobTypes"
-import { numberFormatter } from "../../utils/numberFormatter"
-import { RootStore } from "../../utils/Interface"
-import { getDataAPI, postDataAPI } from "../../utils/fetchData"
-import { ALERT } from "../../redux/types/alertTypes"
-import RecheckCVModal from "../../components/modal/RecheckCVModal"
+import { IJob } from './../../redux/types/jobTypes'
+import { numberFormatter } from './../../utils/numberFormatter'
+import { RootStore } from './../../utils/Interface'
+import { getDataAPI, postDataAPI } from './../../utils/fetchData'
+import { ALERT } from './../../redux/types/alertTypes'
+import axios from 'axios'
+import Head from 'next/head'
+import Footer from './../../components/general/Footer'
+import Navbar from './../../components/general/Navbar'
+import RecheckCVModal from './../../components/modal/RecheckCVModal'
 
 interface IProps {
   job: IJob

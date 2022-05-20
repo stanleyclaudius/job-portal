@@ -1,9 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import connectDB from "../../../libs/db";
-import Job from "../../../models/Job";
+import { NextApiRequest, NextApiResponse } from 'next'
+import { authorizeRoles, isAuthenticated } from './../../../middlewares/auth'
 import mongoose from 'mongoose'
-import { authorizeRoles, isAuthenticated } from "../../../middlewares/auth";
-import { MdAssignmentReturned } from "react-icons/md";
+import connectDB from './../../../libs/db'
+import Job from './../../../models/Job'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   const jobId = req.query.id

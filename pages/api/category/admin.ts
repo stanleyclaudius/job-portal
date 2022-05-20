@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import connectDB from "../../../libs/db";
-import { authorizeRoles, isAuthenticated } from "../../../middlewares/auth";
-import Category from "../../../models/Category";
+import { NextApiRequest, NextApiResponse } from 'next'
+import { authorizeRoles, isAuthenticated } from './../../../middlewares/auth'
+import connectDB from './../../../libs/db'
+import Category from './../../../models/Category'
 
 const Pagination = (req: NextApiRequest) => {
   const page = Number(req.query.page) || 1

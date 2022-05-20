@@ -1,4 +1,4 @@
-import { ICategories } from '../../../pages'
+import { ICategories } from './../../../pages'
 import CategoryCard from './CategoryCard'
 
 interface IProps {

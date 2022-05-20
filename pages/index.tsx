@@ -1,3 +1,4 @@
+import { IJob } from './../redux/types/jobTypes'
 import Head from 'next/head'
 import Navbar from './../components/general/Navbar'
 import Footer from './../components/general/Footer'
@@ -7,7 +8,6 @@ import CategoryContainer from './../components/home/category/CategoryContainer'
 import Jumbotron from './../components/home/Jumbotron'
 import { GetServerSideProps } from 'next'
 import axios from 'axios'
-import { IJob } from '../redux/types/jobTypes'
 
 export interface ICategories {
   _id: string

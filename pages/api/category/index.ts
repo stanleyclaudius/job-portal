@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { authorizeRoles, isAuthenticated } from './../../../middlewares/auth'
 import Category from './../../../models/Category'
 import connectDB from './../../../libs/db'
-import { authorizeRoles, isAuthenticated } from '../../../middlewares/auth'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {

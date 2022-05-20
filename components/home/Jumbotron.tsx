@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { AiOutlineSearch } from 'react-icons/ai'
-import { FormSubmit } from '../../utils/Interface'
+import { FormSubmit } from './../../utils/Interface'
 
 const Jumbotron = () => {
   const [search, setSearch] = useState('')

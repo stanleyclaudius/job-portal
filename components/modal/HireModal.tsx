@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
-import { IJob } from '../../redux/types/jobTypes'
-import { FormSubmit, RootStore } from '../../utils/Interface'
-import { ALERT } from '../../redux/types/alertTypes'
-import { sendInvitation } from '../../redux/actions/invitationActions'
-import Loader from '../general/Loader'
+import { IJob } from './../../redux/types/jobTypes'
+import { FormSubmit, RootStore } from './../../utils/Interface'
+import { ALERT } from './../../redux/types/alertTypes'
+import { sendInvitation } from './../../redux/actions/invitationActions'
+import Loader from './../general/Loader'
 
 interface IProps {
   openModal: boolean

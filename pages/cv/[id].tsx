@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
+import { IJobseeker, RootStore } from './../../utils/Interface'
+import { ALERT } from './../../redux/types/alertTypes'
+import { getDataAPI } from './../../utils/fetchData'
 import Head from 'next/head'
 import Navbar from './../../components/general/Navbar'
-import { IJobseeker, RootStore } from '../../utils/Interface'
-import { ALERT } from '../../redux/types/alertTypes'
-import { getDataAPI } from '../../utils/fetchData'
-import PDFViewer from '../../utils/PDFViewer'
+import PDFViewer from './../../utils/PDFViewer'
 
 const JobseekerCV = () => {
   const [data, setData] = useState<Partial<IJobseeker>>({})

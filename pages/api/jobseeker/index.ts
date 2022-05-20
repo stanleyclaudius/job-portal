@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import Jobseeker from '../../../models/Jobseeker'
-import User from '../../../models/User'
-import connectDB from './../../../libs/db'
 import { authorizeRoles, isAuthenticated } from './../../../middlewares/auth'
+import Jobseeker from './../../../models/Jobseeker'
+import User from './../../../models/User'
+import connectDB from './../../../libs/db'
 
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
   let user

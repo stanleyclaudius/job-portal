@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { numberFormatter } from "../../../utils/numberFormatter"
 import { useRouter } from 'next/router'
+import { numberFormatter } from './../../../utils/numberFormatter'
 
 interface IProps {
   id: string
@@ -65,7 +65,17 @@ const JobCard = ({
       </div>
       <div className='mb-10 mt-6'>
         <h1 className='font-semibold text-xl'>{title}</h1>
-        <p className='font-medium text-gray-500 text-sm mt-1'>{type}</p>
+        <p className='font-medium text-gray-500 text-sm mt-1'>
+          {
+            type === 'fullTime'
+            ? 'Full Time'
+            : type === 'partTime'
+              ? 'Part Time'
+              : type === 'freelance'
+                ? 'Freelance'
+                : 'Contractual'
+          }
+        </p>
         <div className='mt-3 text-gray-400 text-sm' dangerouslySetInnerHTML={{ __html: description.slice(0,30) + '...' }} />
       </div>
       <div className='flex items-center justify-between'>

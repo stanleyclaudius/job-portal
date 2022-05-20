@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
+import { ALERT } from './../redux/types/alertTypes'
+import { RootStore } from './../utils/Interface'
+import { getDataAPI } from './../utils/fetchData'
+import { IJob } from './../redux/types/jobTypes'
 import Head from 'next/head'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
 import JobCard from './../components/jobs/JobCard'
-import { RootStore } from '../utils/Interface'
-import { getDataAPI } from '../utils/fetchData'
-import { IJob } from '../redux/types/jobTypes'
-import Loader from '../components/general/Loader'
-import { ALERT } from '../redux/types/alertTypes'
+import Loader from './../components/general/Loader'
 
 interface IData {
   _id: string

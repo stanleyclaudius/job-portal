@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
-import {  useDispatch, useSelector } from 'react-redux'
-import { IInvitation } from "../../redux/types/invitationTypes"
-import { OPEN_DESCRIPTION_MODAL } from "../../redux/types/userDescriptionTypes"
-import { getDataAPI } from "../../utils/fetchData"
-import { IJobseeker, RootStore } from "../../utils/Interface"
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { IInvitation } from './../../redux/types/invitationTypes'
+import { OPEN_DESCRIPTION_MODAL } from './../../redux/types/userDescriptionTypes'
+import { getDataAPI } from './../../utils/fetchData'
+import { IJobseeker, RootStore } from './../../utils/Interface'
 
 interface IProps {
   item: IInvitation

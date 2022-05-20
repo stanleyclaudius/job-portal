@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { MdCheck } from 'react-icons/md'
-import { IApplicant } from '../../redux/types/applicantTypes'
+import { IApplicant } from './../../redux/types/applicantTypes'
+import { IJobseeker, RootStore } from './../../utils/Interface'
+import { changeApplicantStatus } from './../../redux/actions/applicantActions'
+import { OPEN_DESCRIPTION_MODAL } from './../../redux/types/userDescriptionTypes'
 import HireModal from './../modal/HireModal'
-import { IJobseeker, RootStore } from '../../utils/Interface'
-import { changeApplicantStatus } from '../../redux/actions/applicantActions'
-import { OPEN_DESCRIPTION_MODAL } from '../../redux/types/userDescriptionTypes'
 
 interface IProps {
   isApplicant: boolean
