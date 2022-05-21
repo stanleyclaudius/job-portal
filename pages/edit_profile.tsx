@@ -4,13 +4,14 @@ import { useRouter } from 'next/router'
 import { AiOutlineClose } from 'react-icons/ai'
 import { ALERT } from './../redux/types/alertTypes'
 import { getDataAPI } from './../utils/fetchData'
-import { editProfile } from './../redux/actions/authActions'
+import { editProfile } from './../redux/slices/authSlice'
 import { FormSubmit, ICityData, IDistrictData, IJobseeker, InputChange, IProvinceData, RootStore } from './../utils/Interface'
 import Head from 'next/head'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
 import CVModal from './../components/modal/CVModal'
 import Loader from './../components/general/Loader'
+import { AppDispatch } from '../redux/store'
 
 const EditProfile = () => {
   const [userData, setUserData] = useState({
@@ -37,7 +38,7 @@ const EditProfile = () => {
   const [openCVModal, setOpenCVModal] = useState(false)
 
   const router = useRouter()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const { auth, alert } = useSelector((state: RootStore) => state)
 
   const handleChangeSkills = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -80,19 +81,19 @@ const EditProfile = () => {
 
     if (!userData.name) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide name.' }
       })
     }
 
     if (new Date(userData.dob).toISOString() > new Date().toISOString()) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Date of birth can\'t be greater than current date.' }
       })
     }
     
-    dispatch(editProfile({ ...userData, skills }, tempAvatar, tempCv, `${auth.accessToken}`))
+    dispatch(editProfile({ ...userData, skills, tempAvatar, tempCv, token: `${auth.accessToken}` }))
   }
 
   useEffect(() => {
@@ -112,7 +113,7 @@ const EditProfile = () => {
         setJobseeker(res.data.jobseeker)
       } catch (err: any) {
         dispatch({
-          type: ALERT,
+          type: 'alert/alert',
           payload: { error: err.response.data.msg }
         })
       }

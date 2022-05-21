@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { FormSubmit, ICityData, IDistrictData, InputChange, IProvinceData, RootStore } from './../../utils/Interface'
 import { validateEmail } from './../../utils/validator'
-import { register } from './../../redux/actions/authActions'
+// import { register } from './../../redux/actions/authActions'
+import { register } from '../../utils/auth'
 import { ALERT } from './../../redux/types/alertTypes'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -58,110 +59,110 @@ const Organization = () => {
 
     if (!organizationData.name) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide name to register.' }
       })
     }'t l'
 
     if (!organizationData.email) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide email to register.' }
       })
     }
 
     if (!validateEmail(organizationData.email)) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide valid email address to register.' }
       })
     }
 
     if (organizationData.password.length < 8) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Password should be at least 8 characters.' }
       })
     }
 
     if (organizationData.passwordConfirmation !== organizationData.password) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Password confirmation should be matched.' }
       })
     }
 
     if (!organizationData.phoneNumber) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide organization phone number to register.' }
       })
     }
 
     if (organizationData.totalEmployee <= 0) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Organization total employee can\'t less than 1.' }
       })
     }
 
     if (!organizationData.industryType) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide industry type to register.' }
       })
     }
 
     if (!organizationData.province) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide province to register.' }
       })
     }
 
     if (!organizationData.city) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide city to register.' }
       })
     }
 
     if (!organizationData.district) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide district to register.' }
       })
     }
 
     if (organizationData.postalCode === 0) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide postal code to register.' }
       })
     }
 
     if (!organizationData.address) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide address to register.' }
       })
     }
 
     if (avatar.length === 0) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide organization logo.' }
       })
     }
 
     if (description.length < 100) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Organization description should be at least 100 characters.' }
       })
     }
 
-    await dispatch(register({ ...organizationData, description }, avatar))
+    register({ ...organizationData, description }, avatar, dispatch)
   }
 
   useEffect(() => {
@@ -324,7 +325,7 @@ const Organization = () => {
                     <img src={URL.createObjectURL(avatar[0])} alt={organizationData.name} className='w-full h-full rounded-full object-contain' />
                   }
                 </div>
-                <input type='file' id='logo' onChange={handleChangeImage} className='outline-0 w-full px-3 text-sm h-10 border border-gray-300 rounded-md' />
+                <input type='file' accept='image/*' id='logo' onChange={handleChangeImage} className='outline-0 w-full px-3 text-sm h-10 border border-gray-300 rounded-md' />
               </div>
             </div>
             <div className='md:mb-10 mb-7'>

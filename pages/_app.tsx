@@ -1,8 +1,8 @@
 import type { AppProps } from 'next/app'
 import { ReactNode, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { refreshToken } from './../redux/actions/authActions'
-import DataProvider from './../redux/store'
+import { refreshToken } from './../redux/slices/authSlice'
+import DataProvider, { AppDispatch } from './../redux/store'
 import Alert from './../components/general/Alert'
 import './../styles/globals.css'
 import UserDescriptionModal from '../components/modal/UserDescriptionModal'
@@ -12,7 +12,7 @@ interface IProps {
 }
 
 const App = ({ children }: IProps) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
     dispatch(refreshToken())

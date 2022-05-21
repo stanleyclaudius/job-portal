@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { ICategory } from './../redux/types/categoryTypes'
 import { RootStore } from './../utils/Interface'
-import { deleteCategory, getAdminCategory } from './../redux/actions/categoryActions'
+import { deleteCategory, getAdminCategory } from './../redux/slices/adminCategorySlice'
 import Layout from './../components/admin/Layout'
 import CreateCategoryModal from './../components/modal/CreateCategoryModal'
 import Loader from './../components/general/Loader'
 import Pagination from './../components/general/Pagination'
 import DeleteModal from './../components/modal/DeleteModal'
+import { AppDispatch } from '../redux/store'
 
 const Category = () => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
@@ -17,7 +18,7 @@ const Category = () => {
   const [selectedItem, setSelectedItem] = useState<Partial<ICategory>>({})
 
   const router = useRouter()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const { alert, auth, adminCategory: category } = useSelector((state: RootStore) => state)
 
   const handleClickDelete = (item: ICategory) => {
@@ -36,7 +37,7 @@ const Category = () => {
   }
 
   const handleDeleteCategory = () => {
-    dispatch(deleteCategory(`${selectedItem._id}`, `${auth.accessToken}`))
+    dispatch(deleteCategory({ id: `${selectedItem._id}`, token: `${auth.accessToken}` }))
     setOpenDeleteModal(false)
   }
 
@@ -52,7 +53,7 @@ const Category = () => {
 
   useEffect(() => {
     if (auth.accessToken) {
-      dispatch(getAdminCategory(auth.accessToken, currPage))
+      dispatch(getAdminCategory({ token: auth.accessToken, page: currPage }))
     }
   }, [dispatch, auth, currPage])
 

@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AiFillEye, AiFillEyeInvisible, AiOutlineUser } from 'react-icons/ai'
 import { BiLock } from 'react-icons/bi'
 import { validateEmail } from './../../utils/validator'
-import { register } from './../../redux/actions/authActions'
+// import { register } from './../../redux/actions/authActions'
+import { register } from '../../utils/auth'
 import { FormSubmit, InputChange, RootStore } from './../../utils/Interface'
 import { ALERT } from './../../redux/types/alertTypes'
 import Link from 'next/link'
@@ -12,6 +13,7 @@ import Head from 'next/head'
 import Footer from './../../components/general/Footer'
 import Navbar from './../../components/general/Navbar'
 import Loader from './../../components/general/Loader'
+import { AppDispatch } from '../../redux/store'
 
 const Jobseeker = () => {
   const [userData, setUserData] = useState({
@@ -24,7 +26,7 @@ const Jobseeker = () => {
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false)
 
   const router = useRouter()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const { alert, auth } = useSelector((state: RootStore) => state)
 
   const handleChange = (e: InputChange) => {
@@ -37,54 +39,54 @@ const Jobseeker = () => {
     
     if (!userData.name) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide name to register.' }
       })
     }
 
     if (!userData.email) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide email to register.' }
       })
     }
 
     if (!validateEmail(userData.email)) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide valid email address.' }
       })
     }
 
     if (!userData.password) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide password to register.' }
       })
     }
 
     if (userData.password.length < 8) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Password should be at least 8 characters.' }
       })
     }
 
     if (!userData.passwordConfirmation) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide password confirmation to register.' }
       })
     }
 
     if (userData.password !== userData.passwordConfirmation) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Password confirmation should be matched.' }
       })
     }
 
-    await dispatch(register({ ...userData, role: 'jobseeker' }))
+    register({ ...userData, role: 'jobseeker' }, [], dispatch)
   }
 
   useEffect(() => {

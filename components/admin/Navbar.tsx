@@ -2,11 +2,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { BsPower } from 'react-icons/bs'
 import { RootStore } from './../../utils/Interface'
-import { logout } from './../../redux/actions/authActions'
+import { logout } from './../../redux/slices/authSlice'
+import { AppDispatch } from '../../redux/store'
 
 const Navbar = () => {
   const router = useRouter()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const { auth } = useSelector((state: RootStore) => state)
 
   const handleLogout = () => {

@@ -5,8 +5,9 @@ import { FaUsers } from 'react-icons/fa'
 import { MdCheck } from 'react-icons/md'
 import { IInvitation } from './../../redux/types/invitationTypes'
 import { RootStore } from './../../utils/Interface'
-import { changeInvitationStatus } from './../../redux/actions/invitationActions'
+import { changeInvitationStatus } from './../../redux/slices/invitationSlice'
 import JobDetailModal from './../modal/JobDetailModal'
+import { AppDispatch } from '../../redux/store'
 
 interface IProps {
   data: IInvitation
@@ -15,7 +16,7 @@ interface IProps {
 const OrganizationCard = ({ data }: IProps) => {
   const [openJobDetailModal, setOpenJobDetailModal] = useState(false)
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const { auth } = useSelector((state: RootStore) => state)
 
   return (
@@ -43,8 +44,8 @@ const OrganizationCard = ({ data }: IProps) => {
             data.status === 'on review'
             ? (
               <div className='flex items-center gap-2'>
-                <button onClick={() => dispatch(changeInvitationStatus(`${data._id}`, 'accepted', `${auth.accessToken}`))} className='bg-green-600 hover:bg-green-700 transition-[background] rounded-md text-white px-3 text-lg py-2'><MdCheck /></button>
-                <button onClick={() => dispatch(changeInvitationStatus(`${data._id}`, 'rejected', `${auth.accessToken}`))} className='bg-red-500 hover:bg-red-600 transition-[background] rounded-md text-white px-3 py-2 text-lg'><AiOutlineClose /></button>
+                <button onClick={() => dispatch(changeInvitationStatus({ id: `${data._id}`, status: 'accepted', token: `${auth.accessToken}` }))} className='bg-green-600 hover:bg-green-700 transition-[background] rounded-md text-white px-3 text-lg py-2'><MdCheck /></button>
+                <button onClick={() => dispatch(changeInvitationStatus({ id: `${data._id}`, status: 'rejected', token: `${auth.accessToken}` }))} className='bg-red-500 hover:bg-red-600 transition-[background] rounded-md text-white px-3 py-2 text-lg'><AiOutlineClose /></button>
               </div>
             )
             : <p className={`${data.status === 'accepted' ? 'bg-green-600' : 'bg-red-500'} rounded-md capitalize text-sm text-white px-3 py-2`}>{data.status}</p>

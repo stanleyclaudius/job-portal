@@ -38,7 +38,7 @@ const InvitationCard = ({ item }: IProps) => {
         </div>
       </div>
       <div className='flex items-center justify-between'>
-        <button onClick={() => dispatch({ type: OPEN_DESCRIPTION_MODAL, payload: jobseeker })} className='bg-blue-400 hover:bg-blue-500 transition-[background] text-white rounded-md text-sm px-3 py-1'>Detail</button>
+        <button onClick={() => dispatch({ type: 'userDescription/open', payload: jobseeker })} className='bg-blue-400 hover:bg-blue-500 transition-[background] text-white rounded-md text-sm px-3 py-1'>Detail</button>
         <p className={`${item.status === 'on review' ? 'bg-orange-500' : item.status === 'accepted' ? 'bg-green-600' : 'bg-red-500'} text-white text-sm capitalize rounded-md px-3 py-1`}>{item.status}</p>
       </div>
     </div>

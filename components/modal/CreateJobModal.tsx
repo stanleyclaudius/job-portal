@@ -2,13 +2,14 @@ import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FormSubmit, RootStore } from './../../utils/Interface'
-import { createJob, updateJob } from './../../redux/actions/jobActions'
+import { createJob, updateJob } from '../../redux/slices/jobSlice'
 import { ALERT } from './../../redux/types/alertTypes'
 import { ICategory } from './../../redux/types/categoryTypes'
 import { getDataAPI } from './../../utils/fetchData'
 import { IJob } from './../../redux/types/jobTypes'
 import Editor from './../../utils/Editor'
 import Loader from './../general/Loader'
+import { AppDispatch } from '../../redux/store'
 
 interface IProps {
   openModal: boolean
@@ -31,7 +32,7 @@ const CreateJobModal = ({ openModal, setOpenModal, selectedItem }: IProps) => {
 
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const { auth } = useSelector((state: RootStore) => state)
 
   const handleChangeSkills = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -75,63 +76,63 @@ const CreateJobModal = ({ openModal, setOpenModal, selectedItem }: IProps) => {
 
     if (!position) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide job position.' }
       })
     }
 
     if (!jobLevel) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide job level.' }
       })
     }
 
     if (!employmentType) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide employment type.' }
       })
     }
 
     if (skills.length < 1) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide at least 1 skill.' }
       })
     }
 
     if (salary < 10000) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Salary should be at least IDR 10.000' }
       })
     }
 
     if (!description) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide job overview.' }
       })
     }
 
     if (description.length < 100) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Job overview should be at least 100 characters.' }
       })
     }
 
     if (!requirement) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide job requirement.' }
       })
     }
 
     if (keywords.length < 1) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide at least 1 keyword.' }
       })
     }
@@ -139,9 +140,9 @@ const CreateJobModal = ({ openModal, setOpenModal, selectedItem }: IProps) => {
     setLoading(true)
     
     if (Object.keys(selectedItem).length > 0) {
-      await dispatch(updateJob(`${selectedItem._id}`, { position, jobLevel, category, employmentType, skills, keywords, salary, requirements: requirement, overview: description }, `${auth.accessToken}`))
+      await dispatch(updateJob({ position, jobLevel, category, employmentType, skills, keywords, salary, requirements: requirement, overview: description, token: `${auth.accessToken}`, id: `${selectedItem._id}` }))
     } else {
-      await dispatch(createJob({ position, jobLevel, category, employmentType, skills, keywords, salary, requirements: requirement, overview: description }, `${auth.accessToken}`))
+      await dispatch(createJob({ position, jobLevel, category, employmentType, skills, keywords, salary, requirements: requirement, overview: description, token: `${auth.accessToken}` }))
     }
     setLoading(false)
     setOpenModal(false)
@@ -239,7 +240,7 @@ const CreateJobModal = ({ openModal, setOpenModal, selectedItem }: IProps) => {
               </select>
             </div>
             <div className='mb-6'>
-              <label htmlFor='skills' className='text-sm'>Skills Required</label>
+              <label htmlFor='skills' className='text-sm'>Skills Required (Separate with comma (,))</label>
               <div className='border border-gray-300 mt-3 rounded-md flex items-center px-2 min-h-20 flex-wrap'>
                 <div className='flex items-center gap-3 flex-wrap my-2'>
                   {
@@ -275,7 +276,7 @@ const CreateJobModal = ({ openModal, setOpenModal, selectedItem }: IProps) => {
               />
             </div>
             <div className='mb-6'>
-              <label htmlFor='skills' className='text-sm'>Keywords</label>
+              <label htmlFor='skills' className='text-sm'>Keywords (Separate with comma (,))</label>
               <div className='border border-gray-300 mt-3 rounded-md flex items-center px-2 min-h-20 flex-wrap'>
                 <div className='flex items-center gap-3 flex-wrap my-2'>
                   {

@@ -4,8 +4,9 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { IJob } from './../../redux/types/jobTypes'
 import { FormSubmit, RootStore } from './../../utils/Interface'
 import { ALERT } from './../../redux/types/alertTypes'
-import { sendInvitation } from './../../redux/actions/invitationActions'
+import { sendInvitation } from './../../redux/slices/invitationSlice'
 import Loader from './../general/Loader'
+import { AppDispatch } from '../../redux/store'
 
 interface IProps {
   openModal: boolean
@@ -21,7 +22,7 @@ const HireModal = ({ openModal, setOpenModal, userName, id, job }: IProps) => {
 
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const { auth } = useSelector((state: RootStore) => state)
 
   const handleSubmit = async(e: FormSubmit) => {
@@ -29,13 +30,13 @@ const HireModal = ({ openModal, setOpenModal, userName, id, job }: IProps) => {
 
     if (!position) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide job position.' }
       })
     }
 
     setLoading(true)
-    await dispatch(sendInvitation(position, id, `${auth.accessToken}`))
+    await dispatch(sendInvitation({ jobId: position, userId: id, token: `${auth.accessToken}` }))
     setLoading(false)
   }
 

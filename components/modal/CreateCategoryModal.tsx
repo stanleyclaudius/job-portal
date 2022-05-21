@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FormSubmit, InputChange, RootStore } from './../../utils/Interface'
 import { ALERT } from './../../redux/types/alertTypes'
-import { createCategory, updateCategory } from './../../redux/actions/categoryActions'
+import { createCategory, updateCategory } from './../../redux/slices/adminCategorySlice'
 import { ICategory } from './../../redux/types/categoryTypes'
 import Loader from './../general/Loader'
+import { AppDispatch } from '../../redux/store'
 
 export interface IProps {
   openModal: boolean
@@ -21,7 +22,7 @@ const CreateCategoryModal = ({ openModal, setOpenModal, selectedItem }: IProps) 
 
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const { auth } = useSelector((state: RootStore) => state)
 
   const handleSubmit = async(e: FormSubmit) => {
@@ -29,16 +30,16 @@ const CreateCategoryModal = ({ openModal, setOpenModal, selectedItem }: IProps) 
 
     if (!category) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide category name.' }
       })
     }
 
     setLoading(true)
     if (Object.keys(selectedItem).length > 0) {
-      await dispatch(updateCategory({ name: category, image, _id: selectedItem._id }, urlImage, `${auth.accessToken}`))
+      await dispatch(updateCategory({ name: category, image, _id: selectedItem._id, prevImg: urlImage, token: `${auth.accessToken}` }))
     } else {
-      await dispatch(createCategory({ name: category, image }, `${auth.accessToken}`))
+      await dispatch(createCategory({ name: category, image, token: `${auth.accessToken}` }))
     }
     setLoading(false)
     setOpenModal(false)

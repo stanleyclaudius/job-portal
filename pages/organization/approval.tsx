@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { acceptOrganization, getUnapprovedOrganizations, rejectOrganization } from './../../redux/actions/organizationActions'
+import { acceptOrganization, getUnapprovedOrganizations, rejectOrganization } from './../../redux/slices/organizationSlice'
 import { IOrganization } from './../../redux/types/organizationTypes'
 import { RootStore } from './../../utils/Interface'
 import Layout from './../../components/admin/Layout'
 import OrganizationDetailModal from './../../components/modal/OrganizationDetailModal'
 import Loader from './../../components/general/Loader'
 import Pagination from '../../components/general/Pagination'
+import { AppDispatch } from '../../redux/store'
 
 const OrganizationApproval = () => {
   const [openOrganizationDetailModal, setOpenOrganizationDetailModal] = useState(false)
@@ -15,7 +16,7 @@ const OrganizationApproval = () => {
   const [selectedOrganization, setSelectedOrganization] = useState<Partial<IOrganization>>({})
 
   const router = useRouter()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const { alert, auth, organization } = useSelector((state: RootStore) => state)
 
   const handleClickDetail = (organization: IOrganization) => {
@@ -24,12 +25,12 @@ const OrganizationApproval = () => {
   }
 
   const handleAcceptOrg = (id: string) => {
-    dispatch(acceptOrganization(id, `${auth.accessToken}`))
+    dispatch(acceptOrganization({ id, token: `${auth.accessToken}` }))
   }
 
   useEffect(() => {
     if (auth.accessToken) {
-      dispatch(getUnapprovedOrganizations(auth.accessToken, currPage))
+      dispatch(getUnapprovedOrganizations({ token: auth.accessToken, page: currPage }))
     }
   }, [dispatch, auth, currPage])
 
@@ -84,7 +85,7 @@ const OrganizationApproval = () => {
                                 <td>
                                   <button onClick={() => handleClickDetail(item)} className='text-xs mr-3 text-white px-3 py-2 bg-blue-500 hover:bg-blue-600 transition-[background] rounded-md'>Detail</button>
                                   <button onClick={() => handleAcceptOrg(item._id)} className='bg-green-600 mr-3 hover:bg-green-700 transition-[background] rounded-md text-white px-3 text-xs py-2'>Accept</button>
-                                  <button onClick={() => dispatch(rejectOrganization(item._id, `${auth.accessToken}`))} className='bg-red-500 hover:bg-red-600 transition-[background[ rounded-md text-white px-3 py-2 text-xs'>Reject</button>
+                                  <button onClick={() => dispatch(rejectOrganization({ id: item._id, token: `${auth.accessToken}` }))} className='bg-red-500 hover:bg-red-600 transition-[background[ rounded-md text-white px-3 py-2 text-xs'>Reject</button>
                                 </td>
                               </tr>
                             ))

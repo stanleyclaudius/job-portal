@@ -33,7 +33,7 @@ const ResetPassword = () => {
     e.preventDefault()
     if (!passwordData.password) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: {
           error: 'Please provide new password.'
         }
@@ -42,7 +42,7 @@ const ResetPassword = () => {
 
     if (passwordData.password.length < 8) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: {
           error: 'Password should be at least 8 characters.'
         }
@@ -51,7 +51,7 @@ const ResetPassword = () => {
 
     if (passwordData.password !== passwordData.passwordConfirmation) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: {
           error: 'Password confirmation should be matched.'
         }
@@ -62,7 +62,7 @@ const ResetPassword = () => {
     try {
       const res = await patchDataAPI('auth/reset-password', { token: router.query.id, password: passwordData.password })
       dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: {
           success: res.data.msg
         }
@@ -71,7 +71,7 @@ const ResetPassword = () => {
       router.push('/login')
     } catch (err: any) {
       dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: {
           error: err.response.data.msg
         }

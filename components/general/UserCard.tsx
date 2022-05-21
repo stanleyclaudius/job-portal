@@ -4,9 +4,10 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { MdCheck } from 'react-icons/md'
 import { IApplicant } from './../../redux/types/applicantTypes'
 import { IJobseeker, RootStore } from './../../utils/Interface'
-import { changeApplicantStatus } from './../../redux/actions/applicantActions'
+import { changeApplicantStatus } from './../../redux/slices/applicantSlice'
 import { OPEN_DESCRIPTION_MODAL } from './../../redux/types/userDescriptionTypes'
 import HireModal from './../modal/HireModal'
+import { AppDispatch } from '../../redux/store'
 
 interface IProps {
   isApplicant: boolean
@@ -18,7 +19,7 @@ const UserCard = ({ isApplicant, item, info }: IProps) => {
   const [openHireModal, setOpenHireModal] = useState(false)
   const [province, setProvince] = useState('')
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const { auth } = useSelector((state: RootStore) => state)
   const { job } = useSelector((state: RootStore) => state)
 
@@ -75,7 +76,7 @@ const UserCard = ({ isApplicant, item, info }: IProps) => {
         <div className='mt-3 flex items-center justify-between'>
           {
             ((auth.user?.role === 'organization') || (auth.user?.role === 'admin')) &&
-            <button onClick={() => dispatch({ type: OPEN_DESCRIPTION_MODAL, payload: info ? info : item?.jobseeker })} className='bg-blue-500 hover:bg-blue-600 transition-[background] text-sm text-white rounded-md px-4 py-2'>Detail</button>
+            <button onClick={() => dispatch({ type: 'userDescription/open', payload: info ? info : item?.jobseeker })} className='bg-blue-500 hover:bg-blue-600 transition-[background] text-sm text-white rounded-md px-4 py-2'>Detail</button>
           }
 
           {
@@ -86,8 +87,8 @@ const UserCard = ({ isApplicant, item, info }: IProps) => {
                   item?.status !== 'accepted' && item?.status !== 'rejected'
                   ? (
                     <div className='flex items-center gap-2'>
-                      <button onClick={() => dispatch(changeApplicantStatus(`${item?.job}`, `${item?.jobseeker._id}`, 'accepted', `${auth.accessToken}`))} className='bg-green-600 hover:bg-green-700 transition-[background] rounded-md text-white px-3 text-lg py-2'><MdCheck /></button>
-                      <button onClick={() => dispatch(changeApplicantStatus(`${item?.job}`, `${item?.jobseeker._id}`, 'rejected', `${auth.accessToken}`))} className='bg-red-500 hover:bg-red-600 transition-[background] rounded-md text-white px-3 py-2 text-lg'><AiOutlineClose /></button>
+                      <button onClick={() => dispatch(changeApplicantStatus({ jobId: `${item?.job}`, jobseeker: `${item?.jobseeker._id}`, status: 'accepted', token: `${auth.accessToken}`}))} className='bg-green-600 hover:bg-green-700 transition-[background] rounded-md text-white px-3 text-lg py-2'><MdCheck /></button>
+                      <button onClick={() => dispatch(changeApplicantStatus({ jobId: `${item?.job}`, jobseeker: `${item?.jobseeker._id}`, status: 'rejected', token: `${auth.accessToken}`}))} className='bg-red-500 hover:bg-red-600 transition-[background] rounded-md text-white px-3 py-2 text-lg'><AiOutlineClose /></button>
                     </div>
                   )
                   : (

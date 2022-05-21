@@ -30,7 +30,7 @@ const UserDescriptionModal = () => {
       <div ref={modalRef} className={`${userDescription ? 'translate-y-0' : '-translate-y-12'} modal-box max-w-[600px] max-h-[550px] hide-scrollbar overflow-auto`}>
         <div className='modal-box-header'>
           <h1 className='font-medium text-lg'>{userDescription?.user.name} Profile</h1>
-          <AiOutlineClose onClick={() => dispatch({ type: OPEN_DESCRIPTION_MODAL, payload: null })} className='cursor-pointer' />
+          <AiOutlineClose onClick={() => dispatch({ type: 'userDescription/open', payload: null })} className='cursor-pointer' />
         </div>
         <div className='p-7'>
           <div className='mb-8'>

@@ -78,7 +78,7 @@ const InvitationDetailModal = ({ openModal, setOpenModal, invitationData, jobDet
           </div>
           <div className='mt-5'>
             <p className='font-medium mb-4'>Job Overview</p>
-            <div className='text-sm leading-relaxed' dangerouslySetInnerHTML={{ __html: `${jobDetail ? jobDetail.overview : invitationData?.job.overview}` }} />
+            <div className='break-words text-sm leading-relaxed' dangerouslySetInnerHTML={{ __html: `${jobDetail ? jobDetail.overview : invitationData?.job.overview}` }} />
             <p className='font-medium mt-7 mb-4'>Skills and Expertise</p>
             <div className='flex items-center gap-3 mb-7'>
               {
@@ -104,7 +104,7 @@ const InvitationDetailModal = ({ openModal, setOpenModal, invitationData, jobDet
               }
             </div>
             <p className='font-medium mb-4'>Requirements</p>
-            <div className='mb-7 list-disc ml-5' dangerouslySetInnerHTML={{ __html: `${jobDetail ? jobDetail.requirements : invitationData?.job.requirements}` }} />
+            <div className='break-words mb-7 list-disc ml-5' dangerouslySetInnerHTML={{ __html: `${jobDetail ? jobDetail.requirements : invitationData?.job.requirements}` }} />
             <p className='mt-7 font-medium mb-4'>Salary</p>
             <div className='flex items-center mb-7'>
               <p className='font-semibold text-lg'>{numberFormatter(jobDetail ? jobDetail.salary as number : invitationData?.job.salary as number)}</p>

@@ -29,7 +29,7 @@ const JobDetail = ({ job }: IProps) => {
   const applyJob = async() => {
     if (!auth.accessToken) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: {
           error: 'Please login first to apply job.'
         }
@@ -43,14 +43,14 @@ const JobDetail = ({ job }: IProps) => {
     try {
       const res = await postDataAPI('job/apply', { job: job?._id, userId: auth.user?._id }, `${auth.accessToken}`)
       dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { success: res.data.msg }
       })
 
       setIsApplied(true)
     } catch (err: any) {
       dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: err.response.data.msg }
       })
     }

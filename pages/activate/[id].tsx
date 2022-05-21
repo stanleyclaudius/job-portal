@@ -18,12 +18,12 @@ const ActivateAccount = ({ success, error }: IProps) => {
   useEffect(() => {
     if (success) {
       dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { success: success }
       })
     } else if(error) {
       dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: error }
       })
     }

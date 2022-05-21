@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootStore } from './../../utils/Interface'
-import { deleteJob, getJobs } from './../../redux/actions/jobActions'
+import { getJobs, deleteJob } from '../../redux/slices/jobSlice'
 import { IJob } from './../../redux/types/jobTypes'
 import Head from 'next/head'
 import Footer from './../../components/general/Footer'
@@ -13,6 +13,7 @@ import ApplicantModal from './../../components/modal/ApplicantModal'
 import CreateJobModal from './../../components/modal/CreateJobModal'
 import Loader from './../../components/general/Loader'
 import Pagination from './../../components/general/Pagination'
+import { AppDispatch } from '../../redux/store'
 
 const OrganizationJobs = () => {
   const [openJobDetailModal, setOpenJobDetailModal] = useState(false)
@@ -23,7 +24,7 @@ const OrganizationJobs = () => {
   const [currPage, setCurrPage] = useState(1)
 
   const router = useRouter()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const { alert, auth, job } = useSelector((state: RootStore) => state)
 
   const handleClickApplicant = (item: IJob) => {
@@ -47,7 +48,7 @@ const OrganizationJobs = () => {
   }
 
   const handleDeleteJob = () => {
-    dispatch(deleteJob(`${selectedItem._id}`, `${auth.accessToken}`))
+    dispatch(deleteJob({ id: `${selectedItem._id}`, token: `${auth.accessToken}` }))
     setOpenDeleteModal(false)
   }
 
@@ -68,7 +69,7 @@ const OrganizationJobs = () => {
 
   useEffect(() => {
     if (auth.accessToken)
-      dispatch(getJobs(auth.accessToken, currPage))
+      dispatch(getJobs({ token: auth.accessToken, page: currPage }))
   }, [auth, currPage, dispatch])
 
   return (

@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { FormSubmit, InputChange, RootStore } from './../utils/Interface'
-import { login } from './../redux/actions/authActions'
+// import { login } from './../redux/actions/authActions'
+import { login } from '../redux/slices/authSlice'
 import { ALERT } from './../redux/types/alertTypes'
 import { validateEmail } from './../utils/validator'
 import Head from 'next/head'
@@ -11,6 +12,7 @@ import Link from "next/link"
 import Loader from './../components/general/Loader'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
+import { AppDispatch } from '../redux/store'
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -21,7 +23,7 @@ const Login = () => {
 
   const router = useRouter()
   const { query } = useRouter()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const { alert, auth } = useSelector((state: RootStore) => state)
 
   const handleChange = (e: InputChange) => {
@@ -34,21 +36,21 @@ const Login = () => {
     
     if (!userData.email) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide email to login.' }
       })
     }
 
     if (!validateEmail(userData.email)) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide valid email address.' }
       })
     }
 
     if (!userData.password) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide password to login.' }
       })
     }

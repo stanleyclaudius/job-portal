@@ -1,14 +1,29 @@
 import { ReactNode } from 'react'
-import { createStore, applyMiddleware } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
 import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
-import rootReducer from './reducers'
+import { configureStore } from '@reduxjs/toolkit'
+import auth from './slices/authSlice'
+import alert from './slices/alertSlice'
+import job from './slices/jobSlice'
+import applicant from './slices/applicantSlice'
+import invitation from './slices/invitationSlice'
+import category from './slices/categorySlice'
+import adminCategory from './slices/adminCategorySlice'
+import userDescription from './slices/userDescriptionSlice'
+import organization from './slices/organizationSlice'
 
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
-)
+const store = configureStore({
+  reducer: {
+    auth,
+    alert,
+    job,
+    applicant,
+    invitation,
+    category,
+    adminCategory,
+    userDescription,
+    organization
+  }
+})
 
 interface IProps {
   children: ReactNode
@@ -23,3 +38,5 @@ const DataProvider = ({ children }: IProps) => {
 }
 
 export default DataProvider
+
+export type AppDispatch = typeof store.dispatch

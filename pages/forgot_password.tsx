@@ -29,14 +29,14 @@ const ForgetPassword = () => {
 
     if (!email) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide email address.' }
       })
     }
 
     if (!validateEmail(email)) {
       return dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: { error: 'Please provide valid email address.' }
       })
     }
@@ -45,14 +45,14 @@ const ForgetPassword = () => {
     try {
       const res = await postDataAPI('auth/forgot-password', { email })
       dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: {
           success: res.data.msg
         }
       })
     } catch (err: any) {
       dispatch({
-        type: ALERT,
+        type: 'alert/alert',
         payload: {
           error: err.response.data.msg
         }

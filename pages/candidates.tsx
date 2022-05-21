@@ -3,12 +3,13 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { FormSubmit, IJobseeker, RootStore } from './../utils/Interface'
-import { getJobs } from './../redux/actions/jobActions'
+import { getJobs } from './../redux/slices/jobSlice'
 import axios from 'axios'
 import Head from 'next/head'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
 import UserCard from './../components/general/UserCard'
+import { AppDispatch } from '../redux/store'
 
 interface IProps {
   data: IJobseeker[]
@@ -18,7 +19,7 @@ const Candidates = ({ data }: IProps) => {
   const [keyword, setKeyword] = useState('')
 
   const router = useRouter()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const { auth } = useSelector((state: RootStore) => state)
 
   const handleSubmit = (e: FormSubmit) => {
@@ -38,7 +39,7 @@ const Candidates = ({ data }: IProps) => {
 
   useEffect(() => {
     if (auth.user?.role === 'organization') {
-      dispatch(getJobs(`${auth.accessToken}`))
+      dispatch(getJobs({ token: `${auth.accessToken}`, page: 1 }))
     }
   }, [dispatch, auth])
 

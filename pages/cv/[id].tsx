@@ -23,7 +23,7 @@ const JobseekerCV = () => {
         setData(res.data.jobseeker)
       } catch (err: any) {
         dispatch({
-          type: ALERT,
+          type: 'alert/alert',
           payload: { error: err.response.data.msg }
         })
       }

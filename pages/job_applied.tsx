@@ -35,7 +35,7 @@ const JobApplied = () => {
         setData(res.data.jobs)
       } catch (err: any) {
         dispatch({
-          type: ALERT,
+          type: 'alert/alert',
           payload: { error: err.response.data.msg }
         })
       }
