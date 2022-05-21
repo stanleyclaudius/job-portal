@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { deleteDataAPI, getDataAPI, patchDataAPI } from '../../utils/fetchData'
-import { IOrganization } from '../types/organizationTypes'
+import { deleteDataAPI, getDataAPI, patchDataAPI } from './../../utils/fetchData'
+import { IOrganization, IOrganizationType } from './../types/organizationTypes'
 
 interface IGetSlice {
   token: string
@@ -107,7 +107,7 @@ export const rejectOrganization = createAsyncThunk(
   }
 )
 
-const initialState = {
+const initialState: IOrganizationType = {
   data: [],
   totalPage: 0
 }

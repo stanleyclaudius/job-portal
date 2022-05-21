@@ -4,10 +4,9 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { FaUsers } from 'react-icons/fa'
 import { MdCheck } from 'react-icons/md'
 import { IInvitation } from './../../redux/types/invitationTypes'
-import { RootStore } from './../../utils/Interface'
 import { changeInvitationStatus } from './../../redux/slices/invitationSlice'
+import { AppDispatch, RootState } from './../../redux/store'
 import JobDetailModal from './../modal/JobDetailModal'
-import { AppDispatch } from '../../redux/store'
 
 interface IProps {
   data: IInvitation
@@ -17,7 +16,7 @@ const OrganizationCard = ({ data }: IProps) => {
   const [openJobDetailModal, setOpenJobDetailModal] = useState(false)
 
   const dispatch = useDispatch<AppDispatch>()
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth } = useSelector((state: RootState) => state)
 
   return (
     <>

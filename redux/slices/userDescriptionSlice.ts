@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { IJobseeker } from '../../utils/Interface'
+import { IJobseeker } from './../../utils/Interface'
 
 const initialState: IJobseeker | null = null
 

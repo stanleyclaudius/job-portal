@@ -2,7 +2,8 @@ import { BsBuilding } from 'react-icons/bs'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
-import { FormSubmit, RootStore } from './../utils/Interface'
+import { FormSubmit } from './../utils/Interface'
+import { RootState } from './../redux/store'
 import Head from 'next/head'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
@@ -11,7 +12,7 @@ const FindCandidate = () => {
   const [keyword, setKeyword] = useState('')
 
   const router = useRouter()
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth } = useSelector((state: RootState) => state)
 
   const handleSubmit = (e: FormSubmit) => {
     e.preventDefault()

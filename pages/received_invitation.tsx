@@ -2,17 +2,16 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { getReceivedInvitations } from './../redux/slices/invitationSlice'
-import { RootStore } from './../utils/Interface'
+import { AppDispatch, RootState } from './../redux/store'
 import Head from 'next/head'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
 import OrganizationCard from './../components/general/OrganizationCard'
-import { AppDispatch } from '../redux/store'
 
 const ReceivedInvitation = () => {
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
-  const { auth, invitation } = useSelector((state: RootStore) => state)
+  const { auth, invitation } = useSelector((state: RootState) => state)
 
   useEffect(() => {
     if (!auth.accessToken) {

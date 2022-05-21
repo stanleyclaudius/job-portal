@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { IInvitation } from './../redux/types/invitationTypes'
 import { getDataAPI } from './../utils/fetchData'
-import { RootStore } from './../utils/Interface'
+import { RootState } from './../redux/store'
 import Head from 'next/head'
 import Footer from './../components/general/Footer'
 import InvitationCard from './../components/general/InvitationCard'
@@ -15,7 +15,7 @@ const SentInvitation = () => {
   const [loading, setLoading] = useState(false)
 
   const router = useRouter()
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth } = useSelector((state: RootState) => state)
 
   useEffect(() => {
     const fetchInvitation = async() => {

@@ -1,11 +1,8 @@
 import { ChangeEvent, FormEvent } from 'react'
-import RootReducer from './../redux/reducers'
 
 export type InputChange = ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
 
 export type FormSubmit = FormEvent<HTMLFormElement>
-
-export type RootStore = ReturnType<typeof RootReducer>
 
 export interface IJobseeker {
   _id: string

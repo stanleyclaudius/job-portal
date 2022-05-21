@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { getDataAPI } from '../../utils/fetchData'
-import { ICategory } from '../types/categoryTypes'
+import { getDataAPI } from './../../utils/fetchData'
+import { ICategory } from './../types/categoryTypes'
 
 export const getCategory = createAsyncThunk(
   'category/get',

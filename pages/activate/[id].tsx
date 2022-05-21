@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { GetServerSideProps } from 'next'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
-import { ALERT } from './../../redux/types/alertTypes'
+import { AppDispatch } from './../../redux/store'
 import axios from 'axios'
 
 interface IProps {
@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const ActivateAccount = ({ success, error }: IProps) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   const router = useRouter()
 

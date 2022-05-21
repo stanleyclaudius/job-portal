@@ -1,10 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
-import { RootStore } from './../../utils/Interface'
+import { AppDispatch, RootState } from './../../redux/store'
 import { getApplicants } from './../../redux/slices/applicantSlice'
 import UserCard from './../general/UserCard'
-import { AppDispatch } from '../../redux/store'
 
 interface IProps {
   openModal: boolean
@@ -16,7 +15,7 @@ const ApplicantModal = ({ openModal, setOpenModal, jobId }: IProps) => {
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
   const dispatch = useDispatch<AppDispatch>()
-  const { auth, applicant } = useSelector((state: RootStore) => state)
+  const { auth, applicant } = useSelector((state: RootState) => state)
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {

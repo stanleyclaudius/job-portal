@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux'
 import { refreshToken } from './../redux/slices/authSlice'
 import DataProvider, { AppDispatch } from './../redux/store'
 import Alert from './../components/general/Alert'
+import UserDescriptionModal from './../components/modal/UserDescriptionModal'
 import './../styles/globals.css'
-import UserDescriptionModal from '../components/modal/UserDescriptionModal'
 
 interface IProps {
   children: ReactNode

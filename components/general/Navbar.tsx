@@ -4,18 +4,17 @@ import { useRouter } from 'next/router'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { AiOutlineClose } from 'react-icons/ai'
 import { logout } from './../../redux/slices/authSlice'
-import { RootStore } from './../../utils/Interface'
+import { AppDispatch, RootState } from './../../redux/store'
 import Link from 'next/link'
 import Image from 'next/image'
 import Logo from './../../public/images/logo.png'
-import { AppDispatch } from '../../redux/store'
 
 const Navbar = () => {
   const [openSidebar, setOpenSidebar] = useState(false)
 
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth } = useSelector((state: RootState) => state)
   const { pathname } = useRouter()
 
   const sidebarRef = useRef() as React.MutableRefObject<HTMLDivElement>

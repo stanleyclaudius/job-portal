@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { ICategory } from './../redux/types/categoryTypes'
-import { RootStore } from './../utils/Interface'
 import { deleteCategory, getAdminCategory } from './../redux/slices/adminCategorySlice'
+import { AppDispatch, RootState } from './../redux/store'
 import Layout from './../components/admin/Layout'
 import CreateCategoryModal from './../components/modal/CreateCategoryModal'
 import Loader from './../components/general/Loader'
 import Pagination from './../components/general/Pagination'
 import DeleteModal from './../components/modal/DeleteModal'
-import { AppDispatch } from '../redux/store'
 
 const Category = () => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
@@ -19,7 +18,7 @@ const Category = () => {
 
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
-  const { alert, auth, adminCategory: category } = useSelector((state: RootStore) => state)
+  const { alert, auth, adminCategory: category } = useSelector((state: RootState) => state)
 
   const handleClickDelete = (item: ICategory) => {
     setSelectedItem(item)

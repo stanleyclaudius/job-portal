@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { IEditProfile, IUserLogin } from './../../utils/Interface'
 import { getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
 import { uploadImage } from './../../utils/imageHelper'
+import { IAuth } from './../types/authTypes'
 import Cookie from 'js-cookie'
 
 interface IEditProfileSlice extends IEditProfile {
@@ -96,7 +97,7 @@ export const editProfile = createAsyncThunk(
   }
 )
 
-const initialState = {}
+const initialState: IAuth = {}
 
 const authSlice = createSlice({
   name: 'auth',

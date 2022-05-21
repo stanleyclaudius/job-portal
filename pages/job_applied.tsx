@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import { ALERT } from './../redux/types/alertTypes'
-import { RootStore } from './../utils/Interface'
 import { getDataAPI } from './../utils/fetchData'
 import { IJob } from './../redux/types/jobTypes'
+import { RootState } from './../redux/store'
 import Head from 'next/head'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
@@ -25,7 +24,7 @@ const JobApplied = () => {
 
   const router = useRouter()
   const dispatch = useDispatch()
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth } = useSelector((state: RootState) => state)
 
   useEffect(() => {
     const fetchData = async() => {

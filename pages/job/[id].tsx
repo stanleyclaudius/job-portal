@@ -3,9 +3,8 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { IJob } from './../../redux/types/jobTypes'
 import { numberFormatter } from './../../utils/numberFormatter'
-import { RootStore } from './../../utils/Interface'
 import { getDataAPI, postDataAPI } from './../../utils/fetchData'
-import { ALERT } from './../../redux/types/alertTypes'
+import { RootState } from './../../redux/store'
 import axios from 'axios'
 import Head from 'next/head'
 import Footer from './../../components/general/Footer'
@@ -24,7 +23,7 @@ const JobDetail = ({ job }: IProps) => {
   const [isApplied, setIsApplied] = useState(false)
 
   const dispatch = useDispatch()
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth } = useSelector((state: RootState) => state)
 
   const applyJob = async() => {
     if (!auth.accessToken) {

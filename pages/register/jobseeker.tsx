@@ -4,16 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AiFillEye, AiFillEyeInvisible, AiOutlineUser } from 'react-icons/ai'
 import { BiLock } from 'react-icons/bi'
 import { validateEmail } from './../../utils/validator'
-// import { register } from './../../redux/actions/authActions'
-import { register } from '../../utils/auth'
-import { FormSubmit, InputChange, RootStore } from './../../utils/Interface'
-import { ALERT } from './../../redux/types/alertTypes'
+import { register } from './../../utils/auth'
+import { FormSubmit, InputChange } from './../../utils/Interface'
+import { AppDispatch, RootState } from './../../redux/store'
 import Link from 'next/link'
 import Head from 'next/head'
 import Footer from './../../components/general/Footer'
 import Navbar from './../../components/general/Navbar'
 import Loader from './../../components/general/Loader'
-import { AppDispatch } from '../../redux/store'
 
 const Jobseeker = () => {
   const [userData, setUserData] = useState({
@@ -27,7 +25,7 @@ const Jobseeker = () => {
 
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
-  const { alert, auth } = useSelector((state: RootStore) => state)
+  const { alert, auth } = useSelector((state: RootState) => state)
 
   const handleChange = (e: InputChange) => {
     const { name, value } = e.target

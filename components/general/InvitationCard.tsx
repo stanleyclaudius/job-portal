@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from './../../redux/store'
 import { IInvitation } from './../../redux/types/invitationTypes'
-import { OPEN_DESCRIPTION_MODAL } from './../../redux/types/userDescriptionTypes'
 import { getDataAPI } from './../../utils/fetchData'
-import { IJobseeker, RootStore } from './../../utils/Interface'
+import { IJobseeker } from './../../utils/Interface'
 
 interface IProps {
   item: IInvitation
@@ -13,7 +13,7 @@ const InvitationCard = ({ item }: IProps) => {
   const [jobseeker, setJobseeker] = useState<Partial<IJobseeker>>({})
   
   const dispatch = useDispatch()
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth } = useSelector((state: RootState) => state)
 
   useEffect(() => {
     const fetchJobseeker = async() => {

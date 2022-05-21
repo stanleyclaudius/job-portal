@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
-import { FormSubmit, InputChange, RootStore } from './../../utils/Interface'
-import { ALERT } from './../../redux/types/alertTypes'
+import { FormSubmit, InputChange } from './../../utils/Interface'
 import { createCategory, updateCategory } from './../../redux/slices/adminCategorySlice'
 import { ICategory } from './../../redux/types/categoryTypes'
+import { AppDispatch, RootState } from './../../redux/store'
 import Loader from './../general/Loader'
-import { AppDispatch } from '../../redux/store'
 
 export interface IProps {
   openModal: boolean
@@ -23,7 +22,7 @@ const CreateCategoryModal = ({ openModal, setOpenModal, selectedItem }: IProps) 
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
   const dispatch = useDispatch<AppDispatch>()
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth } = useSelector((state: RootState) => state)
 
   const handleSubmit = async(e: FormSubmit) => {
     e.preventDefault()

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import { IJobseeker, RootStore } from './../../utils/Interface'
-import { ALERT } from './../../redux/types/alertTypes'
+import { IJobseeker } from './../../utils/Interface'
 import { getDataAPI } from './../../utils/fetchData'
+import { RootState } from './../../redux/store'
 import Head from 'next/head'
 import Navbar from './../../components/general/Navbar'
 import PDFViewer from './../../utils/PDFViewer'
@@ -14,7 +14,7 @@ const JobseekerCV = () => {
   const router = useRouter()
   const { query } = useRouter()
   const dispatch = useDispatch()
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth } = useSelector((state: RootState) => state)
 
   useEffect(() => {
     const fetchData = async() => {

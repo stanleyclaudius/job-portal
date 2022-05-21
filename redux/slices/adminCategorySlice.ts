@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from '../../utils/fetchData'
-import { uploadImage } from '../../utils/imageHelper'
-import { ICategory } from '../types/categoryTypes'
+import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
+import { uploadImage } from './../../utils/imageHelper'
+import { IAdminCategory, ICategory } from './../types/categoryTypes'
 
 interface IGetSlice {
   token: string
@@ -156,7 +156,7 @@ export const deleteCategory = createAsyncThunk(
   }
 )
 
-const initialState = {
+const initialState: IAdminCategory = {
   data: [],
   totalPage: 0
 }

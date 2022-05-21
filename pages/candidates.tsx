@@ -2,14 +2,14 @@ import { GetServerSideProps } from 'next'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import { FormSubmit, IJobseeker, RootStore } from './../utils/Interface'
-import { getJobPosition, getJobs } from './../redux/slices/jobSlice'
+import { FormSubmit, IJobseeker } from './../utils/Interface'
+import { getJobPosition } from './../redux/slices/jobSlice'
+import { AppDispatch, RootState } from './../redux/store'
 import axios from 'axios'
 import Head from 'next/head'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
 import UserCard from './../components/general/UserCard'
-import { AppDispatch } from '../redux/store'
 
 interface IProps {
   data: IJobseeker[]
@@ -20,7 +20,7 @@ const Candidates = ({ data }: IProps) => {
 
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth } = useSelector((state: RootState) => state)
 
   const handleSubmit = (e: FormSubmit) => {
     e.preventDefault()

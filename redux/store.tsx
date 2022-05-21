@@ -40,3 +40,5 @@ const DataProvider = ({ children }: IProps) => {
 export default DataProvider
 
 export type AppDispatch = typeof store.dispatch
+
+export type RootState = ReturnType<typeof store.getState>

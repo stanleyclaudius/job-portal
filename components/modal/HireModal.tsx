@@ -2,11 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { IJob } from './../../redux/types/jobTypes'
-import { FormSubmit, RootStore } from './../../utils/Interface'
-import { ALERT } from './../../redux/types/alertTypes'
+import { FormSubmit } from './../../utils/Interface'
 import { sendInvitation } from './../../redux/slices/invitationSlice'
+import { AppDispatch, RootState } from './../../redux/store'
 import Loader from './../general/Loader'
-import { AppDispatch } from '../../redux/store'
 
 interface IProps {
   openModal: boolean
@@ -23,7 +22,7 @@ const HireModal = ({ openModal, setOpenModal, userName, id, job }: IProps) => {
   const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
   const dispatch = useDispatch<AppDispatch>()
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth } = useSelector((state: RootState) => state)
 
   const handleSubmit = async(e: FormSubmit) => {
     e.preventDefault()

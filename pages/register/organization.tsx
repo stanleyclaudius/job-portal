@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { FormSubmit, ICityData, IDistrictData, InputChange, IProvinceData, RootStore } from './../../utils/Interface'
+import { FormSubmit, ICityData, IDistrictData, InputChange, IProvinceData } from './../../utils/Interface'
 import { validateEmail } from './../../utils/validator'
-// import { register } from './../../redux/actions/authActions'
-import { register } from '../../utils/auth'
-import { ALERT } from './../../redux/types/alertTypes'
+import { register } from './../../utils/auth'
+import { RootState } from './../../redux/store'
 import Head from 'next/head'
 import Link from 'next/link'
 import Editor from './../../utils/Editor'
@@ -41,7 +40,7 @@ const Organization = () => {
 
   const router = useRouter()
   const dispatch = useDispatch()
-  const { alert, auth } = useSelector((state: RootStore) => state)
+  const { alert, auth } = useSelector((state: RootState) => state)
 
   const handleChangeInput = (e: InputChange) => {
     const { name, value } = e.target

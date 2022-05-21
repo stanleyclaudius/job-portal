@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify'
-import { RootStore } from './../../utils/Interface';
-import 'react-toastify/dist/ReactToastify.css';
+import { RootState } from './../../redux/store'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Alert = () => {
-  const { alert } = useSelector((state: RootStore) => state)
+  const { alert } = useSelector((state: RootState) => state)
 
   useEffect(() => {
     if (alert.error) {

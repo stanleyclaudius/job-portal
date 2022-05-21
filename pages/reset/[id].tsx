@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import { FormSubmit, InputChange, RootStore } from './../../utils/Interface'
+import { FormSubmit, InputChange } from './../../utils/Interface'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { ALERT } from './../../redux/types/alertTypes'
 import { patchDataAPI } from './../../utils/fetchData'
+import { RootState } from './../../redux/store'
 import Head from 'next/head'
 import Footer from './../../components/general/Footer'
 import Navbar from './../../components/general/Navbar'
@@ -21,7 +21,7 @@ const ResetPassword = () => {
 
   const router = useRouter()
   const dispatch = useDispatch()
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth } = useSelector((state: RootState) => state)
 
   useEffect(() => {
     if (auth.accessToken) {

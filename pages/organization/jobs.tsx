@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootStore } from './../../utils/Interface'
-import { getJobs, deleteJob } from '../../redux/slices/jobSlice'
+import { getJobs, deleteJob } from './../../redux/slices/jobSlice'
+import { AppDispatch, RootState } from './../../redux/store'
 import { IJob } from './../../redux/types/jobTypes'
 import Head from 'next/head'
 import Footer from './../../components/general/Footer'
@@ -13,7 +13,6 @@ import ApplicantModal from './../../components/modal/ApplicantModal'
 import CreateJobModal from './../../components/modal/CreateJobModal'
 import Loader from './../../components/general/Loader'
 import Pagination from './../../components/general/Pagination'
-import { AppDispatch } from '../../redux/store'
 
 const OrganizationJobs = () => {
   const [openJobDetailModal, setOpenJobDetailModal] = useState(false)
@@ -25,7 +24,7 @@ const OrganizationJobs = () => {
 
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
-  const { alert, auth, job } = useSelector((state: RootStore) => state)
+  const { alert, auth, job } = useSelector((state: RootState) => state)
 
   const handleClickApplicant = (item: IJob) => {
     setOpenApplicantModal(true)

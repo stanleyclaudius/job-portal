@@ -2,17 +2,15 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { FormSubmit, InputChange, RootStore } from './../utils/Interface'
-// import { login } from './../redux/actions/authActions'
-import { login } from '../redux/slices/authSlice'
-import { ALERT } from './../redux/types/alertTypes'
+import { FormSubmit, InputChange } from './../utils/Interface'
+import { login } from './../redux/slices/authSlice'
 import { validateEmail } from './../utils/validator'
+import { AppDispatch, RootState } from './../redux/store'
 import Head from 'next/head'
-import Link from "next/link"
+import Link from 'next/link'
 import Loader from './../components/general/Loader'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
-import { AppDispatch } from '../redux/store'
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -24,7 +22,7 @@ const Login = () => {
   const router = useRouter()
   const { query } = useRouter()
   const dispatch = useDispatch<AppDispatch>()
-  const { alert, auth } = useSelector((state: RootStore) => state)
+  const { alert, auth } = useSelector((state: RootState) => state)
 
   const handleChange = (e: InputChange) => {
     const { name, value } = e.target

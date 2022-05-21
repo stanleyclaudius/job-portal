@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { MdCheck } from 'react-icons/md'
 import { IApplicant } from './../../redux/types/applicantTypes'
-import { IJobseeker, RootStore } from './../../utils/Interface'
+import { IJobseeker } from './../../utils/Interface'
 import { changeApplicantStatus } from './../../redux/slices/applicantSlice'
-import { OPEN_DESCRIPTION_MODAL } from './../../redux/types/userDescriptionTypes'
+import { AppDispatch, RootState } from './../../redux/store'
 import HireModal from './../modal/HireModal'
-import { AppDispatch } from '../../redux/store'
 
 interface IProps {
   isApplicant: boolean
@@ -20,8 +19,7 @@ const UserCard = ({ isApplicant, item, info }: IProps) => {
   const [province, setProvince] = useState('')
 
   const dispatch = useDispatch<AppDispatch>()
-  const { auth } = useSelector((state: RootStore) => state)
-  const { job } = useSelector((state: RootStore) => state)
+  const { auth, job } = useSelector((state: RootState) => state)
 
   useEffect(() =>{ 
     const getProvinceData = () => {

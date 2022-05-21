@@ -3,12 +3,11 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { acceptOrganization, getUnapprovedOrganizations, rejectOrganization } from './../../redux/slices/organizationSlice'
 import { IOrganization } from './../../redux/types/organizationTypes'
-import { RootStore } from './../../utils/Interface'
+import { AppDispatch, RootState } from './../../redux/store'
 import Layout from './../../components/admin/Layout'
 import OrganizationDetailModal from './../../components/modal/OrganizationDetailModal'
 import Loader from './../../components/general/Loader'
-import Pagination from '../../components/general/Pagination'
-import { AppDispatch } from '../../redux/store'
+import Pagination from './../../components/general/Pagination'
 
 const OrganizationApproval = () => {
   const [openOrganizationDetailModal, setOpenOrganizationDetailModal] = useState(false)
@@ -17,7 +16,7 @@ const OrganizationApproval = () => {
 
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
-  const { alert, auth, organization } = useSelector((state: RootStore) => state)
+  const { alert, auth, organization } = useSelector((state: RootState) => state)
 
   const handleClickDetail = (organization: IOrganization) => {
     setOpenOrganizationDetailModal(true)

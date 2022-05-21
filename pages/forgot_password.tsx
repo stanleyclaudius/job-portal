@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import { FormSubmit, RootStore } from './../utils/Interface'
-import { ALERT } from './../redux/types/alertTypes'
+import { FormSubmit } from './../utils/Interface'
 import { validateEmail } from './../utils/validator'
 import { postDataAPI } from './../utils/fetchData'
+import { RootState } from './../redux/store'
 import Head from 'next/head'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
@@ -16,7 +16,7 @@ const ForgetPassword = () => {
 
   const router = useRouter()
   const dispatch = useDispatch()
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth } = useSelector((state: RootState) => state)
 
   useEffect(() => {
     if (auth.accessToken) {

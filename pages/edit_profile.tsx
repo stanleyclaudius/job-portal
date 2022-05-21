@@ -2,16 +2,15 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { AiOutlineClose } from 'react-icons/ai'
-import { ALERT } from './../redux/types/alertTypes'
 import { getDataAPI } from './../utils/fetchData'
 import { editProfile } from './../redux/slices/authSlice'
-import { FormSubmit, ICityData, IDistrictData, IJobseeker, InputChange, IProvinceData, RootStore } from './../utils/Interface'
+import { FormSubmit, ICityData, IDistrictData, IJobseeker, InputChange, IProvinceData } from './../utils/Interface'
+import { AppDispatch, RootState } from './../redux/store'
 import Head from 'next/head'
 import Footer from './../components/general/Footer'
 import Navbar from './../components/general/Navbar'
 import CVModal from './../components/modal/CVModal'
 import Loader from './../components/general/Loader'
-import { AppDispatch } from '../redux/store'
 
 const EditProfile = () => {
   const [userData, setUserData] = useState({
@@ -39,7 +38,7 @@ const EditProfile = () => {
 
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
-  const { auth, alert } = useSelector((state: RootStore) => state)
+  const { auth, alert } = useSelector((state: RootState) => state)
 
   const handleChangeSkills = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === ',' && (e.target as HTMLInputElement).value !== ',') {
