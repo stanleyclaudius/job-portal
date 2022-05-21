@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { RootState } from './../store'
 import { deleteDataAPI, getDataAPI, patchDataAPI } from './../../utils/fetchData'
 import { IOrganization, IOrganizationType } from './../types/organizationTypes'
 
@@ -49,8 +50,7 @@ export const acceptOrganization = createAsyncThunk(
   'organization/accept',
   async(data: IStatusSlice, thunkAPI) => {
     try {
-      // @ts-ignore
-      const state = thunkAPI.getState().organization
+      const state = (thunkAPI.getState() as RootState).organization
 
       const res = await patchDataAPI(`organization/accept/${data.id}`, {}, data.token)
   
@@ -80,8 +80,7 @@ export const rejectOrganization = createAsyncThunk(
   'organization/reject',
   async(data: IStatusSlice, thunkAPI) => {
     try {
-      // @ts-ignore
-      const state = thunkAPI.getState().organization
+      const state = (thunkAPI.getState() as RootState).organization
 
       const res = await deleteDataAPI(`organization/reject/${data.id}`, data.token)
   

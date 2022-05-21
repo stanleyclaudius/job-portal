@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { RootState } from './../store'
 import { getDataAPI, patchDataAPI } from './../../utils/fetchData'
 import { IApplicant } from './../types/applicantTypes'
 
@@ -33,8 +34,7 @@ export const changeApplicantStatus = createAsyncThunk(
   'applicant/changeStatus',
   async(data: IChangeStatusSlice, thunkAPI) => {
     try {
-      // @ts-ignore
-      const state = thunkAPI.getState().applicant
+      const state = (thunkAPI.getState() as RootState).applicant
       await patchDataAPI(`jobs-applied/status/${data.jobseeker}`, { job: data.jobId, status: data.status }, data.token)
 
       return state.map((item: IApplicant) => item.job === data.jobId && item.jobseeker._id === data.jobseeker ? { ...item, status: data.status } : item)

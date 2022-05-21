@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { RootState } from './../store'
 import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
 import { uploadImage } from './../../utils/imageHelper'
 import { IAdminCategory, ICategory } from './../types/categoryTypes'
@@ -58,8 +59,7 @@ export const createCategory = createAsyncThunk(
   'adminCategory/create',
   async(data: ICreateSlice, thunkAPI) => {
     try {
-      // @ts-ignore
-      const state = thunkAPI.getState().adminCategory
+      const state = (thunkAPI.getState() as RootState).adminCategory
       let imgUrl = await uploadImage(data.image as File[], 'category')
   
       const res = await postDataAPI('category', { ...data, image: imgUrl[0] }, data.token)
@@ -90,8 +90,7 @@ export const updateCategory = createAsyncThunk(
   'adminCategory/update',
   async(data: IUpdateSlice, thunkAPI) => {
     try {
-      // @ts-ignore
-      const state = thunkAPI.getState().adminCategory
+      const state = (thunkAPI.getState() as RootState).adminCategory
       
       let newImgUrl
   
@@ -129,8 +128,7 @@ export const deleteCategory = createAsyncThunk(
   'adminCategory/delete',
   async(data: IDeleteSlice, thunkAPI) => {
     try {
-      // @ts-ignore
-      const state = thunkAPI.getState().adminCategory
+      const state = (thunkAPI.getState() as RootState).adminCategory
 
       const res = await deleteDataAPI(`category/${data.id}`, data.token)
   

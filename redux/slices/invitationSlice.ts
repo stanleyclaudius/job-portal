@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { RootState } from './../store'
 import { getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
 import { IInvitation } from './../types/invitationTypes'
 
@@ -18,8 +19,7 @@ export const sendInvitation = createAsyncThunk(
   'invitation/send',
   async(data: ISendInvitationSlice, thunkAPI) => {
     try {
-      // @ts-ignore
-      const state = thunkAPI.getState().invitation
+      const state = (thunkAPI.getState() as RootState).invitation
       const res = await postDataAPI('invitation', { jobId: data.jobId, userId: data.userId }, data.token)
   
       thunkAPI.dispatch({
@@ -70,8 +70,7 @@ export const changeInvitationStatus = createAsyncThunk(
   'invitation/change',
   async(data: IChangeStatusSlice, thunkAPI) => {
     try {
-      // @ts-ignore
-      const state = thunkAPI.getState().invitation
+      const state = (thunkAPI.getState() as RootState).invitation
 
       const res = await patchDataAPI(`invitation/${data.id}`, { status: data.status }, data.token)
   

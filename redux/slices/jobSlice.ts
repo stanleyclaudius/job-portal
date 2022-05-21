@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { RootState } from './../store'
 import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
 import { IJob, IJobState } from './../types/jobTypes'
 
@@ -71,8 +72,7 @@ export const createJob = createAsyncThunk(
   'job/create',
   async(jobData: ICreateJobSlice, thunkAPI) => {
     try {
-      // @ts-ignore
-      const state = thunkAPI.getState().job
+      const state = (thunkAPI.getState() as RootState).job
       const res = await postDataAPI('job', jobData, jobData.token)
   
       thunkAPI.dispatch({
@@ -101,8 +101,7 @@ export const deleteJob = createAsyncThunk(
   'job/delete',
   async(data: IDeleteJobSlice, thunkAPI) => {
     try {
-      // @ts-ignore
-      const state = thunkAPI.getState().job
+      const state = (thunkAPI.getState() as RootState).job
       const res = await deleteDataAPI(`job/${data.id}`, data.token)
   
       thunkAPI.dispatch({
@@ -131,8 +130,7 @@ export const updateJob = createAsyncThunk(
   'job/update',
   async(data: IUpdateJobSlice, thunkAPI) => {
     try {
-      // @ts-ignore
-      const state = thunkAPI.getState().job
+      const state = (thunkAPI.getState() as RootState).job
       const res = await patchDataAPI(`job/${data.id}`, data, data.token)
   
       thunkAPI.dispatch({
