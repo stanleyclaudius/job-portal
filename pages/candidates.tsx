@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { FormSubmit, IJobseeker, RootStore } from './../utils/Interface'
-import { getJobs } from './../redux/slices/jobSlice'
+import { getJobPosition, getJobs } from './../redux/slices/jobSlice'
 import axios from 'axios'
 import Head from 'next/head'
 import Footer from './../components/general/Footer'
@@ -39,7 +39,7 @@ const Candidates = ({ data }: IProps) => {
 
   useEffect(() => {
     if (auth.user?.role === 'organization') {
-      dispatch(getJobs({ token: `${auth.accessToken}`, page: 1 }))
+      dispatch(getJobPosition(`${auth.accessToken}`))
     }
   }, [dispatch, auth])
 

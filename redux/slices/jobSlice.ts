@@ -18,6 +18,26 @@ interface IDeleteJobSlice {
 
 interface IUpdateJobSlice extends IDeleteJobSlice, IJob {}
 
+export const getJobPosition = createAsyncThunk(
+  'job/position',
+  async(token: string, thunkAPI) => {
+    try {
+      const res = await getDataAPI('job/position', token)
+      return {
+        data: res.data.position,
+        page: 1
+      }
+    } catch (err: any) {
+      thunkAPI.dispatch({
+        type: 'alert/alert',
+        payload: {
+          error: err.response.data.msg
+        }
+      })
+    }
+  }
+)
+
 export const getJobs = createAsyncThunk(
   'job/get',
   async(data: IGetJobSlice, thunkAPI) => {
