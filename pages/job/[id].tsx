@@ -135,7 +135,7 @@ const JobDetail = ({ job }: IProps) => {
           </div>
           <div className='mt-5'>
             <p className='font-medium mb-4'>Job Overview</p>
-            <div className='text-sm leading-relaxed mb-3' dangerouslySetInnerHTML={{ __html: `${job?.overview}` }} />
+            <div className='text-sm leading-relaxed mb-3 break-words' dangerouslySetInnerHTML={{ __html: `${job?.overview}` }} />
             <p className='font-medium mb-4 mt-6'>Skills and Expertise</p>
             <div className='flex items-center gap-3 mb-7 flex-wrap'>
               {
