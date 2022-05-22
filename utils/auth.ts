@@ -1,5 +1,5 @@
 import { IRegister } from './Interface'
-import { uploadImage } from './imageHelper'
+import { uploadFile } from './uploadHelper'
 import { postDataAPI } from './fetchData'
 import { Dispatch } from '@reduxjs/toolkit'
 
@@ -15,7 +15,7 @@ export const register = async(userData: IRegister, avatar: File[] = [], dispatch
     let data = { ...userData }
 
     if (userData.role === 'organization') {
-      const imgUrl = await uploadImage(avatar, 'avatar')
+      const imgUrl = await uploadFile(avatar, 'avatar')
       data.avatar = imgUrl[0]
     }
     

@@ -1,17 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { IJobseeker } from './../../utils/Interface'
 
-const initialState: IJobseeker | null = null
+const initialState: any = null
 
 interface IAction {
-  payload: IJobseeker | null
+  payload: any
 }
 
 const userDescriptionSlice = createSlice({
   name: 'userDescription',
   initialState,
   reducers: {
-    // @ts-ignore
     open: (state: any, action: IAction) => {
       return action.payload
     }

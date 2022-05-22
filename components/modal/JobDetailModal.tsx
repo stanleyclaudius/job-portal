@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { IJob, IInvitation } from './../../utils/Interface'
-import { numberFormatter } from './../../utils/numberFormatter'
+import { toIDRCurrency } from './../../utils/numberFormatter'
 
 interface IProps {
   openModal: boolean
@@ -106,7 +106,7 @@ const InvitationDetailModal = ({ openModal, setOpenModal, invitationData, jobDet
             <div className='break-words mb-7 list-disc ml-5' dangerouslySetInnerHTML={{ __html: `${jobDetail ? jobDetail.requirements : invitationData?.job.requirements}` }} />
             <p className='mt-7 font-medium mb-4'>Salary</p>
             <div className='flex items-center mb-7'>
-              <p className='font-semibold text-lg'>{numberFormatter(jobDetail ? jobDetail.salary as number : invitationData?.job.salary as number)}</p>
+              <p className='font-semibold text-lg'>{toIDRCurrency(jobDetail ? jobDetail.salary as number : invitationData?.job.salary as number)}</p>
               <p className='text-gray-500 text-xs'>/month</p>
             </div>
             <p className='font-medium mb-4'>Company Overview</p>

@@ -1,21 +1,21 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from './../store'
 import { deleteDataAPI, getDataAPI, patchDataAPI } from './../../utils/fetchData'
-import { IOrganization, IOrganizationType } from './../../utils/Interface'
+import { IOrganization, IOrganizationState } from './../../utils/Interface'
 
-interface IGetSlice {
+interface IGetOrganizationType {
   token: string
   page: number
 }
 
-interface IStatusSlice {
+interface IChangeStatusType {
   id: string
   token: string
 }
 
 export const getUnapprovedOrganizations = createAsyncThunk(
   'organization/getUnapproved',
-  async(data: IGetSlice, thunkAPI) => {
+  async(data: IGetOrganizationType, thunkAPI) => {
     try {
       thunkAPI.dispatch({
         type: 'alert/alert',
@@ -48,7 +48,7 @@ export const getUnapprovedOrganizations = createAsyncThunk(
 
 export const acceptOrganization = createAsyncThunk(
   'organization/accept',
-  async(data: IStatusSlice, thunkAPI) => {
+  async(data: IChangeStatusType, thunkAPI) => {
     try {
       const state = (thunkAPI.getState() as RootState).organization
 
@@ -78,7 +78,7 @@ export const acceptOrganization = createAsyncThunk(
 
 export const rejectOrganization = createAsyncThunk(
   'organization/reject',
-  async(data: IStatusSlice, thunkAPI) => {
+  async(data: IChangeStatusType, thunkAPI) => {
     try {
       const state = (thunkAPI.getState() as RootState).organization
 
@@ -106,7 +106,7 @@ export const rejectOrganization = createAsyncThunk(
   }
 )
 
-const initialState: IOrganizationType = {
+const initialState: IOrganizationState = {
   data: [],
   totalPage: 0
 }

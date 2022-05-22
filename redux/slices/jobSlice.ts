@@ -3,21 +3,21 @@ import { RootState } from './../store'
 import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
 import { IJob, IJobState } from './../../utils/Interface'
 
-interface IGetJobSlice {
+interface IGetJobType {
   token: string
   page: number
 }
 
-interface ICreateJobSlice extends IJob {
+interface ICreateJobType extends IJob {
   token: string
 }
 
-interface IDeleteJobSlice {
+interface IDeleteJobType {
   id: string
   token: string
 }
 
-interface IUpdateJobSlice extends IDeleteJobSlice, IJob {}
+interface IUpdateJobType extends IDeleteJobType, IJob {}
 
 export const getJobPosition = createAsyncThunk(
   'job/position',
@@ -41,7 +41,7 @@ export const getJobPosition = createAsyncThunk(
 
 export const getJobs = createAsyncThunk(
   'job/get',
-  async(data: IGetJobSlice, thunkAPI) => {
+  async(data: IGetJobType, thunkAPI) => {
     try {
       thunkAPI.dispatch({
         type: 'alert/alert',
@@ -70,7 +70,7 @@ export const getJobs = createAsyncThunk(
 
 export const createJob = createAsyncThunk(
   'job/create',
-  async(jobData: ICreateJobSlice, thunkAPI) => {
+  async(jobData: ICreateJobType, thunkAPI) => {
     try {
       const state = (thunkAPI.getState() as RootState).job
       const res = await postDataAPI('job', jobData, jobData.token)
@@ -99,7 +99,7 @@ export const createJob = createAsyncThunk(
 
 export const deleteJob = createAsyncThunk(
   'job/delete',
-  async(data: IDeleteJobSlice, thunkAPI) => {
+  async(data: IDeleteJobType, thunkAPI) => {
     try {
       const state = (thunkAPI.getState() as RootState).job
       const res = await deleteDataAPI(`job/${data.id}`, data.token)
@@ -128,7 +128,7 @@ export const deleteJob = createAsyncThunk(
 
 export const updateJob = createAsyncThunk(
   'job/update',
-  async(data: IUpdateJobSlice, thunkAPI) => {
+  async(data: IUpdateJobType, thunkAPI) => {
     try {
       const state = (thunkAPI.getState() as RootState).job
       const res = await patchDataAPI(`job/${data.id}`, data, data.token)

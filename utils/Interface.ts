@@ -116,7 +116,7 @@ export interface ICategory {
   image: string | File[]
 }
 
-export interface IAdminCategory {
+export interface ICategoryState {
   data: ICategory[]
   totalPage: number
 }
@@ -134,7 +134,7 @@ export interface IOrganization {
   createdAt: string
 }
 
-export interface IOrganizationType {
+export interface IOrganizationState {
   data: IOrganization[]
   totalPage: number
 }

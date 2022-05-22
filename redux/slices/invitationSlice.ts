@@ -3,13 +3,13 @@ import { RootState } from './../store'
 import { getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
 import { IInvitation } from './../../utils/Interface'
 
-export interface ISendInvitationSlice {
+export interface ISendInvitationType {
   jobId: string
   userId: string
   token: string
 }
 
-export interface IChangeStatusSlice {
+export interface IChangeStatusType {
   id: string
   status: string
   token: string
@@ -17,7 +17,7 @@ export interface IChangeStatusSlice {
 
 export const sendInvitation = createAsyncThunk(
   'invitation/send',
-  async(data: ISendInvitationSlice, thunkAPI) => {
+  async(data: ISendInvitationType, thunkAPI) => {
     try {
       const state = (thunkAPI.getState() as RootState).invitation
       const res = await postDataAPI('invitation', { jobId: data.jobId, userId: data.userId }, data.token)
@@ -68,7 +68,7 @@ export const getReceivedInvitations = createAsyncThunk(
 
 export const changeInvitationStatus = createAsyncThunk(
   'invitation/change',
-  async(data: IChangeStatusSlice, thunkAPI) => {
+  async(data: IChangeStatusType, thunkAPI) => {
     try {
       const state = (thunkAPI.getState() as RootState).invitation
 

@@ -3,19 +3,19 @@ import { RootState } from './../store'
 import { getDataAPI, patchDataAPI } from './../../utils/fetchData'
 import { IApplicant } from './../../utils/Interface'
 
-interface IGetApplicantSlice {
+interface IGetApplicantType {
   jobId: string
   token: string
 }
 
-interface IChangeStatusSlice extends IGetApplicantSlice {
+interface IChangeStatusSlice extends IGetApplicantType {
   jobseeker: string
   status: string
 }
 
 export const getApplicants = createAsyncThunk(
   'applicant/get',
-  async(data: IGetApplicantSlice, thunkAPI) => {
+  async(data: IGetApplicantType, thunkAPI) => {
     try {
       const res = await getDataAPI(`job/applicant/${data.jobId}`, data.token)
       return res.data.applicants

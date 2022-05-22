@@ -1,4 +1,4 @@
-export const uploadImage = async(files: File[], type: string) => {
+export const uploadFile = async(files: File[], type: string) => {
   const images = []
 
   for (const file of files) {

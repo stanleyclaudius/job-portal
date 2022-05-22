@@ -7,7 +7,6 @@ import job from './slices/jobSlice'
 import applicant from './slices/applicantSlice'
 import invitation from './slices/invitationSlice'
 import category from './slices/categorySlice'
-import adminCategory from './slices/adminCategorySlice'
 import userDescription from './slices/userDescriptionSlice'
 import organization from './slices/organizationSlice'
 
@@ -19,7 +18,6 @@ const store = configureStore({
     applicant,
     invitation,
     category,
-    adminCategory,
     userDescription,
     organization
   }

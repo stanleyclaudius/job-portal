@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { IJob } from './../../utils/Interface'
-import { numberFormatter } from './../../utils/numberFormatter'
+import { toIDRCurrency } from './../../utils/numberFormatter'
 import { getDataAPI, postDataAPI } from './../../utils/fetchData'
 import { RootState } from './../../redux/store'
 import axios from 'axios'
@@ -148,7 +148,7 @@ const JobDetail = ({ job }: IProps) => {
             <div className='mb-7 list-disc ml-5' dangerouslySetInnerHTML={{ __html: `${job?.requirements}`}} />
             <p className='font-medium mb-4'>Salary</p>
             <div className='flex items-center mb-7'>
-              <p className='font-semibold text-lg'>{numberFormatter(job?.salary!)}</p>
+              <p className='font-semibold text-lg'>{toIDRCurrency(job?.salary!)}</p>
               <p className='text-gray-500 text-xs'>/month</p>
             </div>
             <p className='font-medium mb-4'>Company Overview</p>

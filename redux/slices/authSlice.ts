@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { IEditProfile, IUserLogin, IAuth } from './../../utils/Interface'
 import { getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
-import { uploadImage } from './../../utils/imageHelper'
+import { uploadFile } from './../../utils/uploadHelper'
 import Cookie from 'js-cookie'
 
-interface IEditProfileSlice extends IEditProfile {
+interface IEditProfileType extends IEditProfile {
   tempAvatar: File[]
   tempCv: File[]
   token: string
@@ -65,7 +65,7 @@ export const logout = createAsyncThunk(
 
 export const editProfile = createAsyncThunk(
   'auth/editProfile',
-  async(profileData: IEditProfileSlice, thunkAPI) => {
+  async(profileData: IEditProfileType, thunkAPI) => {
     try {
       thunkAPI.dispatch({ type: 'alert/alert', payload: { loading: true } })
 
@@ -73,12 +73,12 @@ export const editProfile = createAsyncThunk(
       let cvUrl = ''
 
       if (profileData.tempAvatar.length > 0) {
-        let url = await uploadImage(profileData.tempAvatar, 'avatar')
+        let url = await uploadFile(profileData.tempAvatar, 'avatar')
         avatarUrl = url[0]
       }
 
       if (profileData.tempCv.length > 0) {
-        let url = await uploadImage(profileData.tempCv, 'cv')
+        let url = await uploadFile(profileData.tempCv, 'cv')
         cvUrl = url[0]
       }
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { numberFormatter } from './../../../utils/numberFormatter'
+import { toIDRCurrency } from './../../../utils/numberFormatter'
 
 interface IProps {
   id: string
@@ -80,7 +80,7 @@ const JobCard = ({
       </div>
       <div className='flex items-center justify-between'>
         <div className='flex items-center'>
-          <p className='font-semibold text-xl'>{numberFormatter(salary)}</p>
+          <p className='font-semibold text-xl'>{toIDRCurrency(salary)}</p>
           <sub className='text-xs text-gray-500 font-medium'>/{salaryType}</sub>
         </div>
       </div>

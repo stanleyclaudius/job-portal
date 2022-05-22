@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { ICategory } from './../utils/Interface'
-import { deleteCategory, getAdminCategory } from './../redux/slices/adminCategorySlice'
+import { deleteCategory, getCategory } from '../redux/slices/categorySlice'
 import { AppDispatch, RootState } from './../redux/store'
 import Layout from './../components/admin/Layout'
 import CreateCategoryModal from './../components/modal/CreateCategoryModal'
@@ -18,7 +18,7 @@ const Category = () => {
 
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
-  const { alert, auth, adminCategory: category } = useSelector((state: RootState) => state)
+  const { alert, auth, category } = useSelector((state: RootState) => state)
 
   const handleClickDelete = (item: ICategory) => {
     setSelectedItem(item)
@@ -52,7 +52,7 @@ const Category = () => {
 
   useEffect(() => {
     if (auth.accessToken) {
-      dispatch(getAdminCategory({ token: auth.accessToken, page: currPage }))
+      dispatch(getCategory({ token: auth.accessToken, page: currPage }))
     }
   }, [dispatch, auth, currPage])
 

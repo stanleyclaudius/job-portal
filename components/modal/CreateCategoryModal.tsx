@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FormSubmit, InputChange, ICategory } from './../../utils/Interface'
-import { createCategory, updateCategory } from './../../redux/slices/adminCategorySlice'
+import { createCategory, updateCategory } from './../../redux/slices/categorySlice'
 import { AppDispatch, RootState } from './../../redux/store'
 import Loader from './../general/Loader'
 
