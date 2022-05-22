@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from './../store'
 import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
 import { uploadImage } from './../../utils/imageHelper'
-import { IAdminCategory, ICategory } from './../types/categoryTypes'
+import { IAdminCategory, ICategory } from './../../utils/Interface'
 
 interface IGetSlice {
   token: string

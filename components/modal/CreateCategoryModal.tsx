@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
-import { FormSubmit, InputChange } from './../../utils/Interface'
+import { FormSubmit, InputChange, ICategory } from './../../utils/Interface'
 import { createCategory, updateCategory } from './../../redux/slices/adminCategorySlice'
-import { ICategory } from './../../redux/types/categoryTypes'
 import { AppDispatch, RootState } from './../../redux/store'
 import Loader from './../general/Loader'
 

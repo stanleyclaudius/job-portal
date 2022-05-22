@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
-import { OPEN_DESCRIPTION_MODAL } from './../../redux/types/userDescriptionTypes'
 import { RootState } from './../../redux/store'
 import { IJobseeker } from './../../utils/Interface'
 import Link from 'next/link'
@@ -16,7 +15,7 @@ const UserDescriptionModal = () => {
     const checkIfClickedOutside = (e: MouseEvent) => {
       if (userDescription && modalRef.current && !modalRef.current.contains(e.target as Node)) {
         dispatch({
-          type: OPEN_DESCRIPTION_MODAL,
+          type: 'userDescription/open',
           payload: null
         })
       }

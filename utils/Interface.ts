@@ -46,20 +46,16 @@ export interface IUserLogin {
   password: string
 }
 
-export interface IActivationData {
+export interface IActivationData extends IUserLogin {
   name: string
-  email: string
-  password: string
 }
 
 export interface IDecodedToken {
   id: string
 }
 
-export interface IRegister {
+export interface IRegister extends IUserLogin {
   name: string
-  email: string
-  password: string
   role: string
   avatar?: string
   province?: string
@@ -85,4 +81,78 @@ export interface ICityData extends IProvinceData {
 
 export interface IDistrictData extends IProvinceData {
   id_kota: string
+}
+
+export interface IJob {
+  _id?: string
+  organization?: IOrganization
+  position: string
+  employmentType: string
+  jobLevel: string
+  skills: string[]
+  salary: number
+  overview: string
+  requirements: string
+  keywords: string[]
+  createdAt?: string
+  category?: string
+}
+
+export interface IJobState {
+  data: IJob[]
+  totalPage: number
+}
+
+export interface IInvitation {
+  _id?: string
+  job: IJob
+  user: IUser
+  status?: string
+}
+
+export interface ICategory {
+  _id?: string
+  name: string
+  image: string | File[]
+}
+
+export interface IAdminCategory {
+  data: ICategory[]
+  totalPage: number
+}
+
+export interface IOrganization {
+  _id: string
+  user: IUser
+  phoneNumber: string
+  createdDate: string
+  totalEmployee: number
+  industryType: string
+  address: string
+  description: string
+  status: string
+  createdAt: string
+}
+
+export interface IOrganizationType {
+  data: IOrganization[]
+  totalPage: number
+}
+
+export interface IApplicant {
+  _id: string
+  status: string
+  job: string
+  jobseeker: IJobseeker
+}
+
+export interface IAlert {
+  error?: string
+  success?: string
+  loading?: boolean
+}
+
+export interface IAuth {
+  accessToken?: string
+  user?: IUser
 }

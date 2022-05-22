@@ -1,4 +1,4 @@
-import { IJob } from './../../../redux/types/jobTypes'
+import { IJob } from './../../../utils/Interface'
 import Link from 'next/link'
 import JobCard from './JobCard'
 

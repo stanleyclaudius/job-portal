@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from './../store'
 import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
-import { IJob, IJobState } from './../types/jobTypes'
+import { IJob, IJobState } from './../../utils/Interface'
 
 interface IGetJobSlice {
   token: string

@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next'
-import { IJob } from './../redux/types/jobTypes'
+import { IJob } from './../utils/Interface'
 import Head from 'next/head'
 import Navbar from './../components/general/Navbar'
 import Footer from './../components/general/Footer'

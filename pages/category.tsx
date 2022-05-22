@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import { ICategory } from './../redux/types/categoryTypes'
+import { ICategory } from './../utils/Interface'
 import { deleteCategory, getAdminCategory } from './../redux/slices/adminCategorySlice'
 import { AppDispatch, RootState } from './../redux/store'
 import Layout from './../components/admin/Layout'

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
-import { IOrganization } from './../../redux/types/organizationTypes'
+import { IOrganization } from './../../utils/Interface'
 
 interface IProps {
   openModal: boolean

@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from './../../redux/store'
-import { IInvitation } from './../../redux/types/invitationTypes'
 import { getDataAPI } from './../../utils/fetchData'
-import { IJobseeker } from './../../utils/Interface'
+import { IJobseeker, IInvitation } from './../../utils/Interface'
 
 interface IProps {
   item: IInvitation

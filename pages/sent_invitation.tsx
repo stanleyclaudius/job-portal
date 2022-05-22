@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import { IInvitation } from './../redux/types/invitationTypes'
+import { IInvitation } from './../utils/Interface'
 import { getDataAPI } from './../utils/fetchData'
 import { RootState } from './../redux/store'
 import Head from 'next/head'

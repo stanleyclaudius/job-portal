@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from './../store'
 import { getDataAPI, patchDataAPI } from './../../utils/fetchData'
-import { IApplicant } from './../types/applicantTypes'
+import { IApplicant } from './../../utils/Interface'
 
 interface IGetApplicantSlice {
   jobId: string

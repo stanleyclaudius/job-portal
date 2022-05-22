@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { IJob } from './../../redux/types/jobTypes'
+import { IJob } from './../../utils/Interface'
 import moment from 'moment'
 
 interface IProps {

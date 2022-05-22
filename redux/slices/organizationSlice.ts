@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from './../store'
 import { deleteDataAPI, getDataAPI, patchDataAPI } from './../../utils/fetchData'
-import { IOrganization, IOrganizationType } from './../types/organizationTypes'
+import { IOrganization, IOrganizationType } from './../../utils/Interface'
 
 interface IGetSlice {
   token: string

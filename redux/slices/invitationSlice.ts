@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from './../store'
 import { getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
-import { IInvitation } from './../types/invitationTypes'
+import { IInvitation } from './../../utils/Interface'
 
 export interface ISendInvitationSlice {
   jobId: string
